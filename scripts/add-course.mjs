@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { courses } from '../src/data/courses.js';
 
 // 新しいコースを丸ごと追加（同じ id があれば置き換え）する
