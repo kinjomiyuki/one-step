@@ -1,11 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ChatPanel.css';
 
-export default function ChatPanel() {
+// AI に接続できないときの簡易回答
+const FALLBACK_RESPONSES = [
+  ['var|let|const', 'var は古い仕様で関数スコープ、let と const はブロックスコープです。モダン JavaScript では let/const を使います。const は再代入不可の定数です。'],
+  ['スコープ', 'スコープとは、変数にアクセスできる範囲のこと。ブロックスコープ、関数スコープ、グローバルスコープがあります。'],
+  ['クロージャー', 'クロージャーは、関数が定義された時点での外側の変数を記憶し、後で参照できる現象。プライベート変数実装に活躍します。'],
+  ['dom|要素|操作', 'DOM 操作とは、JavaScript からウェブページの HTML 要素を動的に変更すること。querySelector などで要素を選択し、textContent で内容を変更できます。'],
+  ['イベント|クリック', 'イベントリスナーを addEventListener で登録すると、ユーザーのアクション（クリック、入力など）に応じて処理を実行できます。'],
+  ['非同期|async|await', 'fetch() や setTimeout() は非同期処理。結果を待たずに次の処理を続けます。async/await で同期的に書けます。'],
+  ['react', 'React はコンポーネントベースの UI ライブラリ。State で状態管理、Props で親から子へデータを渡します。'],
+  ['hook', 'Hooks は React の機能拡張。useState で state 管理、useEffect で副作用処理。カスタム Hook で ロジック再利用。'],
+  ['python', 'Python は print() で出力、# でコメント、変数名は snake_case が基本です。']
+];
+const FALLBACK_DEFAULT = '今は AI に接続できず、この質問には答えられませんでした。しばらくしてからもう一度お試しください。';
+
+function fallbackAnswer(question) {
+  const hit = FALLBACK_RESPONSES.find(([pattern]) => new RegExp(pattern, 'i').test(question));
+  return hit ? hit[1] : FALLBACK_DEFAULT;
+}
+
+// 会話履歴を送って AI の回答を取得する。失敗したら簡易回答を返す
+async function fetchAnswer(history, context) {
+  try {
+    const res = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: history.map(m => ({ role: m.sender, content: m.text })),
+        context
+      })
+    });
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    if (!data.reply) throw new Error('empty reply');
+    return data.reply;
+  } catch {
+    return fallbackAnswer(history[history.length - 1].text);
+  }
+}
+
+export default function ChatPanel({ context }) {
   const [messages, setMessages] = useState(() => {
     // LocalStorage から質問履歴を読み込む
-    const saved = localStorage.getItem('chatHistory');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('chatHistory');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -22,63 +65,29 @@ export default function ChatPanel() {
 
   // LocalStorage に保存
   useEffect(() => {
-    localStorage.setItem('chatHistory', JSON.stringify(messages));
+    try {
+      localStorage.setItem('chatHistory', JSON.stringify(messages));
+    } catch {
+      // 保存できない環境でもチャット自体は動かす
+    }
   }, [messages]);
 
   // 質問を送信
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
+    const question = inputValue.trim();
+    if (!question || isLoading) return;
 
-    // ユーザーメッセージを追加
-    const userMessage = {
-      id: Date.now(),
-      text: inputValue,
-      sender: 'user',
-      timestamp: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
-    };
-    setMessages(prev => [...prev, userMessage]);
+    const now = () => new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+    const userMessage = { id: Date.now(), text: question, sender: 'user', timestamp: now() };
+    const history = [...messages, userMessage];
+    setMessages(history);
     setInputValue('');
     setIsLoading(true);
 
-    // Claude API に質問を送信（シミュレーション）
-    setTimeout(() => {
-      const assistantMessage = {
-        id: Date.now() + 1,
-        text: generateResponse(inputValue),
-        sender: 'assistant',
-        timestamp: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
-      };
-      setMessages(prev => [...prev, assistantMessage]);
-      setIsLoading(false);
-    }, 800);
-  };
-
-  // 質問に対する回答を生成（簡易版）
-  const generateResponse = (question) => {
-
-    // 簡単な回答データベース
-    const responses = {
-      'var|let|const': 'var は古い仕様で関数スコープ、let と const はブロックスコープです。モダン JavaScript では let/const を使います。const は再代入不可の定数です。',
-      'スコープ': 'スコープとは、変数にアクセスできる範囲のこと。ブロックスコープ、関数スコープ、グローバルスコープがあります。',
-      'クロージャー': 'クロージャーは、関数が定義された時点での外側の変数を記憶し、後で参照できる現象。プライベート変数実装に活躍します。',
-      'dom|要素|操作': 'DOM 操作とは、JavaScript からウェブページの HTML 要素を動的に変更すること。querySelector などで要素を選択し、textContent で内容を変更できます。',
-      'イベント|クリック': 'イベントリスナーを addEventListener で登録すると、ユーザーのアクション（クリック、入力など）に応じて処理を実行できます。',
-      '非同期|async|await': 'fetch() や setTimeout() は非同期処理。結果を待たずに次の処理を続けます。async/await で同期的に書けます。',
-      'react': 'React はコンポーネントベースの UI ライブラリ。State で状態管理、Props で親から子へデータを渡します。',
-      'hook': 'Hooks は React の機能拡張。useState で state 管理、useEffect で副作用処理。カスタム Hook で ロジック再利用。',
-      'python': 'Python は初心者向けで実践的。var ではなく、キャメルケースで変数命名。print() で出力、# でコメント。',
-      'default': 'それは素晴らしい質問ですね！詳しくは対応するレッスン内容を確認してください。'
-    };
-
-    for (const [pattern, response] of Object.entries(responses)) {
-      const regex = new RegExp(pattern, 'i');
-      if (regex.test(question)) {
-        return response;
-      }
-    }
-
-    return responses['default'];
+    const text = await fetchAnswer(history, context);
+    setMessages(prev => [...prev, { id: Date.now() + 1, text, sender: 'assistant', timestamp: now() }]);
+    setIsLoading(false);
   };
 
   // 質問履歴をクリア
