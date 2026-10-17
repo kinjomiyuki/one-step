@@ -7,6 +7,8 @@ import ChatButton from './components/ChatButton';
 import ChatPanel from './components/ChatPanel';
 import './index.css';
 
+const LEVEL_LABELS = { beginner: '初級', intermediate: '中級', advanced: '上級' };
+
 function loadSaved(key, fallback) {
   try {
     const saved = localStorage.getItem(key);
@@ -119,6 +121,14 @@ function App() {
     setSelectedLevel(null);
   };
 
+  const lessonContext = selectedCourse && selectedLevel
+    ? {
+        course: selectedCourse.name,
+        level: LEVEL_LABELS[selectedLevel],
+        lesson: getLevelContent(selectedCourse, selectedLevel)[currentLessonIndex]?.title
+      }
+    : undefined;
+
   return (
     <div className="flex min-h-screen" style={{ background: 'var(--neu-bg)' }}>
       {/* メインコンテンツ */}
@@ -149,12 +159,12 @@ function App() {
       {/* 固定チャットパネル（デスクトップ） */}
       {isDesktop && (
         <div style={{ width: '320px', borderLeft: '1px solid #d1d5db', backgroundColor: 'white', overflow: 'hidden', flexShrink: 0 }}>
-          <ChatPanel />
+          <ChatPanel context={lessonContext} />
         </div>
       )}
 
       {/* チャットボタン（モバイル） */}
-      {!isDesktop && <ChatButton />}
+      {!isDesktop && <ChatButton context={lessonContext} />}
     </div>
   );
 }
