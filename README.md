@@ -1,5 +1,7 @@
 # OneStep
 
+[![CI](https://github.com/kinjomiyuki/one-step/actions/workflows/ci.yml/badge.svg)](https://github.com/kinjomiyuki/one-step/actions/workflows/ci.yml)
+
 問いに答えながら進む、問答形式のプログラミング学習プラットフォームです。
 
 **Demo:** https://one-step-programing.netlify.app/
