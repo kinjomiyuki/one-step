@@ -56,7 +56,6 @@ export default function ChatPanel() {
 
   // 質問に対する回答を生成（簡易版）
   const generateResponse = (question) => {
-    const lowerQ = question.toLowerCase();
 
     // 簡単な回答データベース
     const responses = {
