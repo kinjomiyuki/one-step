@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Neumorphism design system
+   Soft UI: background and surfaces share one base tone (near-white). Depth
+   comes only from a light-source / shadow pair, never from gradients or
+   borders. Raised = surface pushed out; inset = surface pressed in.
+   Base color: white / off-white. Point color: yellow.
+   ========================================================================== */
+
+:root {
+  --neu-bg: #eef0f4;
+  --neu-surface: #eef0f4;
+
+  --neu-shadow-dark: #c6cbd6;
+  --neu-shadow-light: #ffffff;
+
+  --neu-text: #3d4250;
+  --neu-text-muted: #767c8c;
+
+  --neu-accent: #ffc93c;
+  --neu-accent-dark: #e0a91f;
+  --neu-on-accent: #4a3400;
+
+  --neu-green: #8fd6a8;
+  --neu-on-green: #1c4a2d;
+  --neu-red: #f0a3a3;
+  --neu-on-red: #5c1414;
+  --neu-blue: #a8cdec;
+  --neu-on-blue: #143a5c;
+}
+
+.neu-bg {
+  background: var(--neu-bg);
+  min-height: 100vh;
+}
+
+/* Raised card: the base panel surface */
+.neu-card {
+  background: var(--neu-surface);
+  border-radius: 24px;
+  box-shadow:
+    9px 9px 18px var(--neu-shadow-dark),
+    -9px -9px 18px var(--neu-shadow-light);
+}
+
+.neu-card-flat {
+  background: var(--neu-surface);
+  border-radius: 18px;
+  box-shadow:
+    5px 5px 12px var(--neu-shadow-dark),
+    -5px -5px 12px var(--neu-shadow-light);
+}
+
+/* Pressed / inset surface, used for hints, inputs, list rows */
+.neu-inset {
+  background: var(--neu-surface);
+  border-radius: 16px;
+  box-shadow:
+    inset 4px 4px 8px var(--neu-shadow-dark),
+    inset -4px -4px 8px var(--neu-shadow-light);
+}
+
+/* Buttons -------------------------------------------------------------- */
+.neu-btn {
+  border: none;
+  border-radius: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--neu-text);
+  background: var(--neu-surface);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow:
+    6px 6px 14px var(--neu-shadow-dark),
+    -6px -6px 14px var(--neu-shadow-light);
+}
+.neu-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.neu-btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+  box-shadow:
+    inset 4px 4px 10px var(--neu-shadow-dark),
+    inset -3px -3px 8px var(--neu-shadow-light);
+}
+.neu-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow:
+    inset 3px 3px 6px var(--neu-shadow-dark),
+    inset -3px -3px 6px var(--neu-shadow-light);
+}
+
+.neu-btn-primary {
+  background: var(--neu-accent);
+  color: var(--neu-on-accent);
+}
+.neu-btn-secondary {
+  background: var(--neu-surface);
+  color: var(--neu-text);
+}
+.neu-btn-success {
+  background: var(--neu-green);
+  color: var(--neu-on-green);
+}
+.neu-btn-danger {
+  background: var(--neu-red);
+  color: var(--neu-on-red);
+}
+.neu-btn-info {
+  background: var(--neu-blue);
+  color: var(--neu-on-blue);
+}
+
+.neu-btn-selected {
+  box-shadow:
+    inset 4px 4px 10px var(--neu-shadow-dark),
+    inset -3px -3px 8px var(--neu-shadow-light);
+  transform: translateY(1px);
+}
+
+/* Badges / pills --------------------------------------------------------- */
+.neu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 12px;
+  font-weight: 700;
+  background: var(--neu-surface);
+  box-shadow:
+    3px 3px 8px var(--neu-shadow-dark),
+    -3px -3px 8px var(--neu-shadow-light);
+}
+.neu-badge-beginner { color: var(--neu-on-green); }
+.neu-badge-intermediate { color: var(--neu-on-accent); }
+.neu-badge-advanced { color: var(--neu-on-red); }
+.neu-badge-gold { color: var(--neu-on-accent); }
+
+/* Rounded-square blocks (used instead of circular icon blobs) ------------ */
+.neu-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-weight: 800;
+  background: var(--neu-surface);
+  box-shadow:
+    5px 5px 12px var(--neu-shadow-dark),
+    -5px -5px 12px var(--neu-shadow-light);
+}
+.neu-square-accent {
+  background: var(--neu-accent);
+  color: var(--neu-on-accent);
+}
+
+/* Progress bar -------------------------------------------------------------- */
+.neu-progress-track {
+  border-radius: 12px;
+  background: var(--neu-surface);
+  box-shadow:
+    inset 3px 3px 7px var(--neu-shadow-dark),
+    inset -3px -3px 7px var(--neu-shadow-light);
+  overflow: hidden;
+}
+.neu-progress-fill {
+  border-radius: 12px;
+  background: var(--neu-accent);
+}
+
+/* Inputs -------------------------------------------------------------- */
+.neu-input {
+  border: none;
+  border-radius: 16px;
+  background: var(--neu-surface);
+  color: var(--neu-text);
+  box-shadow:
+    inset 3px 3px 7px var(--neu-shadow-dark),
+    inset -3px -3px 7px var(--neu-shadow-light);
+  transition: box-shadow 0.15s ease;
+}
+.neu-input:focus {
+  outline: none;
+  box-shadow:
+    inset 3px 3px 7px var(--neu-shadow-dark),
+    inset -3px -3px 7px var(--neu-shadow-light),
+    0 0 0 3px rgba(255, 201, 60, 0.5);
+}
+.neu-input:disabled {
+  opacity: 0.6;
+}
+
+/* Floating action button (rounded square, not a circle) ----------------- */
+.neu-fab {
+  border: none;
+  border-radius: 20px;
+  color: var(--neu-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--neu-accent);
+  font-weight: 800;
+  box-shadow:
+    8px 8px 18px var(--neu-shadow-dark),
+    -6px -6px 14px var(--neu-shadow-light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.neu-fab:hover {
+  transform: scale(1.05);
+}
+.neu-fab:active {
+  transform: scale(0.96);
+  box-shadow:
+    inset 4px 4px 10px var(--neu-shadow-dark),
+    inset -3px -3px 8px var(--neu-shadow-light);
+}
