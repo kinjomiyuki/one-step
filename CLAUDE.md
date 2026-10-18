@@ -4,7 +4,8 @@
 
 OneStep は、問答形式で学ぶプログラミング学習アプリ(React 19 + Vite + Tailwind CSS 4)。
 Netlify に公開している。進捗や回答はブラウザの localStorage に保存する。
-チャットの回答だけは、Netlify Function(`netlify/functions/chat.mjs`)経由で Claude API を呼んでいる。
+チャットの回答は、Netlify Function(`netlify/functions/chat.mjs`)経由で Claude API を呼んでいる。
+PWA(インストール、オフライン対応)で、初級は無料、中級・上級とチャットの AI 回答は、Stripe の月額プランで有料にできる(`PREMIUM_ENABLED` が `true` のときだけ有効。設定は `docs/premium-setup.md`)。
 
 ## Commands
 
@@ -17,7 +18,10 @@ Netlify に公開している。進捗や回答はブラウザの localStorage �
 
 - `src/components/`: 画面ごとのコンポーネント
 - `src/data/courses.js`: コースと問題のデータ。全コース共通の構造(初級/中級/上級 × 基礎・クイズ・シミュレーション・思考力)
-- `netlify/functions/chat.mjs`: チャットの回答を生成する Function(Claude API を呼ぶ)
+- `netlify/functions/`: chat(Claude API を呼ぶ)、checkout・entitlement・portal・login-link(Stripe と購入の確認)、config(有料プランのスイッチ)
+- `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン)。パッケージは追加せず、fetch で Stripe を呼ぶ
+- `src/hooks/useEntitlement.js`、`src/utils/entitlement.js`、`src/utils/plans.js`: プレミアムプランの確認と、無料のレベルの定義
+- `public/sw.js`、`public/manifest.webmanifest`: PWA(Service Worker は、本番ビルドだけで登録する)
 - `src/utils/progress.js`: レベルとステップの定義、進捗の判定
 - `scripts/`: 問題データを生成・更新するスクリプト。`courses.js` を直接書き換えるので、実行前にコミットしておく
 
@@ -57,7 +61,10 @@ Actions が使えないときの手動デプロイ(手元のプロジェクト�
 
 公開後は、チャットに質問して回答が返ることを確認する。
 
-環境変数(Netlify の Environment variables に設定。値は secret にする):
+環境変数(Netlify の Environment variables に設定。値は secret にする。有料プランの設定は `docs/premium-setup.md`):
+
+- `PREMIUM_ENABLED`: `true` にすると、有料プランが有効になる(未設定なら、全員が無料)
+- `STRIPE_SECRET_KEY`、`STRIPE_PRICE_ID`、`ENTITLEMENT_SECRET`、`RESEND_API_KEY`、`MAIL_FROM`: 有料プラン用
 
 - `ANTHROPIC_API_KEY`: チャットの Function が使う Claude API キー。変更したら再デプロイする
 - `ANTHROPIC_MODEL`: 任意。チャットで使うモデルを変えたいとき(既定は `claude-haiku-5-5`)

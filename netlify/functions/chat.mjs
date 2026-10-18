@@ -1,14 +1,12 @@
 // 学習アシスタントの回答を Claude API で生成する Netlify Function。
 // APIキーは Netlify の環境変数 ANTHROPIC_API_KEY に設定する(コードには書かない)。
+import { json } from '../lib/http.mjs';
+import { bearerToken, verifyToken } from '../lib/token.mjs';
+import { isPremiumEnabled } from '../lib/config.mjs';
+
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-haiku-5-5';
 const MAX_MESSAGES = 10;
 const MAX_TEXT_LENGTH = 1000;
-
-const json = (body, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' }
-  });
 
 function buildSystemPrompt(context) {
   const lines = [
@@ -28,6 +26,18 @@ function buildSystemPrompt(context) {
 
 export default async (req) => {
   if (req.method !== 'POST') return json({ error: 'Method Not Allowed' }, 405);
+
+  // 有料プランが有効なときは、AI での回答は、プレミアムプランの機能。API の費用がかかるため、サーバー側で確認する
+  if (isPremiumEnabled()) {
+    let member;
+    try {
+      member = verifyToken(bearerToken(req), { type: 'a' });
+    } catch (e) {
+      console.error('token check failed', e.message);
+      return json({ error: 'サーバーの設定に問題があります' }, 500);
+    }
+    if (!member) return json({ error: 'AI での回答は、プレミアムプランの機能です', code: 'pro_required' }, 402);
+  }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return json({ error: 'ANTHROPIC_API_KEY が設定されていません' }, 500);

@@ -20,6 +20,18 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Service Worker は、毎回確認させる(更新が遅れると、古い画面を出し続けてしまう)
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # ファイル名にハッシュが付く成果物は長期キャッシュしてよい
 [[headers]]
   for = "/assets/*"

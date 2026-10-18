@@ -4,6 +4,10 @@ import { getLevelContent, markLessonCompleted, isLevelCompleted, getResumeTarget
 import CourseList from './components/CourseList';
 import LessonView from './components/LessonView';
 import ChatButton from './components/ChatButton';
+import LockedLevel from './components/LockedLevel';
+import Notice from './components/Notice';
+import useEntitlement from './hooks/useEntitlement';
+import { isLevelLocked } from './utils/plans';
 import './index.css';
 
 const LEVEL_LABELS = { beginner: '初級', intermediate: '中級', advanced: '上級' };
@@ -30,6 +34,7 @@ function App() {
     level: 1
   }));
   const [progress, setProgress] = useState(() => migrateProgress(courses, loadSaved('oneStepProgress', {})));
+  const entitlement = useEntitlement();
   const [onboarded, setOnboarded] = useState(() => loadSaved('oneStepOnboarded', false));
 
   useEffect(() => {
@@ -73,6 +78,8 @@ function App() {
   const handleChangeLevel = (level) => {
     setSelectedLevel(level);
     setCurrentLessonIndex(0);
+    // 有料のレベルを、プレミアムでない人が開いたときは、学習の記録(続きの位置)を、書き換えない
+    if (isLevelLocked(level, entitlement.isPro)) return;
     setProgress({
       ...progress,
       [selectedCourse.id]: { ...progress[selectedCourse.id], level, lastLesson: 0, updatedAt: Date.now() }
@@ -123,6 +130,7 @@ function App() {
     <div className="flex min-h-screen" style={{ background: 'var(--neu-bg)' }}>
       {/* メインコンテンツ */}
       <div className="flex-1 min-w-0">
+        <Notice notice={entitlement.notice} onClose={entitlement.dismissNotice} />
         {currentScreen === 'courses' ? (
           <CourseList
             courses={courses}
@@ -131,6 +139,23 @@ function App() {
             onStartRecommended={handleStartRecommended}
             onDismissOnboarding={() => setOnboarded(true)}
             onSelectCourse={handleSelectCourse}
+            account={{
+              premiumEnabled: entitlement.premiumEnabled,
+              isPro: entitlement.isPro,
+              busy: entitlement.busy,
+              onUpgrade: entitlement.upgrade,
+              onManage: entitlement.manage
+            }}
+          />
+        ) : isLevelLocked(selectedLevel, entitlement.isPro) ? (
+          <LockedLevel
+            course={selectedCourse}
+            level={selectedLevel}
+            busy={entitlement.busy}
+            onChangeLevel={handleChangeLevel}
+            onBackToCourses={handleBackToCourses}
+            onUpgrade={entitlement.upgrade}
+            onRestore={entitlement.restore}
           />
         ) : (
           <LessonView
@@ -138,6 +163,7 @@ function App() {
             course={selectedCourse}
             courseProgress={progress[selectedCourse.id]}
             level={selectedLevel}
+            isPro={entitlement.isPro}
             currentLessonIndex={currentLessonIndex}
             onChangeLevel={handleChangeLevel}
             onNextLesson={handleNextLesson}
@@ -147,7 +173,10 @@ function App() {
       </div>
 
       {/* チャットボタン（質問ポップアップ） */}
-      <ChatButton context={lessonContext} />
+      <ChatButton
+        context={lessonContext}
+        access={{ isPro: entitlement.isPro, token: entitlement.token, onUpgrade: entitlement.upgrade }}
+      />
     </div>
   );
 }

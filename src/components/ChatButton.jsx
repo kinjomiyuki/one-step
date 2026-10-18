@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ChatPanel from './ChatPanel';
 import '../styles/ChatButton.css';
 
-export default function ChatButton({ context }) {
+export default function ChatButton({ context, access }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ export default function ChatButton({ context }) {
       {isOpen && (
         <div className="chat-modal-overlay" onClick={() => setIsOpen(false)}>
           <div className="chat-modal" onClick={(e) => e.stopPropagation()}>
-            <ChatPanel context={context} />
+            <ChatPanel context={context} access={access} />
             <button
               className="chat-modal-close"
               onClick={() => setIsOpen(false)}
