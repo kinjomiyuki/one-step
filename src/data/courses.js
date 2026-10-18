@@ -7874,5 +7874,3664 @@ export const courses = [
       }
     },
     "shortLabel": "SC"
+  },
+  {
+    "id": "css",
+    "name": "CSS",
+    "description": "セレクタ、ボックスモデル、レイアウトなど、見た目を整える基本を学びます",
+    "icon": "fa-brands fa-css3-alt",
+    "lessons": {
+      "projects": {
+        "beginner": [
+          {
+            "id": "css-project-beginner-1",
+            "title": "CSS 初級プロジェクト",
+            "content": "カード部品を作りながら、ボックスモデル、色、動きの基本を確認します。",
+            "questions": [
+              {
+                "id": "q-beg-CSS初級プロジェクト-1",
+                "text": "ページ全体で、padding や border を含めて大きさを計算しやすくするために、最初に書いておくとよい指定は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "全要素に margin: 0 を指定する",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "全要素に box-sizing: border-box を指定する",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "全要素に display: block を指定する",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "全要素に position: relative を指定する",
+                    "correct": false
+                  }
+                ],
+                "explanation": "box-sizing: border-box を全体に指定しておくと、width に padding と border が含まれ、計算が楽になります。margin のリセットや display の指定は、別の目的の指定で、大きさの計算には影響しません。",
+                "hint": "width: 300px と書いたとき、見た目の幅がそのまま 300px になってほしい場面を考えます。",
+                "example": "* { box-sizing: border-box; } を、スタイルシートの最初に書いておけば、あとから padding や border を足しても、幅が崩れません。新しいページを作るたびの定番の1行です。"
+              },
+              {
+                "id": "q-beg-CSS初級プロジェクト-2",
+                "text": "カードの中身と枠線の間に、背景色が塗られた余白を作りたいときに使うのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "margin",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "gap",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "outline",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "padding",
+                    "correct": true
+                  }
+                ],
+                "explanation": "padding は内側の余白で、背景色が塗られます。margin は外側の余白で、背景は塗られません。gap は Flexbox や Grid の中で、アイテム同士の間隔を空けるときに使います。",
+                "hint": "背景色が塗られるのは、要素の内側か外側のどちらでしょうか。",
+                "example": "カードの中の文字が、枠線にくっつかないよう、.card { padding: 16px; } で内側に余白を作ります。カードどうしを離したいときは、margin や gap を使います。"
+              },
+              {
+                "id": "q-beg-CSS初級プロジェクト-3",
+                "text": "カードにマウスを乗せたときの変化を滑らかにするために使うのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "display: smooth",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "animation-name: hover",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "transition",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "visibility: slow",
+                    "correct": false
+                  }
+                ],
+                "explanation": "transition は、プロパティの値が変わるとき、指定した時間をかけて少しずつ変化させます。.card { transition: transform 0.2s; } と書き、.card:hover { transform: translateY(-4px); } とすれば、ふわっと浮く動きになります。",
+                "hint": "変化の「前」と「後」の間を、少しずつ補間して動かします。",
+                "example": "カードにマウスを乗せたとき、transform: translateY(-4px) で少し浮かせ、transition: transform 0.2s を付けると、ふわっとした動きになり、押せることが伝わります。"
+              },
+              {
+                "id": "q-beg-CSS初級プロジェクト-4",
+                "text": "背景が白いカードの文字色を決めるとき、最も重視すべきなのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "ブランドカラーを、必ず使うこと",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "背景に近い色にして、上品に見せること",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "文字を、できるだけ細くすること",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "背景とのコントラストが十分にあり、読みやすいこと",
+                    "correct": true
+                  }
+                ],
+                "explanation": "文字は、背景との明るさの差（コントラスト）が十分でないと読みにくくなります。薄いグレーの文字を白い背景に置くのは、よくある失敗です。デザインの好みより先に、読みやすさを確保します。",
+                "hint": "明るい場所や、視力に差がある人が読む場合も想像してみましょう。",
+                "example": "薄いグレーの文字を白い背景に置くと、スマホを屋外で見たときに読めなくなります。色を決めたら、背景とのコントラストを確認します。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "css-project-intermediate-1",
+            "title": "CSS 中級プロジェクト",
+            "content": "幅に応じて列の数が変わるカード一覧を作りながら、レイアウトの考え方を確認します。",
+            "questions": [
+              {
+                "id": "q-int-CSS中級プロジェクト-1",
+                "text": "画面の幅に応じて、カードの列の数が自動で変わる Grid を作る指定は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "grid-template-columns: repeat(3, 1fr)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "grid-template-columns: 240px",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "grid-auto-flow: column",
+                    "correct": false
+                  }
+                ],
+                "explanation": "repeat(auto-fit, minmax(240px, 1fr)) は、最小 240px の列が入るだけ並び、余った幅は均等に分けられます。メディアクエリを書かなくても、画面の幅に応じて列の数が変わります。",
+                "hint": "「1枚の幅が最低 240px で、入るだけ並べる」という指定です。",
+                "example": "商品一覧で、幅に応じて列の数が3列、2列、1列と変わってほしいとき、repeat(auto-fit, minmax(240px, 1fr)) と書けば、メディアクエリなしで実現できます。"
+              },
+              {
+                "id": "q-int-CSS中級プロジェクト-2",
+                "text": "カードどうしの間隔を、マージンの相殺や端の余分な余白を気にせずに空ける方法は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "すべてのカードに、margin: 10px を付ける",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "カードの間に、空の div を入れる",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "コンテナに gap を指定する",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "<br> タグを入れる",
+                    "correct": false
+                  }
+                ],
+                "explanation": "gap は、Flexbox や Grid のアイテムどうしの間だけに間隔を作ります。margin を使うと、端のカードの外側にも余白ができたり、調整が必要になったりします。空の要素や <br> で間隔を作るのは、HTML を汚すので避けます。",
+                "hint": "Flexbox や Grid では、アイテムどうしの間だけを空けるプロパティがあります。",
+                "example": "カードの間隔を空けるとき、gap: 16px と書けば、カードの間だけ16pxになります。margin で調整すると、端のカードの外側にも余白ができて、ずれることがあります。"
+              },
+              {
+                "id": "q-int-CSS中級プロジェクト-3",
+                "text": "画像が親の幅からはみ出さないようにするために、よく使う指定は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "img { overflow: hidden; }",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "img { width: 100vw; }",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "img { max-width: 100%; height: auto; }",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "img { position: fixed; }",
+                    "correct": false
+                  }
+                ],
+                "explanation": "max-width: 100% は、画像が親の幅を超えないようにします。height: auto を合わせて指定すると、縦横比を保ったまま縮みます。width: 100vw は画面幅いっぱいになり、親からはみ出すことがあります。",
+                "hint": "画像本来の大きさより大きくならず、親が狭いときだけ縮んでほしい場面です。",
+                "example": "記事の画像が、大きな写真のまま親の枠からはみ出し、スマホで横スクロールが出てしまうときは、img { max-width: 100%; height: auto; } を指定します。"
+              },
+              {
+                "id": "q-int-CSS中級プロジェクト-4",
+                "text": "メディアクエリのブレークポイント（切り替えの幅）を決めるときの考え方として適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "特定の機種の画面幅に、ぴったり合わせる",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "レイアウトが崩れる幅や、読みにくくなる幅を基準にする",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "必ず 320px、640px、1280px のいずれかにする",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "少なければ少ないほどよいので、必ず1つだけにする",
+                    "correct": false
+                  }
+                ],
+                "explanation": "機種の数は多く、画面幅も毎年変わるので、特定の機種に合わせるのは現実的ではありません。内容が窮屈になったり、行が長すぎて読みにくくなったりする幅を基準にします。決まった数字はなく、サイトの内容によって変わります。",
+                "hint": "ブラウザの幅を少しずつ変えてみて、内容が窮屈になるところを探します。",
+                "example": "画面の幅を、少しずつ縮めて、文字が窮屈になった幅をブレークポイントにします。特定の機種の幅に合わせると、新しい機種が出るたびに、見直しが必要になります。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "css-project-advanced-1",
+            "title": "CSS 上級プロジェクト",
+            "content": "色や余白の決まりごとを、カスタムプロパティで一元管理し、ダークモードにも対応させます。",
+            "questions": [
+              {
+                "id": "q-adv-CSS上級プロジェクト-1",
+                "text": "色や余白のデザインの決まりを、サイト全体で共有するために、カスタムプロパティをどこに定義するのが一般的か。答えは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "各ボタンの中",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "head の中の title タグ",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "img 要素",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": ":root（ページ全体に適用されるルート）",
+                    "correct": true
+                  }
+                ],
+                "explanation": ":root は html 要素を指し、ここで定義したカスタムプロパティは、ページ内のすべての要素から参照できます。色、余白、角丸などを :root にまとめておけば、デザインの変更も1か所で済みます。",
+                "hint": "ページのどこからでも var(--名前) で取り出せる場所が必要です。",
+                "example": "色、余白、角丸などを :root にカスタムプロパティとしてまとめておけば、「全体の青を少し明るく」といった変更も、1か所の修正で、全ページに反映されます。"
+              },
+              {
+                "id": "q-adv-CSS上級プロジェクト-2",
+                "text": "OS やブラウザのダークモード設定に自動で合わせるために使うのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "@media (min-width: dark)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "@supports (color: dark)",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "@font-face { color: dark }",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "@media (prefers-color-scheme: dark)",
+                    "correct": true
+                  }
+                ],
+                "explanation": "prefers-color-scheme は、利用者が OS やブラウザで選んでいる配色の設定を調べるためのメディアクエリです。@media (prefers-color-scheme: dark) の中で、:root のカスタムプロパティの値を、暗い配色に差し替えます。",
+                "hint": "利用者の設定（好み）を調べるメディアクエリです。",
+                "example": "OS をダークモードにしている人には、最初から暗い配色で表示したいとき、@media (prefers-color-scheme: dark) の中で、:root の値を差し替えます。"
+              },
+              {
+                "id": "q-adv-CSS上級プロジェクト-3",
+                "text": "利用者がボタンで、ライトとダークを手動で切り替えられるようにするとき、適切な方法は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "ボタンを押すたびに、別の CSS ファイルを読み込み直す",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "すべての要素に、個別に色を指定する",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "html に data-theme 属性を付け替え、属性ごとにカスタムプロパティの値を定義する",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "ページを2つ作り、リンクで行き来する",
+                    "correct": false
+                  }
+                ],
+                "explanation": "[data-theme=\"dark\"] { --bg: #1e1e1e; } のように、属性ごとに値を定義しておき、ボタンで html の data-theme を付け替えます。CSS は1つのままで、全体の配色が一度に変わります。ファイルの読み込み直しは、ちらつきの原因になります。",
+                "hint": "見た目の切り替えを、HTML の属性1つの変更だけで済ませたい場面です。",
+                "example": "サイトのヘッダーにある「ライト／ダーク」の切り替えボタンは、html の data-theme を付け替えるだけです。CSS ファイルは1つのままで、画面全体の配色が変わります。"
+              },
+              {
+                "id": "q-adv-CSS上級プロジェクト-4",
+                "text": "部品のスタイルを、あとから上書きしやすく保つために、セレクタの書き方で気をつけるのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "できるだけ ID セレクタを使う",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "クラスセレクタ1つを基本にし、詳細度を低く揃える",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "親から子まで、長く繋げて書く",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "すべてに !important を付ける",
+                    "correct": false
+                  }
+                ],
+                "explanation": "ID セレクタや、長く繋げたセレクタは詳細度が高く、上書きするためにさらに強い指定が必要になります。クラスセレクタ1つを基本にして詳細度を揃えておくと、後ろに書いたものが勝つ、という単純なルールで管理できます。",
+                "hint": "詳細度が高いスタイルを上書きするには、さらに高い詳細度が必要になります。",
+                "example": "部品のスタイルを、クラス1つに揃えておくと、あとからバリエーション用のクラスを追加するだけで、見た目を上書きできます。ID や長いセレクタは、あとで困ります。"
+              }
+            ]
+          }
+        ]
+      },
+      "beginner": [
+        {
+          "id": "css-beginner-1",
+          "title": "セレクタと詳細度",
+          "content": "どの要素にどのスタイルを当てるかを決めるセレクタと、スタイルが衝突したときの優先順位を学びます。",
+          "questions": [
+            {
+              "id": "q-beg-セレクタと詳細度-1",
+              "text": "クラスセレクタを書くとき、クラス名の前に付ける記号は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "#（例: #card）",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": ".（例: .card）",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "@（例: @card）",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": ":（例: :card）",
+                  "correct": false
+                }
+              ],
+              "explanation": "クラスセレクタはドット（.）で始めます。# は ID セレクタ、: は :hover のような擬似クラスに使います。クラスは同じ名前を複数の要素に付けられるので、部品のスタイルを当てるときの基本になります。",
+              "hint": "HTML の class=\"card\" に当てるスタイルです。ID セレクタとは別の記号を使います。",
+              "example": ".card { ... } と書けば、class=\"card\" を付けた要素すべてに、同じ見た目をまとめて当てられます。ボタンやカードのような、繰り返し使う部品のスタイルの基本です。"
+            },
+            {
+              "id": "q-beg-セレクタと詳細度-2",
+              "text": "同じ要素に、要素セレクタ（h1）とクラスセレクタ（.title）が別々の色を指定しているとき、適用されるのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "クラスセレクタの色（詳細度が高いため）",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "要素セレクタの色（先に書かれているため）",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "2つの色が混ざった色",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "どちらも適用されず、ブラウザの初期色になる",
+                  "correct": false
+                }
+              ],
+              "explanation": "スタイルが衝突すると、まず詳細度（セレクタの強さ）が比べられ、強いほうが勝ちます。要素セレクタよりクラスセレクタのほうが強いので、.title の色が適用されます。詳細度が同じときだけ、後ろに書かれたものが勝ちます。",
+              "hint": "「どちらが後ろに書かれたか」の前に、セレクタの強さを比べます。",
+              "example": "ページ全体の p には灰色を指定し、特に目立たせたい注意書きだけ .notice で赤にするとき、強いほう（.notice）の色が優先されるので、順番を気にせず書けます。"
+            },
+            {
+              "id": "q-beg-セレクタと詳細度-3",
+              "text": "CSS の「継承」の説明として正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "すべてのプロパティが、親から子に自動で引き継がれる",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "子要素のスタイルが、親要素に引き継がれる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "継承させるには、すべてのプロパティに inherit を書く必要がある",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "color や font-family などは、親要素の値が子要素にも引き継がれる",
+                  "correct": true
+                }
+              ],
+              "explanation": "color や font-family のような文字に関するプロパティは、親の値が子に引き継がれます。一方、margin や border などは引き継がれません。引き継がれないプロパティでも、inherit を指定すれば親の値を使えます。",
+              "hint": "body に文字色を指定すると、中の段落の文字色も変わることを思い出してみましょう。",
+              "example": "body に font-family を指定しておけば、見出しや段落にいちいち書かなくても、ページ全体で同じフォントになります。border は継承されないので、子要素に枠線は付きません。"
+            },
+            {
+              "id": "q-beg-セレクタと詳細度-4",
+              "text": "!important を多用しないほうがよい理由は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "ブラウザによっては、!important が無視されるため",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "後から上書きするのが難しくなり、スタイルの管理が難しくなるため",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "ページの読み込みが遅くなるため",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "クラスセレクタと一緒に使えないため",
+                  "correct": false
+                }
+              ],
+              "explanation": "!important は詳細度を無視して優先されるため、後から上書きするには、さらに !important を重ねるしかなくなります。そうなるとスタイルの優先順位が追いにくくなります。まずはセレクタの書き方や順番を見直し、どうしても必要なときだけ使います。",
+              "hint": "!important が付いたスタイルを、後から変えたくなったときのことを考えてみましょう。",
+              "example": "「どうしても直らない」からと !important を付けると、次に直す人も !important を付けるしかなくなります。まず、セレクタが他と競合していないかを確かめます。"
+            }
+          ]
+        },
+        {
+          "id": "css-beginner-2",
+          "title": "ボックスモデルと単位",
+          "content": "すべての要素は四角い箱として扱われます。箱の構造と、大きさを表す単位の違いを学びます。",
+          "questions": [
+            {
+              "id": "q-beg-ボックスモデルと単位-1",
+              "text": "ボックスモデルで、内側から外側へ並ぶ順番として正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "content → margin → border → padding",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "content → border → padding → margin",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "content → padding → border → margin",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "padding → content → margin → border",
+                  "correct": false
+                }
+              ],
+              "explanation": "内容（content）、内側の余白（padding）、枠線（border）、外側の余白（margin）の順です。padding は背景色が塗られる内側の余白で、margin は要素どうしの距離を空ける外側の余白です。",
+              "hint": "中身のまわりに余白（内側）があり、その外側に枠線、さらに外側に他の要素との距離があります。",
+              "example": "ボタンが思ったより大きく表示されるときは、padding と border を確認します。内側から content、padding、border、margin の順に重なっているので、どの層が大きいのかを見分けられます。"
+            },
+            {
+              "id": "q-beg-ボックスモデルと単位-2",
+              "text": "box-sizing: border-box を指定したときの width は______を含んだ大きさになります。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "padding と border",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "margin だけ",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "padding、border、margin のすべて",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "何も含まず、content の幅だけ",
+                  "correct": false
+                }
+              ],
+              "explanation": "border-box では、width に padding と border が含まれます。width: 300px と書けば、見た目の幅が 300px に収まるので、計算が楽になります。多くのサイトでは、* { box-sizing: border-box; } を最初に指定しています。",
+              "hint": "初期値（content-box）では、width に padding と border が足されて、実際の見た目が大きくなります。",
+              "example": "幅 300px のカードに padding: 20px を付けると、content-box では見た目が 340px に広がります。border-box にしておけば 300px のまま収まるので、横にはみ出しません。"
+            },
+            {
+              "id": "q-beg-ボックスモデルと単位-3",
+              "text": "rem 単位の基準になる大きさは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "親要素のフォントサイズ",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "html 要素（ルート）のフォントサイズ",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "ブラウザ画面の幅",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "その要素自身の幅",
+                  "correct": false
+                }
+              ],
+              "explanation": "rem は html 要素のフォントサイズが基準です。多くのブラウザでは初期値が 16px なので、1rem = 16px になります。em は親要素の影響を受けて、入れ子になると大きさが積み重なりますが、rem は常に同じ基準なので、扱いやすくなります。",
+              "hint": "em は親要素が基準です。rem の r は「root（ルート）」を表します。",
+              "example": "見出しの文字サイズを rem で書いておけば、利用者がブラウザの文字サイズを大きくしたとき、ページ全体の文字がそろって大きくなります。px 固定だと、変わらないことがあります。"
+            },
+            {
+              "id": "q-beg-ボックスモデルと単位-4",
+              "text": "縦に隣り合う2つの要素の margin が、重なって大きいほうだけが有効になる現象を______といいます。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "マージンの継承",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "マージンのリセット",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "マージンの相殺",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "マージンのオーバーフロー",
+                  "correct": false
+                }
+              ],
+              "explanation": "縦方向に隣り合う margin は、足し算されず、大きいほうの値だけが採用されます。これをマージンの相殺といいます。上の例では間隔は 30px になります。左右の margin や、Flexbox・Grid の中では相殺は起きません。",
+              "hint": "上の要素に margin-bottom: 20px、下の要素に margin-top: 30px を付けたときの間隔は、50px にはなりません。",
+              "example": "見出しの margin-bottom: 20px と、次の段落の margin-top: 30px の間隔が 50px にならず、30px になる理由を調べたいとき、マージンの相殺を思い出します。"
+            }
+          ]
+        }
+      ],
+      "intermediate": [
+        {
+          "id": "css-intermediate-1",
+          "title": "Flexbox",
+          "content": "要素を横や縦に並べ、揃えるための仕組みです。親と子の役割と、主なプロパティを学びます。",
+          "questions": [
+            {
+              "id": "q-int-Flexbox-1",
+              "text": "display: flex を指定した要素の直接の子要素は、______になります。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "フレックスコンテナ",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "フレックスアイテム",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "グリッドアイテム",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "インライン要素",
+                  "correct": false
+                }
+              ],
+              "explanation": "display: flex を指定した親がフレックスコンテナで、その直接の子要素がフレックスアイテムです。孫要素は並び方の対象になりません。並べ方を指定するプロパティは、コンテナに書くものとアイテムに書くものに分かれています。",
+              "hint": "親は「容れ物（コンテナ）」、その中に並べられるものは「項目（アイテム）」です。",
+              "example": "ナビゲーションのリンクを横一列に並べるとき、ul に display: flex を指定すると、直接の子の li が、フレックスアイテムとして横に並びます。"
+            },
+            {
+              "id": "q-int-Flexbox-2",
+              "text": "flex-direction: row のとき、justify-content が揃える方向は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "縦方向",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "斜め方向",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "横方向（主軸）",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "奥行き方向",
+                  "correct": false
+                }
+              ],
+              "explanation": "justify-content は主軸方向、align-items は交差軸方向の揃え方を決めます。row では主軸が横なので、justify-content は横方向の揃えです。column にすると主軸が縦になるので、役割が入れ替わります。",
+              "hint": "justify-content は主軸、align-items は交差軸に沿って揃えます。row の主軸は左から右です。",
+              "example": "ヘッダーで、ロゴを左に、メニューを右に離して置きたいとき、justify-content: space-between を使います。縦の中央に揃えたいときは、align-items: center です。"
+            },
+            {
+              "id": "q-int-Flexbox-3",
+              "text": "フレックスアイテムに flex: 1 を指定したときの動きは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "余った空間を、他のアイテムと分け合って伸びる",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "大きさが 1px に固定される",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "他のアイテムより先に縮む",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "1 行目にだけ表示される",
+                  "correct": false
+                }
+              ],
+              "explanation": "flex: 1 は、余った空間を伸びて埋める指定です。複数のアイテムにすべて flex: 1 を付ければ、同じ幅で均等に分け合います。サイドバーを固定幅にして、本文だけ flex: 1 にすれば、残りの幅をすべて使わせることができます。",
+              "hint": "flex: 1 は flex-grow: 1 を含む短縮記法です。",
+              "example": "サイドバーに width: 240px を指定し、本文に flex: 1 を指定すると、本文が残りの幅をすべて使います。画面幅が変わっても、サイドバーは 240px のままです。"
+            },
+            {
+              "id": "q-int-Flexbox-4",
+              "text": "フレックスアイテムが1行に収まらないとき、折り返して次の行に並べるための指定は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "flex-direction: wrap",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "flex-flow: none",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "justify-content: wrap",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "flex-wrap: wrap",
+                  "correct": true
+                }
+              ],
+              "explanation": "flex-wrap: wrap をコンテナに指定すると、収まらないアイテムが次の行に折り返されます。初期値の nowrap のままだと、アイテムが縮んだり、はみ出したりします。カード一覧のような並びでは、wrap と gap を組み合わせるのが定番です。",
+              "hint": "初期値は nowrap で、収まらなくても折り返さず、縮められます。",
+              "example": "タグの一覧は、数が増えると1行に収まりません。flex-wrap: wrap を付けておけば、次の行に折り返して並びます。間隔は gap で空けます。"
+            }
+          ]
+        },
+        {
+          "id": "css-intermediate-2",
+          "title": "Grid とレスポンシブ",
+          "content": "行と列で配置する Grid と、画面の幅に応じて見た目を切り替える方法を学びます。",
+          "questions": [
+            {
+              "id": "q-int-Gridとレスポンシブ-1",
+              "text": "grid-template-columns: repeat(3, 1fr) と書いたときの表示は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "幅 1px の列が3本できる",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "同じ幅の列が3本できる",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "3 行にわたって 1 つの列ができる",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "1 列目だけが、3 倍の幅になる",
+                  "correct": false
+                }
+              ],
+              "explanation": "repeat(3, 1fr) は、1fr の列を3本並べる指定です。fr は、余ったスペースを分け合う比率の単位なので、3本とも同じ幅になります。1fr 2fr 1fr のように書けば、真ん中だけ2倍の幅にできます。",
+              "hint": "repeat(3, 1fr) は、1fr を3回繰り返すという意味です。",
+              "example": "商品カードを、同じ幅で3列に並べたいとき、grid-template-columns: repeat(3, 1fr) と書きます。1fr 2fr 1fr のように、列ごとに幅の比率を変えることもできます。"
+            },
+            {
+              "id": "q-int-Gridとレスポンシブ-2",
+              "text": "Flexbox と Grid の使い分けとして、最も適切なのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "Flexbox は PC 用、Grid はスマホ用",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "Grid のほうが新しいので、Flexbox はもう使わない",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "Flexbox は1方向の並び、Grid は行と列の2方向のレイアウトに向いている",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "Flexbox は文字用、Grid は画像用",
+                  "correct": false
+                }
+              ],
+              "explanation": "Flexbox は、横一列や縦一列に並べる1方向のレイアウトが得意です。Grid は、行と列の両方を使った2次元のレイアウトに向いています。どちらかだけを使うのではなく、ページ全体は Grid、部品の中の並びは Flexbox のように、組み合わせるのが一般的です。",
+              "hint": "ナビゲーションのように1列に並べるものと、ページ全体の格子状のレイアウトを思い浮かべてみましょう。",
+              "example": "ページ全体（ヘッダー・サイドバー・本文・フッター）の配置は Grid、ヘッダーの中のメニューの並びは Flexbox、というように、場面ごとに使い分けます。"
+            },
+            {
+              "id": "q-int-Gridとレスポンシブ-3",
+              "text": "モバイルファーストの書き方で、広い画面向けのスタイルを追加するときに使うのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "@media (max-width: 767px)",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "@media print",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "@media (min-width: 768px)",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "@media (orientation: landscape)",
+                  "correct": false
+                }
+              ],
+              "explanation": "モバイルファーストでは、基本のスタイルをスマホ向けに書き、min-width のメディアクエリで広い画面向けの変更を足していきます。スマホは軽い指定だけで済み、書く量も少なくなります。max-width は、逆に小さい画面向けの指定を足すときに使います。",
+              "hint": "まず小さい画面用のスタイルを書き、画面が広くなったら上書きしていきます。",
+              "example": "まず、スマホ向けに、縦に1列に並べるスタイルを書きます。そのあと @media (min-width: 768px) の中で、横に2列に並べる指定を足します。"
+            },
+            {
+              "id": "q-int-Gridとレスポンシブ-4",
+              "text": "スマホで見たときにレイアウトが崩れないよう、HTML の head に書いておくべきなのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "<meta name=\"description\" content=\"...\">",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "<meta charset=\"UTF-8\">",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "<link rel=\"stylesheet\" href=\"style.css\">",
+                  "correct": false
+                }
+              ],
+              "explanation": "viewport の meta タグは、スマホの画面幅に合わせて表示するための指定です。ないと、スマホは約 980px の幅で描画して縮小表示するため、メディアクエリも期待どおりに動きません。レスポンシブなページには必須の1行です。",
+              "hint": "これがないと、スマホはパソコン向けの広い幅で描画してから縮小して表示してしまいます。",
+              "example": "スマホで見たら、PC 用のページが縮んで、小さく表示された場合は、まず head に viewport の meta タグがあるかを確認します。"
+            }
+          ]
+        }
+      ],
+      "advanced": [
+        {
+          "id": "css-advanced-1",
+          "title": "設計と最新の機能",
+          "content": "大きなサイトでも崩れにくい書き方と、最近使えるようになった機能の使いどころを学びます。",
+          "questions": [
+            {
+              "id": "q-adv-設計と最新の機能-1",
+              "text": "CSS カスタムプロパティ（CSS 変数）を定義して使う書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "$main: #3b82f6; を定義し、color: $main; で使う",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "--main: #3b82f6; を定義し、color: var(--main); で使う",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "@main: #3b82f6; を定義し、color: @main; で使う",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "main = #3b82f6 を定義し、color: main で使う",
+                  "correct": false
+                }
+              ],
+              "explanation": "カスタムプロパティは、-- で始まる名前で定義し、var() で取り出します。:root に書けばページ全体で使えます。SCSS の変数と違って、表示中に値を書き換えられるので、ダークモードなどの切り替えにも使えます。",
+              "hint": "SCSS の $ や Less の @ とは違い、CSS 自身の仕組みです。",
+              "example": ":root { --primary: #3b82f6; } とし、ボタンもリンクも var(--primary) で参照すれば、ブランドカラーの変更は1行で済みます。表示中に書き換えることもできます。"
+            },
+            {
+              "id": "q-adv-設計と最新の機能-2",
+              "text": "BEM の命名で、.card__title--large が表しているのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "card という要素の中の large という要素",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "title というブロックに属する card という要素",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "card ブロックの title 要素で、large という修飾（見た目の違い）が付いたもの",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "card と title と large の3つの独立したブロック",
+                  "correct": false
+                }
+              ],
+              "explanation": "BEM は、ブロック__要素--修飾子 の形で名前を付けます。.card__title--large は、card ブロックの中の title 要素で、large という違いがあるもの、という意味です。名前から構造が分かり、詳細度を揃えやすいのも利点です。",
+              "hint": "BEM は Block（ブロック）、Element（要素）、Modifier（修飾子）の頭文字です。",
+              "example": ".card__title--large のように、名前に構造が入っていれば、HTML を見ただけで、どの部品の何の部分かが分かります。チームで開発するときに、名前の迷いが減ります。"
+            },
+            {
+              "id": "q-adv-設計と最新の機能-3",
+              "text": "コンテナクエリ（@container）が、メディアクエリと違う点は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "印刷時にだけ使える",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "JavaScript がないと動かない",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "画面全体の幅ではなく、親のコンテナの幅に応じてスタイルを切り替えられる",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "詳細度を無視して、常に優先される",
+                  "correct": false
+                }
+              ],
+              "explanation": "メディアクエリは画面全体の幅で切り替えますが、コンテナクエリは、置かれている親の幅で切り替えます。同じ部品を、広い場所と狭い場所の両方で使うとき、置き場所に応じた見た目にできるので、部品単位の設計に向いています。",
+              "hint": "同じカード部品が、広いメイン領域と狭いサイドバーのどちらにも置かれる場面を考えてみましょう。",
+              "example": "同じカードを、広いメイン領域では横並びに、狭いサイドバーでは縦並びにしたいとき、画面幅ではなく、親の幅で切り替わるコンテナクエリが役に立ちます。"
+            },
+            {
+              "id": "q-adv-設計と最新の機能-4",
+              "text": "font-size: clamp(16px, 2vw, 24px) の説明として正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "画面幅に応じて変わるが、16px 未満にも 24px 超にもならない",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "16px から 24px まで、2 秒かけて大きくなる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "常に 2vw で、16px と 24px は無視される",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "16px、2vw、24px の平均値になる",
+                  "correct": false
+                }
+              ],
+              "explanation": "clamp(最小, 理想, 最大) は、理想の値（ここでは 2vw）を使いつつ、最小値より小さくならず、最大値より大きくならないようにします。メディアクエリを使わずに、文字サイズを画面幅に滑らかに合わせたいときに便利です。",
+              "hint": "clamp は、最小値、理想の値、最大値の3つを受け取ります。",
+              "example": "見出しの文字を、スマホでは 16px、PC では 24px にしたい場面で、clamp(16px, 2vw, 24px) と1行書けば、メディアクエリなしで、滑らかに変わります。"
+            }
+          ]
+        }
+      ],
+      "basics": {
+        "beginner": [
+          {
+            "id": "css-basics-beginner",
+            "title": "セレクタ・詳細度・ボックスモデル",
+            "content": "CSS は「どの要素に」「どんな見た目を」当てるかを書く言語です。まずは、当てる相手の選び方と、すべての要素の土台になる箱の考え方を押さえましょう。",
+            "sections": [
+              {
+                "heading": "セレクタで対象を選ぶ",
+                "body": "要素の名前（p）、クラス（.card）、ID（#header）などで、スタイルを当てる相手を選びます。繰り返し使う部品には、クラスを使うのが基本です。ID は、ページに1つだけの要素向けですが、強すぎて上書きしにくいため、スタイルを当てる目的ではあまり使いません。",
+                "code": "p { color: #333; }          /* 要素セレクタ */\n.card { padding: 16px; }   /* クラスセレクタ */\n.card:hover { opacity: .8; } /* 擬似クラス */",
+                "example": "ボタンの見た目を .button にまとめておけば、class=\"button\" を付けた要素すべてに、同じスタイルを当てられます。"
+              },
+              {
+                "heading": "詳細度と、後ろが勝つルール",
+                "body": "同じ要素に矛盾するスタイルがあるとき、まず詳細度（セレクタの強さ）が比べられ、強いほうが勝ちます。目安は「要素 < クラス < ID < インラインスタイル」です。詳細度が同じなら、後ろに書いたほうが勝ちます。!important は、この仕組みを無視するため、最後の手段です。",
+                "code": "p { color: gray; }\n.notice { color: red; }  /* クラスのほうが強い */\n/* <p class=\"notice\"> は red になる */"
+              },
+              {
+                "heading": "継承",
+                "body": "color や font-family など、文字に関するプロパティは、親の値が子にも引き継がれます。body に指定しておけば、ページ全体に効きます。margin や border のように、引き継がれないプロパティもあります。",
+                "code": "body {\n  font-family: sans-serif;\n  color: #333;\n}\n/* 中の p や h1 にも、同じフォントと色が適用される */"
+              },
+              {
+                "heading": "ボックスモデル",
+                "body": "すべての要素は、内側から content（中身）、padding（内側の余白）、border（枠線）、margin（外側の余白）という層でできた箱です。初期値では、width は content だけの幅ですが、box-sizing: border-box を指定すると、padding と border も含まれ、計算が楽になります。",
+                "code": "* { box-sizing: border-box; }\n.card {\n  width: 300px;\n  padding: 16px;\n  border: 1px solid #ddd;\n  margin-bottom: 24px;\n}"
+              },
+              {
+                "heading": "単位の使い分けと、マージンの相殺",
+                "body": "px は固定の大きさ、rem は html のフォントサイズを基準にした大きさです。文字や余白に rem を使うと、利用者が文字サイズを変えたときに、ページ全体が合わせて拡大されます。縦に隣り合う margin は、足されず、大きいほうだけが有効になる（相殺）ので、間隔が思ったより小さくなることがあります。",
+                "code": "h2 { font-size: 1.5rem; margin-bottom: 20px; }\np  { margin-top: 30px; }\n/* h2 と p の間隔は、50px ではなく 30px */"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "css-basics-intermediate",
+            "title": "Flexbox と Grid、レスポンシブ",
+            "content": "要素を並べて配置する仕組みと、画面の幅に合わせて見た目を切り替える方法を学びます。現在の CSS のレイアウトは、この2つが中心です。",
+            "sections": [
+              {
+                "heading": "Flexbox で1方向に並べる",
+                "body": "display: flex を親に指定すると、直接の子が横一列に並びます。justify-content は主軸方向（横）の揃え、align-items は交差軸方向（縦）の揃えを決めます。間隔は gap で空けます。",
+                "code": ".header {\n  display: flex;\n  justify-content: space-between; /* 左右に離す */\n  align-items: center;            /* 縦の中央 */\n  gap: 16px;\n}",
+                "example": "ロゴを左、メニューを右に置くヘッダーは、space-between の定番の使い方です。"
+              },
+              {
+                "heading": "flex の伸び縮みと折り返し",
+                "body": "アイテムに flex: 1 を付けると、余った空間を埋めるように伸びます。固定幅のサイドバーと、残りを使う本文という組み合わせがよく使われます。1行に収まらないときは、コンテナに flex-wrap: wrap を指定すると折り返されます。",
+                "code": ".layout { display: flex; gap: 24px; }\n.side { width: 240px; }\n.main { flex: 1; }"
+              },
+              {
+                "heading": "Grid で行と列に配置する",
+                "body": "display: grid と grid-template-columns で、列の数と幅を決めます。fr は余ったスペースを分け合う比率の単位です。repeat(auto-fit, minmax(240px, 1fr)) と書くと、画面の幅に応じて列の数が自動で変わります。",
+                "code": ".cards {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\n  gap: 16px;\n}"
+              },
+              {
+                "heading": "Flexbox と Grid の使い分け",
+                "body": "1方向（横一列、縦一列）に並べるなら Flexbox、行と列の両方を使った格子状のレイアウトなら Grid が向いています。ページ全体のレイアウトは Grid、その中の部品の並びは Flexbox、というように組み合わせるのが一般的です。"
+              },
+              {
+                "heading": "レスポンシブとメディアクエリ",
+                "body": "head に viewport の meta タグを書き、スマホ向けのスタイルを基本にして、広い画面向けの指定を min-width のメディアクエリで足す方法（モバイルファースト）が定番です。切り替えの幅は、特定の機種ではなく、内容が窮屈になる幅を基準に決めます。",
+                "code": "/* 基本（スマホ） */\n.cards { grid-template-columns: 1fr; }\n\n/* 広い画面 */\n@media (min-width: 768px) {\n  .cards { grid-template-columns: repeat(2, 1fr); }\n}"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "css-basics-advanced",
+            "title": "設計とモダンな CSS",
+            "content": "規模が大きくなっても崩れにくい書き方と、最近の CSS の機能を学びます。「動く」から「保守しやすい」へ、目線を広げましょう。",
+            "sections": [
+              {
+                "heading": "カスタムプロパティで決まりごとを一元管理する",
+                "body": "--名前: 値; で定義し、var(--名前) で使います。:root に色や余白をまとめておけば、デザインの変更が1か所で済みます。SCSS の変数とは違い、表示中に値を書き換えられるので、ダークモードなどの切り替えにも使えます。",
+                "code": ":root {\n  --color-primary: #3b82f6;\n  --space: 8px;\n}\n.button {\n  background: var(--color-primary);\n  padding: calc(var(--space) * 2);\n}"
+              },
+              {
+                "heading": "ダークモードに対応する",
+                "body": "@media (prefers-color-scheme: dark) の中でカスタムプロパティの値を差し替えると、OS の設定に自動で合わせられます。利用者が手動で切り替えたいときは、html の data-theme 属性ごとに値を定義し、ボタンで属性を付け替えます。",
+                "code": ":root { --bg: #fff; --text: #222; }\n[data-theme=\"dark\"] { --bg: #1e1e1e; --text: #eee; }\nbody { background: var(--bg); color: var(--text); }"
+              },
+              {
+                "heading": "命名規則と詳細度の管理",
+                "body": "BEM は、ブロック__要素--修飾子 の形で名前を付ける規則です。クラスセレクタ1つを基本にして詳細度を揃えると、「後ろに書いたものが勝つ」という単純なルールで管理できます。ID セレクタや長く繋げたセレクタは、上書きが難しくなります。",
+                "code": ".card { ... }\n.card__title { ... }\n.card__title--large { font-size: 1.5rem; }"
+              },
+              {
+                "heading": "コンテナクエリで部品単位に切り替える",
+                "body": "メディアクエリは画面全体の幅で切り替えますが、コンテナクエリは、部品が置かれている親の幅で切り替えます。同じ部品が、広い場所にも狭い場所にも置かれるとき、置き場所に合った見た目にできます。",
+                "code": ".wrapper { container-type: inline-size; }\n\n@container (min-width: 400px) {\n  .card { display: flex; }\n}"
+              },
+              {
+                "heading": "clamp() で滑らかに変化させる",
+                "body": "clamp(最小, 理想, 最大) は、理想の値を使いつつ、最小値と最大値の範囲に収めます。文字サイズや余白を、画面幅に応じて滑らかに変えるのに便利で、メディアクエリを減らせます。",
+                "code": "h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }\n.section { padding-block: clamp(24px, 6vw, 64px); }"
+              }
+            ]
+          }
+        ]
+      },
+      "thinking": {
+        "beginner": [
+          {
+            "id": "css-thinking-beginner",
+            "title": "崩れた見た目の原因を探る",
+            "content": "正解は1つではありません。ここまでの知識を使って、自分の言葉で考えを書いてみましょう。書き終えたら、観点チェックと模範解答で見直します。",
+            "prompts": [
+              {
+                "id": "css-thinking-beginner-1",
+                "scenario": "幅 300px のカードを並べたところ、padding: 20px と border: 1px を付けた途端、カードが横にはみ出し、2枚並べるはずの場所に収まらなくなりました。幅の指定は、width: 300px のままです。",
+                "code": ".card {\n  width: 300px;\n  padding: 20px;\n  border: 1px solid #ddd;\n}",
+                "question": "なぜ、はみ出すのかを説明し、直し方を書いてください。",
+                "checkpoints": [
+                  "初期値（content-box）では、width が content だけの幅で、padding と border が外側に足されることを説明している",
+                  "実際の見た目の幅が、300 + 40 + 2 = 342px になることなど、具体的に計算している",
+                  "box-sizing: border-box を指定すると、padding と border が width に含まれることを示している",
+                  "全要素に * { box-sizing: border-box; } を指定しておく、という方法に触れている"
+                ],
+                "modelAnswer": "初期値の box-sizing: content-box では、width は中身（content）だけの幅です。そこに padding（左右で 40px）と border（左右で 2px）が外側に足されるため、実際の見た目は 342px になり、枠からはみ出します。直し方は、box-sizing: border-box を指定することです。border-box では、width に padding と border が含まれるので、width: 300px と書けば、見た目も 300px のまま収まります。毎回書くのは大変なので、スタイルシートの最初に * { box-sizing: border-box; } と書き、全要素に指定しておくのが定番です。",
+                "tip": "レイアウトが「思ったより大きい」ときは、ボックスの4つの層のどこが大きいのかを疑いましょう。"
+              },
+              {
+                "id": "css-thinking-beginner-2",
+                "scenario": "あるサイトで、.notice に color: red を指定したのに、なぜか文字が黒のままです。調べると、別のファイルに、次のようなスタイルが書かれていました。",
+                "code": ".content p { color: black; }   /* 別のファイル */\n.notice { color: red; }        /* 自分が書いた */\n/* <div class=\"content\"><p class=\"notice\">注意</p></div> */",
+                "question": "なぜ、赤にならないのかを、詳細度の考え方で説明してください。そのうえで、!important を使わない直し方を書いてください。",
+                "checkpoints": [
+                  ".content p（クラス + 要素）のほうが、.notice（クラスだけ）より詳細度が高いことを説明している",
+                  "詳細度が違うときは、後ろに書いたかどうかは関係ないことを理解している",
+                  "!important を使うと、後から直すときに、さらに !important が必要になる問題を指摘している",
+                  ".content .notice のように詳細度を合わせる、または、既存のセレクタの書き方を見直す案を示している"
+                ],
+                "modelAnswer": ".content p は、クラス1つと要素1つなので、.notice（クラス1つ）より詳細度が高くなります。詳細度が違うときは、強いほうが勝つため、後ろに書いても、.notice の赤は負けて、黒のままです。!important を付ければ赤になりますが、次にこの色を変えたい人も、さらに !important を付けるしかなくなり、管理が難しくなります。そこで、.content .notice { color: red; } のように、詳細度を同じ以上に揃える方法があります。より根本的には、.content p のように、要素に直接当たる書き方をやめ、.content__text のようなクラスにして、詳細度を低く揃えておくと、上書きしやすくなります。",
+                "tip": "色が変わらないときは、ブラウザの開発者ツールで、どのセレクタが適用され、どれが打ち消されているかを確かめましょう。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "css-thinking-intermediate",
+            "title": "レイアウトの手段を選ぶ",
+            "content": "同じ見た目でも、作り方は複数あります。どの手段を選ぶかを、理由まで書いてみましょう。",
+            "prompts": [
+              {
+                "id": "css-thinking-intermediate-1",
+                "scenario": "商品カードを一覧にします。画面が広いときは4列、タブレットでは2列、スマホでは1列に、自動で変わるようにしたいです。後輩は、メディアクエリを3つ書いて、それぞれの幅で、幅を計算した float のレイアウトを作る案を出しています。",
+                "question": "この案の問題点を指摘し、Grid を使った、より良い書き方を提案してください。",
+                "checkpoints": [
+                  "列数や幅を、画面ごとに手計算する必要があり、変更や追加に弱いことを指摘している",
+                  "repeat(auto-fit, minmax(…, 1fr)) を使う案を示している",
+                  "最小幅を決めるだけで、列の数が自動で変わる利点を説明している",
+                  "間隔を gap で空ける方法に触れている"
+                ],
+                "modelAnswer": "画面ごとに列数と幅を計算して float で組む方法では、メディアクエリを何本も書く必要があり、間隔の計算も複雑になります。カードを1枚増やす、列の数を変える、といった変更のたびに、見直しが必要です。Grid なら、.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; } の数行で済みます。1枚の最小幅を 240px と決めておくだけで、画面の幅に応じて、入るだけの列が並び、余った幅は均等に分けられます。メディアクエリがなくても、4列、2列、1列と自然に変わります。間隔は gap で空けるので、margin の計算も不要です。",
+                "tip": "「画面幅で列の数が変わる」ときは、まず auto-fit と minmax で書けないかを考えましょう。"
+              },
+              {
+                "id": "css-thinking-intermediate-2",
+                "scenario": "ヘッダーを作ります。左にロゴ、右にメニュー（リンク4つ）を置き、縦は中央に揃えたいです。メニューは、スマホでは幅が足りなくなる可能性があります。",
+                "question": "Flexbox で、どのように書くかを示し、幅が足りないときの対応も書いてください。",
+                "checkpoints": [
+                  "ヘッダーに display: flex を指定している",
+                  "justify-content: space-between でロゴとメニューを左右に離している",
+                  "align-items: center で縦の中央に揃えている",
+                  "幅が足りないときの対応（flex-wrap: wrap、メニューを折り返す、ブレークポイントで縦並びにするなど）を示している"
+                ],
+                "modelAnswer": "ヘッダーに display: flex を指定し、justify-content: space-between で、ロゴを左端、メニューを右端に離します。縦の揃えは align-items: center で、中央にします。メニュー自体も、ul に display: flex と gap を指定して横に並べます。幅が足りなくなる場合は、ヘッダーに flex-wrap: wrap を指定して、収まらないメニューを次の行に折り返す方法があります。または、メディアクエリ（min-width）を使い、スマホでは flex-direction: column でロゴの下にメニューを縦に並べ、広い画面で横並びにする方法もあります。どちらの場合も、折り返しやすいように gap で間隔を空けておきます。",
+                "tip": "横に並べる部品は、「収まらなかったときにどうなるか」まで考えて作りましょう。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "css-thinking-advanced",
+            "title": "保守しやすい CSS の設計判断",
+            "content": "大きなサイトでは、動くかどうかよりも、後から直しやすいかどうかが重要です。判断の理由まで書いてみましょう。",
+            "prompts": [
+              {
+                "id": "css-thinking-advanced-1",
+                "scenario": "サイトにダークモードを付けることになりました。今のスタイルシートには、色が、あちこちに #333、#fff、#3b82f6 と直接書かれています。ダークモード用に、すべての色を書き直す必要があり、見積もりが膨らんでいます。",
+                "question": "今後の保守を見据えて、どのように整理するかと、ダークモードを実現する方法を書いてください。",
+                "checkpoints": [
+                  "色の値を、カスタムプロパティ（--color-bg など）にまとめ、各所から var() で参照する方針を示している",
+                  "意味のある名前（--bg、--text など）を付ける利点に触れている",
+                  "prefers-color-scheme や data-theme で、カスタムプロパティの値だけを差し替える方法を示している",
+                  "色の変更が1か所で済む、という利点を説明している"
+                ],
+                "modelAnswer": "まず、色を直接書くのをやめ、:root に --color-bg、--color-text、--color-primary のように、役割を表す名前のカスタムプロパティとして定義します。各所の色の指定は、var(--color-text) のような参照に置き換えます。名前を役割で付けておけば、後から「どこに使われる色か」が分かります。そのうえで、ダークモードは、カスタムプロパティの値だけを差し替えます。OS の設定に合わせるなら @media (prefers-color-scheme: dark) の中で、手動で切り替えるなら [data-theme=\"dark\"] の中で、:root と同じ名前に暗い色を定義します。各部品のスタイルは1行も変えずに、配色だけが切り替わります。色を変えたい場合も、定義の1か所を直すだけで済みます。",
+                "tip": "色や余白は、「値」ではなく「役割の名前」で管理すると、変更に強くなります。"
+              },
+              {
+                "id": "css-thinking-advanced-2",
+                "scenario": "長く運用されているサイトで、あるボタンの色を変えようとしたところ、何度スタイルを書いても反映されません。調べると、過去の開発者が、詳細度の高いセレクタや !important を多用していました。",
+                "code": "#main .content div.box ul li a.btn { color: blue !important; }",
+                "question": "このような状況を、なぜ避けるべきかと、新しく書くときに気をつけることを書いてください。",
+                "checkpoints": [
+                  "詳細度が高いスタイルを上書きするには、さらに高い詳細度か !important が必要になる、悪循環を指摘している",
+                  "ID セレクタ、長く繋げたセレクタ、!important を避ける方針を示している",
+                  "クラスセレクタ1つを基本にし、詳細度を低く揃える方針を示している",
+                  "BEM のような命名規則で、構造を名前に持たせる考え方に触れている"
+                ],
+                "modelAnswer": "この書き方は、詳細度が非常に高く、さらに !important まで付いているため、上書きするには、もっと高い詳細度か、同じく !important を重ねるしかなくなります。次の人も同じ問題に当たり、悪循環になって、CSS がどんどん複雑になります。新しく書くときは、ID セレクタや、親から子まで長く繋げたセレクタを避け、.btn のようなクラスセレクタ1つを基本にして、詳細度を低く揃えます。こうしておけば、「後ろに書いたほうが勝つ」という単純なルールで管理でき、バリエーションは .btn--danger のような修飾クラスを足すだけで作れます。BEM のように、ブロック__要素--修飾子 の命名にしておけば、名前に構造が表れるので、長いセレクタで場所を指定する必要もなくなります。",
+                "tip": "「あとで上書きしたくなったとき、楽か」を、セレクタを書くたびに自分に問いましょう。"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "shortLabel": "CS"
+  },
+  {
+    "id": "sql",
+    "name": "SQL",
+    "description": "データベースからデータを取り出し、追加・更新・集計するための基本を学びます",
+    "icon": "fa-solid fa-database",
+    "lessons": {
+      "projects": {
+        "beginner": [
+          {
+            "id": "sql-project-beginner-1",
+            "title": "SQL 初級プロジェクト",
+            "content": "顧客テーブルから、条件に合うデータを探しながら、取り出しの基本を確認します。",
+            "questions": [
+              {
+                "id": "q-beg-SQL初級プロジェクト-1",
+                "text": "名前に「田」を含む顧客を探すために、WHERE の中で使うのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "name CONTAINS '田'",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "name LIKE '%田%'",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "name = '%田%'",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "name HAS '田'",
+                    "correct": false
+                  }
+                ],
+                "explanation": "LIKE は、パターンに一致する文字列を探します。% は「任意の文字列」を表すので、'%田%' は、「田」を含むものすべてです。= では、% がただの文字として扱われ、部分一致にはなりません。",
+                "hint": "部分一致の検索には、パターンを使える専用の演算子があります。",
+                "example": "顧客の名簿から、名字に「田」が付く人を探したいとき、WHERE name LIKE '%田%' と書きます。先頭一致だけなら、'田%' とします。"
+              },
+              {
+                "id": "q-beg-SQL初級プロジェクト-2",
+                "text": "結果の最初の10行だけを取り出すために、末尾に付けるのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "TOP 10 を末尾に付ける",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "WHERE ROWNUM = 10",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "LIMIT 10",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "FIRST 10",
+                    "correct": false
+                  }
+                ],
+                "explanation": "LIMIT は、取り出す行数の上限を決めます。MySQL や PostgreSQL、SQLite などで使えます。SQL Server では TOP、Oracle では FETCH FIRST のように、データベースごとに書き方が異なる点に注意します。",
+                "hint": "取り出す行数の上限を決めるキーワードです。",
+                "example": "一覧画面で、最初の10件だけを表示したいときは、LIMIT 10 を使います。データが大量にあっても、先頭の10件だけを読み込めば済むので、画面が速く表示されます。"
+              },
+              {
+                "id": "q-beg-SQL初級プロジェクト-3",
+                "text": "顧客がどの都道府県に住んでいるかを、重複なく一覧にしたいときに使うのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "SELECT DISTINCT prefecture FROM customers;",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "SELECT UNIQUE prefecture FROM customers;",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "SELECT ONLY prefecture FROM customers;",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "SELECT prefecture FROM customers GROUP;",
+                    "correct": false
+                  }
+                ],
+                "explanation": "SELECT DISTINCT は、結果から重複する行を取り除きます。同じ都道府県が何度出てきても、1回だけ表示されます。重複を取り除かないときは、DISTINCT を付けません。",
+                "hint": "同じ値の行を1つにまとめて、重複を取り除くキーワードがあります。",
+                "example": "顧客がどの都道府県に住んでいるかを、重複なく一覧にしたいとき、SELECT DISTINCT prefecture を使います。選択肢のプルダウンを作るときにも便利です。"
+              },
+              {
+                "id": "q-beg-SQL初級プロジェクト-4",
+                "text": "20 歳以上、かつ 30 歳以下の顧客を取り出す書き方として、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "WHERE age >= 20 OR age <= 30",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "WHERE age BETWEEN 20 AND 30",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "WHERE age > 20 AND age < 30",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "WHERE age IN (20, 30)",
+                    "correct": false
+                  }
+                ],
+                "explanation": "BETWEEN 20 AND 30 は、20 以上 30 以下（両端を含む）です。OR でつなぐと、ほぼ全員が対象になってしまいます。> と < では、20 と 30 が除かれます。IN は、列挙した値のどれかに一致するものです。",
+                "hint": "BETWEEN は、両端の値を含む範囲を指定できます。",
+                "example": "「20 代の顧客」を取り出したいとき、WHERE age BETWEEN 20 AND 29 と書きます。両端を含む範囲なので、29 歳までが対象です。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "sql-project-intermediate-1",
+            "title": "SQL 中級プロジェクト",
+            "content": "顧客と注文のデータを組み合わせて、売上の集計をしながら、JOIN と GROUP BY を確認します。",
+            "questions": [
+              {
+                "id": "q-int-SQL中級プロジェクト-1",
+                "text": "顧客ごとの注文の合計金額を求めるクエリの骨組みとして、正しいのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "SELECT customer_id, SUM(amount) FROM orders ORDER BY customer_id;",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "SELECT customer_id, SUM(amount) FROM orders GROUP BY customer_id;",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "SELECT customer_id, SUM(amount) FROM orders WHERE customer_id;",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "SELECT SUM(customer_id, amount) FROM orders;",
+                    "correct": false
+                  }
+                ],
+                "explanation": "SUM のような集計関数と、集計しない列（customer_id）を一緒に取り出すときは、その列で GROUP BY します。ORDER BY は並べ替えるだけで、まとめる働きはありません。",
+                "hint": "「顧客ごと」にまとめて合計するには、グループ化が必要です。",
+                "example": "「顧客ごとの累計購入額ランキング」を作るとき、orders を customer_id で GROUP BY し、SUM(amount) を求めて、ORDER BY SUM(amount) DESC で並べます。"
+              },
+              {
+                "id": "q-int-SQL中級プロジェクト-2",
+                "text": "注文が一度もない顧客を探すために、LEFT JOIN の後に付ける条件は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "WHERE orders.id = 0",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "WHERE orders.id = NULL",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "WHERE customers.id IS NULL",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "WHERE orders.id IS NULL",
+                    "correct": true
+                  }
+                ],
+                "explanation": "customers LEFT JOIN orders で、注文のない顧客の行は、orders 側の列がすべて NULL になります。そこで orders.id IS NULL の行だけに絞れば、注文のない顧客を取り出せます。= NULL では、常に一致しません。",
+                "hint": "LEFT JOIN で、右のテーブルに一致する行がないとき、右側の列は何になるでしょうか。",
+                "example": "「購入歴のない顧客にクーポンを送る」ときは、customers LEFT JOIN orders の結果から、WHERE orders.id IS NULL の顧客だけを取り出します。"
+              },
+              {
+                "id": "q-int-SQL中級プロジェクト-3",
+                "text": "月ごとの売上合計を求めるときに、まず必要になるのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "注文日から、年月の部分を取り出して、それで GROUP BY する",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "注文日の列を、そのまま SUM する",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "注文を 1 件ずつ、手作業で数える",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "注文日を ORDER BY して、先頭の月だけを使う",
+                    "correct": false
+                  }
+                ],
+                "explanation": "日付をそのまま GROUP BY すると、日ごとの集計になります。月ごとにするには、年月の部分だけを取り出して（例えば DATE_TRUNC や、年月のフォーマット関数を使って）、それでグループ化します。関数の名前は、データベースごとに異なります。",
+                "hint": "日付のままでは、日ごとに別のグループになってしまいます。",
+                "example": "「月別の売上推移」のグラフを作るとき、注文日から年月を取り出して、GROUP BY し、SUM(amount) を求めます。日付のままでは、日別の集計になります。"
+              },
+              {
+                "id": "q-int-SQL中級プロジェクト-4",
+                "text": "顧客が複数回注文していても、顧客数を1回ずつ数えるための書き方は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "COUNT(customer_id)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "COUNT(*)",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "SUM(customer_id)",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "COUNT(DISTINCT customer_id)",
+                    "correct": true
+                  }
+                ],
+                "explanation": "COUNT(DISTINCT 列名) は、重複を除いた値の数を数えます。COUNT(customer_id) や COUNT(*) は、行ごとに数えるので、同じ顧客の注文が複数あると、その回数分が数えられます。",
+                "hint": "同じ顧客が、何行にもわたって出てくる場合を考えます。",
+                "example": "「購入した顧客の人数」を知りたいときは、COUNT(DISTINCT customer_id) を使います。COUNT(*) では、注文の件数になってしまいます。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "sql-project-advanced-1",
+            "title": "SQL 上級プロジェクト",
+            "content": "運用中のデータを扱う場面で、性能と安全性の判断を確認します。",
+            "questions": [
+              {
+                "id": "q-adv-SQL上級プロジェクト-1",
+                "text": "注文テーブルの検索が遅いとき、最初に調べるべきなのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "遅い SQL の実行計画（EXPLAIN）を見て、インデックスが使われているかを確認する",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "再起動して、様子を見る",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "すべての列に、インデックスを付ける",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "テーブルを、複数のファイルにコピーする",
+                    "correct": false
+                  }
+                ],
+                "explanation": "EXPLAIN で実行計画を見ると、インデックスが使われているか、全行を読んでいるかなどが分かります。原因が分かってから、WHERE や JOIN に使う列に、インデックスを足すなどの対策を行います。何でも付けると、書き込みが遅くなります。",
+                "hint": "推測で対策する前に、データベースがどう処理しているかを見ます。",
+                "example": "一覧画面が急に遅くなったとき、闇雲にインデックスを足す前に、EXPLAIN で実行計画を見て、全行を読んでいる箇所を見つけます。"
+              },
+              {
+                "id": "q-adv-SQL上級プロジェクト-2",
+                "text": "商品の在庫を減らしながら、注文を登録する処理で、トランザクションを使う理由は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "処理を、速くするため",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "SQL を、短く書くため",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "途中で失敗しても、在庫だけが減って注文が残らない、という矛盾を防ぐため",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "テーブルの構造を、変えるため",
+                    "correct": false
+                  }
+                ],
+                "explanation": "在庫の更新と注文の登録を、1つのトランザクションにすれば、片方が失敗したとき、ROLLBACK で両方を取り消せます。在庫が減ったのに注文が記録されない、といった矛盾を防げます。",
+                "hint": "在庫の更新と、注文の登録の、どちらか一方だけが成功した状態を考えてみます。",
+                "example": "決済処理で、在庫の更新と注文の登録のうち、片方だけが成功して止まると、返金や在庫の調整といった、後始末が大変になります。トランザクションで、一緒に確定させます。"
+              },
+              {
+                "id": "q-adv-SQL上級プロジェクト-3",
+                "text": "本番のデータに対して、条件付きで大量に UPDATE する前にすべきことは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "とりあえず実行して、結果を見てから考える",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "WHERE は、最後に付け足す",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "同じ WHERE 条件で SELECT して対象の行を確かめ、バックアップやトランザクションも用意する",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "夜中に、こっそり実行する",
+                    "correct": false
+                  }
+                ],
+                "explanation": "同じ WHERE で SELECT し、対象の行数と中身が意図どおりかを確かめます。そのうえで、バックアップを取り、トランザクションの中で実行して、結果が確認できてから COMMIT します。取り返しがつかなくなる前の備えです。",
+                "hint": "取り消せない書き換えを、間違った範囲に実行したときの被害を考えます。",
+                "example": "「割引対象の商品の価格を 10% 下げる」UPDATE を本番で実行する前に、同じ WHERE で SELECT して、対象の件数と中身を、必ず確かめます。"
+              },
+              {
+                "id": "q-adv-SQL上級プロジェクト-4",
+                "text": "WHERE 句の中で、インデックスが効きにくくなる書き方は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "WHERE id = 100",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "WHERE created_at >= '2026-01-01'",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "WHERE email = 'a@example.com'",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "WHERE LOWER(email) = 'a@example.com'（列に関数を適用している）",
+                    "correct": true
+                  }
+                ],
+                "explanation": "列に関数を適用すると、索引に保存されている値と比べられなくなり、全行を読むことになりがちです。条件は、列を加工する側ではなく、比較する値の側で合わせるのが基本です。必要なら、関数用のインデックスを作る方法もあります。",
+                "hint": "索引は、列の値そのものをもとに作られています。",
+                "example": "WHERE LOWER(email) = ... のように、列に関数を使うと、email のインデックスが効かず、全行を読むことになります。比較する値のほうで、大文字小文字をそろえます。"
+              }
+            ]
+          }
+        ]
+      },
+      "beginner": [
+        {
+          "id": "sql-beginner-1",
+          "title": "データの取り出しと絞り込み",
+          "content": "SELECT でテーブルからデータを取り出し、条件で絞り込み、並べ替える基本を学びます。",
+          "questions": [
+            {
+              "id": "q-beg-データの取り出しと絞り込み-1",
+              "text": "users テーブルのすべての列、すべての行を取り出す書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "GET * FROM users;",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "SELECT * FROM users;",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "SELECT users FROM *;",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "FETCH ALL users;",
+                  "correct": false
+                }
+              ],
+              "explanation": "SELECT の後に取り出す列を書き、FROM の後にテーブル名を書きます。* は「すべての列」を表します。実際の開発では、必要な列だけを書くほうが、速く、意図も伝わります。",
+              "hint": "SQL でデータを取り出す命令は SELECT で、取り出す先のテーブルは FROM で指定します。",
+              "example": "管理画面で、会員の一覧を表示するとき、SELECT id, name, email FROM users; のように、必要な列だけを取り出すと、速く、意図も分かりやすくなります。"
+            },
+            {
+              "id": "q-beg-データの取り出しと絞り込み-2",
+              "text": "年齢が 20 歳以上のユーザーだけを取り出すために、条件を書くキーワードは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "IF",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "FILTER",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "LIMIT",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "WHERE",
+                  "correct": true
+                }
+              ],
+              "explanation": "WHERE の後に条件を書くと、条件に合う行だけが取り出されます。SELECT * FROM users WHERE age >= 20; のように書きます。LIMIT は、取り出す行数の上限を決めるもので、条件の指定ではありません。",
+              "hint": "「どこ（Where）の行か」を指定するキーワードです。",
+              "example": "「20 歳以上の会員だけにお知らせを送りたい」とき、WHERE age >= 20 で対象の行だけを取り出します。条件が複数なら、AND や OR でつなぎます。"
+            },
+            {
+              "id": "q-beg-データの取り出しと絞り込み-3",
+              "text": "価格の高い順に並べ替えるための書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "ORDER BY price ASC",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "SORT BY price DESC",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "ORDER BY price DESC",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "GROUP BY price DESC",
+                  "correct": false
+                }
+              ],
+              "explanation": "ORDER BY 列名 DESC で、大きい順（降順）に並べ替えます。ASC は小さい順（昇順）で、省略したときの初期値です。GROUP BY は、行をまとめて集計するためのもので、並べ替えではありません。",
+              "hint": "並べ替えは ORDER BY、小さい順は ASC、大きい順は DESC です。",
+              "example": "商品の一覧を「価格の高い順」「新着順」で並べ替えたいとき、ORDER BY price DESC や ORDER BY created_at DESC を使います。"
+            },
+            {
+              "id": "q-beg-データの取り出しと絞り込み-4",
+              "text": "email 列が空（NULL）の行を取り出す条件として正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "WHERE email = NULL",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "WHERE email = ''",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "WHERE email == NULL",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "WHERE email IS NULL",
+                  "correct": true
+                }
+              ],
+              "explanation": "NULL は値ではなく「ない」状態なので、= で比べると、結果は常に不明になり、行が取り出されません。IS NULL と IS NOT NULL を使います。空文字（''）は、NULL とは別のものです。",
+              "hint": "NULL は「値が不明」という状態で、普通の値のように = では比べられません。",
+              "example": "メールアドレスが未登録の会員を探して連絡したいとき、WHERE email IS NULL を使います。email = NULL と書くと、1件も見つかりません。"
+            }
+          ]
+        },
+        {
+          "id": "sql-beginner-2",
+          "title": "データの追加・更新・削除",
+          "content": "データを書き換える命令と、書き換えるときに気をつけることを学びます。",
+          "questions": [
+            {
+              "id": "q-beg-データの追加・更新・削除-1",
+              "text": "users テーブルに新しい行を追加する命令は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "ADD users VALUES (...);",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "INSERT INTO users (name, age) VALUES ('田中', 25);",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "CREATE users (name, age) VALUES (...);",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "APPEND INTO users (...);",
+                  "correct": false
+                }
+              ],
+              "explanation": "INSERT INTO テーブル名 (列名...) VALUES (値...) で行を追加します。文字列はシングルクォートで囲みます。CREATE は、テーブルそのものを作る命令で、行の追加には使いません。",
+              "hint": "「挿入する」という意味の英単語が使われます。",
+              "example": "会員登録フォームから送信された内容を保存するとき、INSERT INTO users (name, email) VALUES (...) で、新しい行を1件追加します。"
+            },
+            {
+              "id": "q-beg-データの追加・更新・削除-2",
+              "text": "UPDATE 文で WHERE を付け忘れたときに起きるのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "エラーになり、何も更新されない",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "先頭の1行だけが更新される",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "テーブルのすべての行が更新される",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "何も起きない",
+                  "correct": false
+                }
+              ],
+              "explanation": "WHERE がないと、すべての行が対象になります。UPDATE users SET age = 0; と書くと、全ユーザーの年齢が 0 になります。DELETE も同じです。実行前に、同じ WHERE で SELECT して、対象の行を確かめる習慣が大切です。",
+              "hint": "WHERE は、どの行を対象にするかを決める条件です。それがないと対象は？",
+              "example": "「田中さんのメールアドレスだけを変更」するつもりで、WHERE を忘れて UPDATE users SET email = ... と実行すると、全会員のメールアドレスが同じになってしまいます。"
+            },
+            {
+              "id": "q-beg-データの追加・更新・削除-3",
+              "text": "主キー（PRIMARY KEY）の役割は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "データを暗号化する",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "列の値を、自動で大文字にする",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "テーブルの各行を、重複なく一意に識別する",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "テーブルを、読み取り専用にする",
+                  "correct": false
+                }
+              ],
+              "explanation": "主キーは、各行を一意に識別するための列（または列の組み合わせ）です。重複や NULL は許されません。「id = 3 の行」のように、特定の行を確実に指し示せるので、更新や削除、他のテーブルとの関連付けの基準になります。",
+              "hint": "id のような列が、よく主キーに使われます。",
+              "example": "会員の id を、1、2、3 と一意にしておくことで、「id = 3 の会員の住所を変更」のように、特定の1人を確実に指定できます。"
+            },
+            {
+              "id": "q-beg-データの追加・更新・削除-4",
+              "text": "SQL で文字列の値を書くときのルールとして正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "シングルクォート（'田中'）で囲む",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "クォートは付けない",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "バッククォート（`田中`）で囲む",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "角括弧（[田中]）で囲む",
+                  "correct": false
+                }
+              ],
+              "explanation": "標準的な SQL では、文字列の値はシングルクォートで囲みます。ダブルクォートは、列名などの名前を囲むために使われる場合があり、データベースによって扱いが異なります。値と名前を混同しないように気をつけます。",
+              "hint": "一般的な SQL では、文字列の値と、列名やテーブル名は区別されます。",
+              "example": "名前が '田中' の会員を探すときは WHERE name = '田中' と、シングルクォートで囲みます。クォートを忘れると、列名として解釈され、エラーになります。"
+            }
+          ]
+        }
+      ],
+      "intermediate": [
+        {
+          "id": "sql-intermediate-1",
+          "title": "集計とグループ化",
+          "content": "件数や合計を求める集計関数と、グループごとに集計する方法を学びます。",
+          "questions": [
+            {
+              "id": "q-int-集計とグループ化-1",
+              "text": "orders テーブルの行数（注文件数）を数える書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "SELECT SUM(*) FROM orders;",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "SELECT NUMBER(*) FROM orders;",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "SELECT COUNT(*) FROM orders;",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "SELECT LENGTH(*) FROM orders;",
+                  "correct": false
+                }
+              ],
+              "explanation": "COUNT(*) は、行の数を数えます。SUM は列の合計、AVG は平均、MAX と MIN は最大値と最小値を求めます。COUNT(列名) と書くと、その列が NULL でない行だけを数える点が違います。",
+              "hint": "集計関数の COUNT は、行の数を数えます。",
+              "example": "ダッシュボードに、今月の注文件数を表示したいとき、SELECT COUNT(*) FROM orders WHERE ... で、件数だけを求めます。"
+            },
+            {
+              "id": "q-int-集計とグループ化-2",
+              "text": "部署ごとの人数を求めるために、SELECT の最後に付けるのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "ORDER BY department",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "WHERE department",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "LIMIT department",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "GROUP BY department",
+                  "correct": true
+                }
+              ],
+              "explanation": "GROUP BY 列名 で、同じ値の行を1つのグループにまとめ、グループごとに COUNT などを計算します。SELECT department, COUNT(*) FROM employees GROUP BY department; のように書きます。",
+              "hint": "「部署ごと」に行をまとめて、集計関数を適用します。",
+              "example": "部署ごとの人数や、商品カテゴリごとの在庫数のように、「〜ごと」の集計をしたいときは、GROUP BY を使います。"
+            },
+            {
+              "id": "q-int-集計とグループ化-3",
+              "text": "WHERE と HAVING の違いとして正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "WHERE は集計の後、HAVING は集計の前に使う",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "WHERE はグループ化の前の行を絞り、HAVING はグループ化した後の結果を絞る",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "どちらも同じ意味で、書き方の好みである",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "HAVING は SELECT 文では使えない",
+                  "correct": false
+                }
+              ],
+              "explanation": "WHERE は、グループ化の前に、個々の行を絞ります。集計関数の結果は、グループ化の後でないと分からないので、それで絞るときは HAVING を使います。例: GROUP BY department HAVING COUNT(*) >= 5。",
+              "hint": "集計関数の結果（COUNT(*) > 5 など）で絞りたいときは、どちらを使うでしょうか。",
+              "example": "「5 件以上注文した顧客だけを探す」ときは、集計した結果で絞りたいので、GROUP BY customer_id HAVING COUNT(*) >= 5 と書きます。WHERE ではできません。"
+            },
+            {
+              "id": "q-int-集計とグループ化-4",
+              "text": "AVG(score) の結果について、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "NULL の行も、0 として計算される",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "NULL の行があると、エラーになる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "最初の行の値が返される",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "NULL の行は、計算から除外される",
+                  "correct": true
+                }
+              ],
+              "explanation": "AVG、SUM、COUNT(列名) などの集計関数は、NULL の行を無視して計算します。そのため、NULL を 0 として平均したいときは、COALESCE(score, 0) のように、明示的に変換する必要があります。",
+              "hint": "集計関数は、NULL を「値がない」と扱います。",
+              "example": "アンケートの平均点を出すとき、未回答（NULL）の人は計算から外れます。未回答を 0 点として平均したいなら、COALESCE(score, 0) を使います。"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-2",
+          "title": "JOIN とサブクエリ",
+          "content": "複数のテーブルを結び付けて、必要なデータを取り出す方法を学びます。",
+          "questions": [
+            {
+              "id": "q-int-JOINとサブクエリ-1",
+              "text": "orders テーブルと users テーブルを user_id で結び付けて、両方に存在する行だけを取り出すのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "INNER JOIN",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "LEFT JOIN",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "CROSS JOIN",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "UNION",
+                  "correct": false
+                }
+              ],
+              "explanation": "INNER JOIN は、結合の条件に一致する行だけを返します。一致しない行は、どちらのテーブルのものも結果に出ません。書き方は、FROM orders INNER JOIN users ON orders.user_id = users.id のようになります。",
+              "hint": "「内側」の、両方に一致する行だけです。",
+              "example": "注文一覧に、注文した人の名前も一緒に表示したいとき、orders と users を user_id で INNER JOIN して、名前の列を取り出します。"
+            },
+            {
+              "id": "q-int-JOINとサブクエリ-2",
+              "text": "注文が1件もないユーザーも含めて、全ユーザーを一覧にしたいときに使うのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "users INNER JOIN orders",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "orders LEFT JOIN users",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "users LEFT JOIN orders",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "users CROSS JOIN orders",
+                  "correct": false
+                }
+              ],
+              "explanation": "LEFT JOIN は、左のテーブルの行をすべて残し、右に一致する行がなければ、その列を NULL にします。「全ユーザー」を残したいので、users を左に書きます。orders LEFT JOIN users では、全注文が残るので、意図と逆になります。",
+              "hint": "LEFT JOIN は、左側に書いたテーブルのすべての行を残します。",
+              "example": "「まだ一度も注文していない会員」も含めて、会員ごとの注文件数を出したいときは、users を左に書いて LEFT JOIN します。"
+            },
+            {
+              "id": "q-int-JOINとサブクエリ-3",
+              "text": "JOIN で ON の条件を書き忘れると、起きるのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "結果が空になる",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "両方のテーブルの行のすべての組み合わせ（直積）が返る",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "先頭の行どうしだけが結び付く",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "必ずエラーになる",
+                  "correct": false
+                }
+              ],
+              "explanation": "結合の条件がないと、左の各行と右の各行のすべての組み合わせが返されます。100行と100行なら 10,000 行です。予想外に件数が増えたときは、ON の条件が漏れていないか、確認します。",
+              "hint": "「どの行どうしを結ぶか」の条件がないと、全部の組み合わせになります。",
+              "example": "JOIN の ON を書き忘れると、1,000 件の注文と 1,000 人の会員のすべての組み合わせ、100 万件が返ってきます。件数が異常に多いときは、ON を疑います。"
+            },
+            {
+              "id": "q-int-JOINとサブクエリ-4",
+              "text": "外部キー（FOREIGN KEY）の役割は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "行を、自動で並べ替える",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "列の値を、暗号化して保存する",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "テーブルの、読み込みを速くする",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "他のテーブルの主キーを参照し、存在しない値が入らないように保つ",
+                  "correct": true
+                }
+              ],
+              "explanation": "外部キーは、他のテーブルの行への参照を表します。存在しない user_id の注文を登録しようとするとエラーにでき、データの整合性が保たれます。JOIN で結び付けるときの、基準になる列でもあります。",
+              "hint": "orders.user_id には、実際に存在する users.id だけが入ってほしいはずです。",
+              "example": "存在しない会員の id で、注文を登録しようとしても、外部キーがあれば、エラーになります。「持ち主のいない注文」が紛れ込むのを防げます。"
+            }
+          ]
+        }
+      ],
+      "advanced": [
+        {
+          "id": "sql-advanced-1",
+          "title": "設計・性能・安全性",
+          "content": "大きなデータや、複数の利用者を前提にしたときに、気をつける点を学びます。",
+          "questions": [
+            {
+              "id": "q-adv-設計・性能・安全性-1",
+              "text": "インデックスについて、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "検索は速くなりやすいが、追加や更新は遅くなり、容量も使う",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "付ければ付けるほど、すべての処理が速くなる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "SELECT にしか影響せず、デメリットはない",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "テーブルの並び順を、永久に固定する",
+                  "correct": false
+                }
+              ],
+              "explanation": "インデックスは、検索を速くするための索引です。ただし、行を追加・更新するたびに、索引も更新するため、書き込みは遅くなり、容量も使います。WHERE や JOIN によく使う列に、必要なものだけ付けるのが基本です。",
+              "hint": "本の巻末の索引を思い出してみましょう。索引を作る手間と、引くときの速さの関係です。",
+              "example": "会員が 100 万人いて、メールアドレスで検索するログイン処理が遅いとき、email 列にインデックスを付けると、速くなります。ただし、登録のたびに、索引も更新されます。"
+            },
+            {
+              "id": "q-adv-設計・性能・安全性-2",
+              "text": "トランザクションを使う目的は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "SELECT の結果を、自動でキャッシュする",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "テーブルの構造を、あとから変えやすくする",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "複数の更新を、ひとまとまりとして、すべて成功か、すべて取り消しにする",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "データベースの接続を、速くする",
+                  "correct": false
+                }
+              ],
+              "explanation": "トランザクションは、複数の処理をひとまとまりとして扱い、COMMIT ですべてを確定するか、ROLLBACK ですべてを取り消します。途中で失敗しても、引き落としだけが行われた、といった中途半端な状態を防げます。",
+              "hint": "「口座 A から引き落とし、口座 B に入金する」という、途中で止まってはいけない処理を考えます。",
+              "example": "ECサイトで、「在庫を減らす」と「注文を登録する」は、どちらも成功するか、どちらも取り消しか、のどちらかでなければなりません。トランザクションにまとめます。"
+            },
+            {
+              "id": "q-adv-設計・性能・安全性-3",
+              "text": "正規化の目的として最も適切なのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "テーブルの数を、できるだけ減らす",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "すべての列を、1つのテーブルにまとめる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "SELECT を、書かなくて済むようにする",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "同じ情報の重複を減らし、更新のずれや矛盾を防ぐ",
+                  "correct": true
+                }
+              ],
+              "explanation": "正規化は、同じ情報が複数の場所に重複しないよう、テーブルを分ける設計です。顧客の住所を customers テーブルだけに持たせれば、変更は1か所で済み、注文ごとにずれることもありません。",
+              "hint": "顧客の住所が、注文のたびに書かれていると、変更したときに何が起きるでしょうか。",
+              "example": "顧客の住所を、注文のたびに書いていると、引っ越しの変更が必要になったとき、過去の注文の住所とずれます。顧客テーブルに1か所だけ持たせます。"
+            },
+            {
+              "id": "q-adv-設計・性能・安全性-4",
+              "text": "アプリケーションから SQL を組み立てるとき、利用者の入力を、文字列として SQL に直接つなげてはいけない理由は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "文字数が増えて、SQL が遅くなるため",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "SQL インジェクションにより、意図しない SQL を実行される恐れがあるため",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "入力が、日本語だと動かなくなるため",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "大文字と小文字が、区別されなくなるため",
+                  "correct": false
+                }
+              ],
+              "explanation": "入力をそのまま SQL に連結すると、入力の中に書かれた SQL が、そのまま実行される恐れがあります（SQL インジェクション）。値は、プレースホルダ（?）などで別に渡す、プリペアドステートメントを使います。",
+              "hint": "入力欄に、SQL の一部になる文字列を書かれたら、どうなるでしょうか。",
+              "example": "ログイン画面の入力欄に、SQL の断片を書き込まれても、プレースホルダで値を渡していれば、SQL としては実行されません。文字列連結で作ると、危険です。"
+            }
+          ]
+        }
+      ],
+      "basics": {
+        "beginner": [
+          {
+            "id": "sql-basics-beginner",
+            "title": "テーブルとデータの基本操作",
+            "content": "データベースは、表（テーブル）の形でデータを管理します。SQL は、その表に「問い合わせ」をするための言語です。取り出す、追加する、更新する、削除する、の4つの基本を押さえましょう。",
+            "sections": [
+              {
+                "heading": "テーブル、行、列、主キー",
+                "body": "テーブルは、行（1件のデータ）と列（項目）でできた表です。各行を一意に識別するための列を主キー（PRIMARY KEY）といい、id のような列がよく使われます。主キーがあるので、「id が 3 の行」のように、特定の1件を確実に指せます。",
+                "example": "会員テーブルなら、1行が1人の会員、列が名前やメールアドレスです。id が、その会員の識別番号になります。"
+              },
+              {
+                "heading": "SELECT で取り出す",
+                "body": "SELECT の後に取り出す列を、FROM の後にテーブル名を書きます。* はすべての列を表しますが、実際の開発では、必要な列だけを書くのが基本です。",
+                "code": "SELECT name, email FROM users;\nSELECT * FROM users;"
+              },
+              {
+                "heading": "WHERE と ORDER BY で絞り込み・並べ替え",
+                "body": "WHERE で条件に合う行だけを取り出し、ORDER BY で並べ替えます。ASC は小さい順（初期値）、DESC は大きい順です。NULL（値がない）かどうかは、= ではなく IS NULL で調べます。",
+                "code": "SELECT name, age FROM users\nWHERE age >= 20 AND email IS NOT NULL\nORDER BY age DESC;"
+              },
+              {
+                "heading": "INSERT・UPDATE・DELETE",
+                "body": "行を追加するには INSERT、更新するには UPDATE、削除するには DELETE を使います。UPDATE と DELETE は、WHERE を付け忘れると、全行が対象になります。実行前に、同じ条件で SELECT して、対象を確かめる習慣が大切です。",
+                "code": "INSERT INTO users (name, age) VALUES ('田中', 25);\nUPDATE users SET age = 26 WHERE id = 1;\nDELETE FROM users WHERE id = 1;"
+              },
+              {
+                "heading": "文字列の書き方と部分一致",
+                "body": "文字列の値は、シングルクォートで囲みます。部分一致で探すときは LIKE を使い、% は「任意の文字列」を表します。",
+                "code": "SELECT * FROM users WHERE name = '田中';\nSELECT * FROM users WHERE name LIKE '%田%';"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "sql-basics-intermediate",
+            "title": "集計と、複数のテーブルの結合",
+            "content": "実際のデータは、複数のテーブルに分けて保存されます。件数や合計を求める集計と、テーブルを結び付ける JOIN が、実務の中心です。",
+            "sections": [
+              {
+                "heading": "集計関数",
+                "body": "COUNT（件数）、SUM（合計）、AVG（平均）、MAX と MIN（最大と最小）が、基本の集計関数です。NULL の行は、計算から除外されます。COUNT(*) は行数を、COUNT(列名) は、その列が NULL でない行の数を数えます。",
+                "code": "SELECT COUNT(*), SUM(amount), AVG(amount) FROM orders;"
+              },
+              {
+                "heading": "GROUP BY と HAVING",
+                "body": "GROUP BY で、同じ値の行をグループにまとめ、グループごとに集計します。WHERE はグループ化の前の行を絞り、HAVING はグループ化した後の結果（集計の結果）を絞ります。",
+                "code": "SELECT department, COUNT(*) AS members\nFROM employees\nWHERE active = 1\nGROUP BY department\nHAVING COUNT(*) >= 5;"
+              },
+              {
+                "heading": "INNER JOIN と LEFT JOIN",
+                "body": "JOIN で、複数のテーブルを、共通の列（外部キーと主キー）で結び付けます。INNER JOIN は、両方に一致する行だけを返します。LEFT JOIN は、左のテーブルの行をすべて残し、右に一致する行がなければ、右側の列を NULL にします。",
+                "code": "SELECT u.name, o.amount\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id;"
+              },
+              {
+                "heading": "ON を書き忘れない",
+                "body": "JOIN で結合の条件（ON）を書き忘れると、左右のすべての組み合わせ（直積）が返され、行数が急激に増えます。件数が予想よりずっと多いときは、まず ON を疑います。"
+              },
+              {
+                "heading": "外部キーとデータの整合性",
+                "body": "外部キーは、他のテーブルの主キーへの参照です。orders.user_id に、存在する users.id だけが入るよう保つことで、「持ち主のいない注文」のような矛盾を防げます。JOIN で結び付ける基準にもなります。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "sql-basics-advanced",
+            "title": "設計・性能・安全性",
+            "content": "データが増え、複数の人が同時に使うようになると、速さと正しさの両方が求められます。判断の理由まで理解しましょう。",
+            "sections": [
+              {
+                "heading": "インデックス",
+                "body": "インデックスは、検索を速くするための索引です。WHERE や JOIN によく使う列に付けると効果があります。ただし、行を追加・更新するたびに索引も更新され、容量も使うため、むやみに付けないようにします。列に関数を適用した条件では、効かなくなることがあります。",
+                "code": "CREATE INDEX idx_users_email ON users (email);\n\n-- 効く:   WHERE email = 'a@example.com'\n-- 効きにくい: WHERE LOWER(email) = 'a@example.com'"
+              },
+              {
+                "heading": "実行計画（EXPLAIN）",
+                "body": "遅いクエリは、推測ではなく、EXPLAIN で実行計画を見て原因を調べます。インデックスが使われているか、全行を読んでいないかを確かめてから、対策を決めます。",
+                "code": "EXPLAIN SELECT * FROM orders WHERE customer_id = 100;"
+              },
+              {
+                "heading": "トランザクション",
+                "body": "複数の更新を、ひとまとまりとして扱う仕組みです。COMMIT ですべてを確定し、ROLLBACK ですべてを取り消します。途中で失敗しても、中途半端な状態が残りません。",
+                "code": "BEGIN;\nUPDATE stocks SET quantity = quantity - 1 WHERE product_id = 10;\nINSERT INTO orders (product_id, user_id) VALUES (10, 3);\nCOMMIT;"
+              },
+              {
+                "heading": "正規化",
+                "body": "同じ情報が、複数の場所に重複しないよう、テーブルを分ける設計です。顧客の住所を customers だけに持たせれば、変更は1か所で済み、注文ごとにずれることがありません。分けすぎると、JOIN が増えて複雑になるため、バランスを考えます。"
+              },
+              {
+                "heading": "SQL インジェクションと、安全な書き換え",
+                "body": "利用者の入力を、文字列として SQL に連結すると、入力に含まれた SQL が実行される危険があります。値は、プレースホルダで別に渡す（プリペアドステートメント）ようにします。また、本番のデータを書き換える前は、同じ WHERE で SELECT して対象を確かめ、バックアップとトランザクションを用意します。",
+                "code": "-- 危険: \"SELECT * FROM users WHERE name = '\" + input + \"'\"\n-- 安全: SELECT * FROM users WHERE name = ?   -- 値は別に渡す"
+              }
+            ]
+          }
+        ]
+      },
+      "thinking": {
+        "beginner": [
+          {
+            "id": "sql-thinking-beginner",
+            "title": "書き換えの前に、確かめる",
+            "content": "正解は1つではありません。ここまでの知識を使って、自分の言葉で考えを書いてみましょう。書き終えたら、観点チェックと模範解答で見直します。",
+            "prompts": [
+              {
+                "id": "sql-thinking-beginner-1",
+                "scenario": "新人のあなたは、「会員 id 5 の田中さんのメールアドレスを変更する」作業を頼まれました。先輩が、次の SQL を書いて、「本番に流して」と言って席を立ちました。",
+                "code": "UPDATE users SET email = 'tanaka-new@example.com';",
+                "question": "この SQL に、どんな問題があるかを説明し、実行前にどんな確認をするべきかを書いてください。",
+                "checkpoints": [
+                  "WHERE がないため、全会員のメールアドレスが書き換わることを指摘している",
+                  "WHERE id = 5 を付ける、という修正案を示している",
+                  "同じ WHERE で SELECT して、対象が1行であることを確かめる、という手順に触れている",
+                  "本番の変更前に、バックアップやトランザクションを用意する、などの備えに触れている"
+                ],
+                "modelAnswer": "この SQL には WHERE がないため、全会員のメールアドレスが、同じ値に書き換わってしまいます。意図は「id 5 の田中さんだけ」なので、WHERE id = 5 を付ける必要があります。流す前に、まず同じ条件で SELECT * FROM users WHERE id = 5; を実行し、対象が田中さんの1行だけであることを確かめます。そのうえで、念のためバックアップを取り、トランザクションの中で UPDATE を実行して、更新された行数が1行であることを確認してから COMMIT します。もし1行でなければ、ROLLBACK で取り消せます。本番の書き換えは、実行後に取り消せないことがあるため、実行前の確認がいちばん大切です。",
+                "tip": "UPDATE と DELETE を書いたら、実行する前に、WHERE が付いているかを必ず目で確認しましょう。"
+              },
+              {
+                "id": "sql-thinking-beginner-2",
+                "scenario": "会員テーブルの email 列が、空（NULL）の会員に、メールアドレスの登録をお願いするお知らせを送りたいです。後輩が、次の SQL を書きましたが、1件もヒットしません。",
+                "code": "SELECT * FROM users WHERE email = NULL;",
+                "question": "なぜヒットしないのかを説明し、正しい書き方を示してください。",
+                "checkpoints": [
+                  "NULL は「値がない」状態で、通常の値のように = で比べられないことを説明している",
+                  "= NULL の結果は、真にならず、どの行も一致しないことに触れている",
+                  "IS NULL を使った正しい書き方を示している",
+                  "空文字（''）と NULL は別物で、両方を対象にしたいときは条件を足す必要があることに触れている"
+                ],
+                "modelAnswer": "NULL は、「値が不明」あるいは「値がない」状態を表すもので、普通の値と違い、= で比べられません。email = NULL の結果は、真ではなく「不明」になるため、どの行も一致せず、1件もヒットしません。正しくは、WHERE email IS NULL と書きます。逆に、NULL でないものは IS NOT NULL です。なお、空文字（''）は、NULL とは別のものです。画面から空のまま登録された場合、NULL ではなく空文字で保存されている場合もあるため、両方を対象にするなら、WHERE email IS NULL OR email = '' のように、条件を足します。",
+                "tip": "NULL の判定は、= ではなく IS NULL。これだけは、体に染み込ませておきましょう。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "sql-thinking-intermediate",
+            "title": "集計の結果を、正しく読む",
+            "content": "集計や JOIN は、書き方を少し間違えるだけで、一見もっともらしい、誤った数字が出ます。原因を考えてみましょう。",
+            "prompts": [
+              {
+                "id": "sql-thinking-intermediate-1",
+                "scenario": "会員（users）と、注文（orders）のテーブルがあります。「会員ごとの注文件数」の一覧を作るため、次の SQL を書いたところ、一度も注文していない会員が一覧に出てきません。",
+                "code": "SELECT u.name, COUNT(o.id) AS order_count\nFROM users u\nINNER JOIN orders o ON o.user_id = u.id\nGROUP BY u.id, u.name;",
+                "question": "なぜ、注文のない会員が出ないのかを説明し、直し方を書いてください。",
+                "checkpoints": [
+                  "INNER JOIN は、両方に一致する行だけを返すため、注文のない会員が除かれることを説明している",
+                  "LEFT JOIN に変える、という修正案を示している",
+                  "注文のない会員は、o.id が NULL になり、COUNT(o.id) が 0 になることを説明している",
+                  "COUNT(*) だと、注文のない会員も 1 件と数えてしまう、といった注意点に触れている"
+                ],
+                "modelAnswer": "INNER JOIN は、users と orders の両方に一致する行だけを返します。そのため、一度も注文していない会員は、結合の結果に出ず、一覧からも消えます。全会員を残したいので、users を左に書いて LEFT JOIN に変えます。LEFT JOIN では、注文のない会員も行が残り、orders 側の列は NULL になります。COUNT(o.id) は、NULL を数えないので、注文のない会員の件数は 0 になり、期待どおりの一覧になります。ここで COUNT(*) を使うと、結合後の行が 1 行あるため、注文のない会員も 1 件と数えてしまうので、COUNT(o.id) のように、注文側の列を数えるのがポイントです。",
+                "tip": "「全部の〇〇を残したい」と思ったら、残したいほうを左に書いて LEFT JOIN、と考えましょう。"
+              },
+              {
+                "id": "sql-thinking-intermediate-2",
+                "scenario": "月次レポートで、「今月の売上合計」を出したところ、経理の数字より、ずっと大きくなりました。調べると、注文（orders）と注文明細（order_items）を JOIN して、注文の金額（orders.total）を SUM していました。1つの注文には、明細が複数あります。",
+                "code": "SELECT SUM(o.total)\nFROM orders o\nJOIN order_items i ON i.order_id = o.id;",
+                "question": "数字が大きくなった理由を説明し、正しい集計の方法を書いてください。",
+                "checkpoints": [
+                  "1つの注文に明細が複数あると、JOIN で注文の行が明細の数だけ複製されることを説明している",
+                  "複製された行の orders.total が、何度も足されて、二重に数えられることを指摘している",
+                  "注文だけで集計する、または明細の金額（単価 × 数量）を SUM する、などの対策を示している",
+                  "JOIN の前後で、行数がどう変わるかを確かめる習慣に触れている"
+                ],
+                "modelAnswer": "1つの注文に明細が3行あれば、JOIN すると、その注文の行が3行に複製されます。orders.total は注文単位の金額なので、複製された分だけ、何度も足され、売上が二重、三重に数えられて、大きくなります。正しい集計は、2通りあります。1つは、注文単位の金額なので、JOIN せず、orders だけで SUM(total) を求める方法です。もう1つは、明細の金額（単価 × 数量）を、order_items 側で SUM する方法です。集計の前に、JOIN した後の行数が、元のテーブルより増えていないかを確かめておくと、このような二重カウントに早く気づけます。",
+                "tip": "「1対多」の JOIN をしたら、1側の金額の列を SUM してはいけない、と覚えておきましょう。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "sql-thinking-advanced",
+            "title": "運用での判断",
+            "content": "本番のデータベースでは、「動くか」だけでなく、「速いか」「安全か」「取り返しがつくか」を考える必要があります。判断の理由まで書いてみましょう。",
+            "prompts": [
+              {
+                "id": "sql-thinking-advanced-1",
+                "scenario": "会員テーブル（500 万行）の、メールアドレスでのログイン検索が遅くなり、ユーザーから苦情が出ています。先輩は、「とりあえず、全部の列にインデックスを付けよう」と言っています。",
+                "question": "この案の問題点を指摘し、どんな順で原因を調べて、対策を決めるべきかを書いてください。",
+                "checkpoints": [
+                  "全部の列にインデックスを付けると、書き込みが遅くなり、容量も使うことを指摘している",
+                  "EXPLAIN で実行計画を見て、全行を読んでいないかを確認する手順を示している",
+                  "WHERE で使っている email 列に、必要なインデックスを付ける案を示している",
+                  "列に関数を適用していないか、といった、インデックスが効かない書き方の確認に触れている"
+                ],
+                "modelAnswer": "全部の列にインデックスを付けると、会員の登録や更新のたびに、すべての索引を更新することになり、書き込みが遅くなります。容量も大きく増えるので、感心しません。まず EXPLAIN で、ログインの検索 SQL の実行計画を見て、500 万行を全部読んでいる（全件スキャン）かを確認します。WHERE email = ... で検索しているのなら、email 列に、インデックスを1つ付ければ、大きく改善する可能性が高いです。ただし、WHERE LOWER(email) = ... のように、列に関数を適用していると、インデックスが効かないので、書き方も確認します。付けたあとに、もう一度 EXPLAIN で効いていることを確かめ、実際の検索時間も測って、効果を確認します。",
+                "tip": "「遅い」ときは、推測で対策せず、まず計測。インデックスは、必要な列に必要な分だけ付けます。"
+              },
+              {
+                "id": "sql-thinking-advanced-2",
+                "scenario": "あなたのチームでは、商品の購入処理で、「在庫を1減らす」「注文を登録する」「ポイントを付ける」の3つの SQL を、順番に別々に実行しています。ある日、サーバーが途中で止まり、「在庫は減ったのに、注文が登録されていない」という不具合が、複数件見つかりました。",
+                "question": "原因と、同じ問題を防ぐための対策を書いてください。また、対策を入れたときに、利用者の入力を扱うコードで気をつけることも書いてください。",
+                "checkpoints": [
+                  "3つの更新が別々に確定され、途中で止まると、中途半端な状態が残ることを説明している",
+                  "3つの更新を1つのトランザクションにまとめ、失敗時は ROLLBACK で取り消す対策を示している",
+                  "トランザクションを使えば、すべて成功か、すべて取り消しのどちらかになることを説明している",
+                  "入力値は、文字列連結ではなく、プレースホルダ（プリペアドステートメント）で渡す、という SQL インジェクション対策に触れている"
+                ],
+                "modelAnswer": "原因は、3つの更新を、それぞれ別々に実行して、確定しているためです。途中でサーバーが止まると、「在庫は減ったが、注文は登録されていない」という中途半端な状態が、そのまま残ります。対策は、3つの更新を1つのトランザクションにまとめることです。BEGIN で始めて、3つの更新を実行し、すべて成功したら COMMIT、途中で失敗したら ROLLBACK で、すべてを取り消します。これで、「すべて成功」か「すべて取り消し」のどちらかになり、矛盾した状態が残りません。また、商品の id や数量など、利用者の入力から来る値を SQL に組み込むときは、文字列として連結せず、プレースホルダで別に渡します。連結すると、SQL インジェクションで、意図しない SQL を実行される危険があるためです。",
+                "tip": "「途中で止まったら、どうなるか」を考えるクセをつけると、トランザクションの必要な場面に気づけます。"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "shortLabel": "SQ"
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "description": "JavaScript に型を加えて、間違いに早く気づける書き方を学びます",
+    "icon": "fa-solid fa-code",
+    "lessons": {
+      "projects": {
+        "beginner": [
+          {
+            "id": "typescript-project-beginner-1",
+            "title": "TypeScript 初級プロジェクト",
+            "content": "ToDo アプリのデータに型を付けながら、型注釈と型エラーの読み方を確認します。",
+            "questions": [
+              {
+                "id": "q-beg-TypeScript初級プロジェクト-1",
+                "text": "ToDo の「id、タイトル、完了したかどうか」を表す型として、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "interface Todo { id: string; title: number; done: string }",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "interface Todo { id: number; title: string; done: boolean }",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "interface Todo { id: any; title: any; done: any }",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "interface Todo { id; title; done }",
+                    "correct": false
+                  }
+                ],
+                "explanation": "id は数値、title は文字列、完了したかどうかは true / false の boolean が自然です。any にすると、型のチェックが効かなくなります。プロパティの意味に合う型を付けるのが、型を使う第一歩です。",
+                "hint": "完了したかどうかは、「はい」か「いいえ」の2択です。",
+                "example": "ToDo アプリで、id は数値、タイトルは文字列、完了したかどうかは true / false。それぞれに合った型を付けると、画面側でも、補完が正しく効きます。"
+              },
+              {
+                "id": "q-beg-TypeScript初級プロジェクト-2",
+                "text": "ToDo を複数持つ配列を、関数の引数として受け取るときの書き方は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "function show(todos: Todo)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "function show(todos: Todo[])",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "function show(todos: [Todo])",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "function show(todos: array)",
+                    "correct": false
+                  }
+                ],
+                "explanation": "Todo[] は、Todo の配列を表します。Todo だけでは、1件を意味します。[Todo] は、「要素が1つだけのタプル」という別の意味になるので、注意が必要です。",
+                "hint": "1つの Todo ではなく、Todo が並んだものです。",
+                "example": "一覧を表示する関数に、todos: Todo[] と書いておけば、Todo ではないものの配列を渡したときに、すぐエラーで分かります。"
+              },
+              {
+                "id": "q-beg-TypeScript初級プロジェクト-3",
+                "text": "const todo: Todo = { id: 1, title: \"買い物\", done: false }; のあとに todo.done = \"yes\"; と書いたとき、型エラーになるのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "const todo の宣言（id が 1 のため）",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "どちらの行も、エラーにならない",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "どちらの行も、エラーになる",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "todo.done = \"yes\" の代入（done は boolean のため）",
+                    "correct": true
+                  }
+                ],
+                "explanation": "done は boolean 型なので、文字列 \"yes\" は代入できません。最初の行は、定義どおりの値なので問題ありません。エラーメッセージには、「string 型は boolean 型に割り当てられない」と出ます。型エラーは、メッセージをよく読むのが解決の近道です。",
+                "hint": "done は、boolean 型で宣言されています。",
+                "example": "「完了」の列に、うっかり \"yes\" と文字列を代入すると、エラーになります。メッセージには、「string は boolean に割り当てられない」と書かれています。"
+              },
+              {
+                "id": "q-beg-TypeScript初級プロジェクト-4",
+                "text": "関数 toggle(todo: Todo): Todo の、戻り値の型を書いておく利点は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "関数の実行が、速くなる",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "引数を、省略できるようになる",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "うっかり別の型を返す間違いを、書いた時点で見つけられる",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "関数の名前を、短くできる",
+                    "correct": false
+                  }
+                ],
+                "explanation": "戻り値の型を書いておくと、関数の中で、約束と違う値（例えば、完了を表す文字列）を返したときに、エラーで気づけます。関数を使う側も、中身を読まなくても、何が返るかが分かります。",
+                "hint": "戻り値の型は、関数が約束する「出力」の形です。",
+                "example": "ToDo の完了を切り替える関数に、戻り値の型を書いておけば、関数の中で、別の形のオブジェクトを返してしまったときに、その場で気づけます。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "typescript-project-intermediate-1",
+            "title": "TypeScript 中級プロジェクト",
+            "content": "API から取得したデータの状態を、型で表しながら、ユニオン型と絞り込みを確認します。",
+            "questions": [
+              {
+                "id": "q-int-TypeScript中級プロジェクト-1",
+                "text": "読み込み中、成功、失敗の3つの状態を、型で安全に表したいとき、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "loading: boolean, data?: User, error?: string のように、全部を省略可能にする",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "すべての状態を、any で扱う",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "string の1つの型で、状態も中身も表す",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "{ status: \"loading\" } | { status: \"success\"; data: User } | { status: \"error\"; message: string }",
+                    "correct": true
+                  }
+                ],
+                "explanation": "状態ごとに必要なプロパティを分けたユニオン型にすると、status を調べた分岐の中で、その状態に合うプロパティだけが使えます。省略可能なプロパティを並べるだけだと、矛盾した組み合わせを許してしまいます。",
+                "hint": "「失敗なのに data がある」といった矛盾した状態を、作れなくしたいところです。",
+                "example": "商品一覧の画面で、読み込み中、成功、失敗の3つの状態を、status で表しておけば、状態ごとの表示を、漏れなく書けます。"
+              },
+              {
+                "id": "q-int-TypeScript中級プロジェクト-2",
+                "text": "ユーザーの一部の項目だけを更新する関数の引数に、適切な型は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "User",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "Partial<User>",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "Readonly<User>",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "unknown",
+                    "correct": false
+                  }
+                ],
+                "explanation": "Partial<User> は、User のすべてのプロパティを省略可能にします。変更したい項目だけを渡せます。User をそのまま使うと、全項目の指定が必須になり、更新のたびに、全部を渡す必要があります。",
+                "hint": "名前だけ、メールアドレスだけ、といった一部の指定を許したい場面です。",
+                "example": "プロフィールの更新で、変更した項目だけをサーバーに送る関数は、引数を Partial<User> にします。全項目の指定を求めると、使いにくくなります。"
+              },
+              {
+                "id": "q-int-TypeScript中級プロジェクト-3",
+                "text": "ユーザーを検索して、見つからなければ undefined を返す関数 find(id): User | undefined の結果を使うときに、必要なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "undefined は、起きないものとして、そのまま使う",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "as User で、型を上書きして使う",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "undefined の場合の処理を書き、絞り込んでから使う",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "try ~ catch で、すべて囲む",
+                    "correct": false
+                  }
+                ],
+                "explanation": "User | undefined の値は、undefined の場合を扱わずに、user.name のようにアクセスすると、エラーになります。if (!user) { return; } のように分岐して、絞り込んでから使います。as で上書きすると、実行時に undefined のとき、不具合になります。",
+                "hint": "型に undefined が含まれているのは、「見つからないことがある」というコンパイラからの注意です。",
+                "example": "ID で会員を検索する関数が、見つからなければ undefined を返すとき、呼び出す側では、「見つからなかった場合」の処理を、必ず書きます。"
+              },
+              {
+                "id": "q-int-TypeScript中級プロジェクト-4",
+                "text": "async function fetchUser(): Promise<User> の Promise<User> が表すのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "非同期の処理が終わると、User が得られる",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "必ず User の配列になる",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "User 型が、使えなくなる",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "エラーが、必ず発生する",
+                    "correct": false
+                  }
+                ],
+                "explanation": "Promise<User> は、非同期の処理が完了したときに、User 型の値が得られることを表します。await すると、User 型として受け取れます。ジェネリクスで、「何が得られるか」を型で表している例です。",
+                "hint": "Promise<T> は、ジェネリクスの一例です。T の部分は、何を表すでしょうか。",
+                "example": "データを取得する関数が、Promise<User> を返すと宣言しておけば、await したあとの値が User 型として扱え、補完も効きます。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "typescript-project-advanced-1",
+            "title": "TypeScript 上級プロジェクト",
+            "content": "想定外のデータや、状態の追加漏れを、型で防ぐ設計を確認します。",
+            "questions": [
+              {
+                "id": "q-adv-TypeScript上級プロジェクト-1",
+                "text": "JSON.parse の結果を、安全に扱うために適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "const data = JSON.parse(text) as User; として、そのまま使う",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "unknown として受け取り、型ガード関数や検証で確かめてから使う",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "any のまま、使い続ける",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "何もせず、型注釈もしない",
+                    "correct": false
+                  }
+                ],
+                "explanation": "JSON.parse は、実行時の文字列から作った値なので、型は保証されません。unknown として受け取り、中身を検証してから使うのが安全です。as で済ませると、データが違ったとき、実行時の不具合になります。",
+                "hint": "実行時に、本当に期待どおりの形かどうかを確かめる必要があります。",
+                "example": "外部から届いた JSON を、unknown として受け取り、「name が文字列か」「age が数値か」を確かめてから、User として扱います。"
+              },
+              {
+                "id": "q-adv-TypeScript上級プロジェクト-2",
+                "text": "function isUser(x: unknown): x is User のように、戻り値を x is User と書く関数の働きは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "x を、自動で User に変換する",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "x の型を、any に変える",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "true が返った分岐の中で、x を User 型として扱えるようにする",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "x が、必ず User であることを保証する",
+                    "correct": false
+                  }
+                ],
+                "explanation": "x is User は、型述語といい、関数が true を返したら、その後ろの分岐で、x を User 型として扱ってよいことを、コンパイラに伝えます。ただし、関数の中身の検証が間違っていると、型は嘘になるので、中身の検証は、しっかり書く必要があります。",
+                "hint": "型ガード関数と呼ばれます。結果が true なら、型を絞り込めます。",
+                "example": "isUser(x: unknown): x is User のような関数を用意しておけば、if (isUser(data)) の中だけ、data を User として安全に使えます。"
+              },
+              {
+                "id": "q-adv-TypeScript上級プロジェクト-3",
+                "text": "状態の種類が増えたときに、switch の処理の追加漏れを、コンパイル時に検出する方法は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "default で、never 型の変数に代入しておき、漏れがあれば型エラーにする",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "すべての分岐の末尾に、break を書く",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "コメントで、「追加漏れに注意」と書いておく",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "switch を、使わない",
+                    "correct": false
+                  }
+                ],
+                "explanation": "判別可能なユニオン型のすべての種類を処理したあと、default では、型が never になります。const _check: never = state; と書いておけば、新しい状態を追加して、処理を書き忘れたとき、never に代入できず、コンパイルエラーで気づけます。",
+                "hint": "すべての分岐で絞り込んだあとは、残りの型が「存在しない（never）」になるはずです。",
+                "example": "決済の状態に、新しく \"refunded\" を追加したときに、画面側の switch に、処理を書き忘れていると、コンパイルエラーで教えてくれます。"
+              },
+              {
+                "id": "q-adv-TypeScript上級プロジェクト-4",
+                "text": "型の設計で目指すべき方向として、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "できるだけ広い型（any や string）にして、エラーを減らす",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "不正な状態を、そもそも表現できないような型にする",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "すべてのプロパティを、オプショナルにする",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "型を付けず、テストだけで品質を守る",
+                    "correct": false
+                  }
+                ],
+                "explanation": "「失敗なのに、data が入っている」のような、ありえない状態を、型の上でも作れなくすると、バグの余地が減ります。広い型や、省略可能なプロパティを多用すると、不正な状態を許してしまい、型の効果が薄れます。",
+                "hint": "「ありえない組み合わせ」を、型の上で作れないようにする、という考え方です。",
+                "example": "「失敗なのに、データが入っている」ような、ありえない組み合わせを、型の上でも作れないようにしておけば、考える手間と、バグの余地が減ります。"
+              }
+            ]
+          }
+        ]
+      },
+      "beginner": [
+        {
+          "id": "typescript-beginner-1",
+          "title": "型の基本",
+          "content": "TypeScript が JavaScript に何を加えるのかと、型の書き方の基本を学びます。",
+          "questions": [
+            {
+              "id": "q-beg-型の基本-1",
+              "text": "TypeScript と JavaScript の関係として、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "TypeScript は、JavaScript とは全く別の言語で、互換性はない",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "TypeScript は、ブラウザがそのまま実行できる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "JavaScript に型の仕組みを加えた言語で、最終的には JavaScript に変換して実行する",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "TypeScript は、サーバー側でしか使えない",
+                  "correct": false
+                }
+              ],
+              "explanation": "TypeScript は、JavaScript に型を加えた言語です。書いたコードは、コンパイル（変換）されて JavaScript になり、それが実行されます。JavaScript の書き方は、そのまま TypeScript でも使えます。",
+              "hint": "ブラウザが実行できるのは JavaScript です。TypeScript のコードは、どうなるでしょうか。",
+              "example": "React や Node.js のプロジェクトで、.ts や .tsx のファイルを書いて、ビルドすると JavaScript に変換されます。ブラウザが実行するのは、変換後の JavaScript です。"
+            },
+            {
+              "id": "q-beg-型の基本-2",
+              "text": "let age: number = 20; のあとで、age = \"二十歳\"; と書いたときに起きるのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "何も起きず、そのまま実行される",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "コンパイル時（エディタ上）に、型のエラーになる",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "自動で、数値に変換される",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "実行したときにだけ、エラーになる",
+                  "correct": false
+                }
+              ],
+              "explanation": "型注釈（: number）が付いた変数に、文字列を代入しようとすると、コードを実行する前に、エディタやコンパイラがエラーとして教えてくれます。JavaScript では、実行して初めて気づく間違いに、書いている最中に気づけるのが、TypeScript の利点です。",
+              "hint": ": number は、この変数に入れてよい値の種類を表しています。",
+              "example": "価格を number で宣言した変数に、フォームから受け取った文字列をそのまま代入しようとすると、実行前に赤い波線が出て、間違いに気づけます。"
+            },
+            {
+              "id": "q-beg-型の基本-3",
+              "text": "let name = \"太郎\"; と、型を書かずに宣言したとき、name の型は______になります。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "any",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "object",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "unknown",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "string",
+                  "correct": true
+                }
+              ],
+              "explanation": "初期値から、型を自動で決める仕組みを、型推論といいます。\"太郎\" は文字列なので、name は string 型になります。型推論が効く場面では、型注釈を省略して、コードを簡潔に書けます。",
+              "hint": "初期値から、型を読み取る仕組みがあります。",
+              "example": "const count = 0; と書くだけで、count は number 型として扱われます。毎回、型を書かなくても、補完とチェックが効くのが、型推論の便利なところです。"
+            },
+            {
+              "id": "q-beg-型の基本-4",
+              "text": "any 型を多用しないほうがよい理由は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "型のチェックが効かなくなり、TypeScript を使う意味が薄れるため",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "any を使うと、コードが実行できなくなるため",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "any は、数値にしか使えないため",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "ブラウザによっては、any が使えないため",
+                  "correct": false
+                }
+              ],
+              "explanation": "any を付けた値は、型のチェックがすべて無効になり、間違った使い方もエラーになりません。必要な場面（型が分からない移行中のコードなど）に限り、できるだけ具体的な型を付けます。",
+              "hint": "any は「何でも入れてよい」という型です。",
+              "example": "ライブラリの型が分からず、とりあえず any を付けると、タイプミスのプロパティ名も、エラーになりません。あとで困るので、できるだけ具体的な型を探します。"
+            }
+          ]
+        },
+        {
+          "id": "typescript-beginner-2",
+          "title": "配列・オブジェクト・関数の型",
+          "content": "まとまったデータと、関数に型を付ける方法を学びます。",
+          "questions": [
+            {
+              "id": "q-beg-配列・オブジェクト・関数の型-1",
+              "text": "文字列だけが入る配列の型を表す書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "string",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "array<string>",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "string[]",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "[string]",
+                  "correct": false
+                }
+              ],
+              "explanation": "string[]（または Array<string>）が、文字列の配列を表します。string だけでは、1つの文字列を意味します。数値の配列なら number[] です。配列に別の型の値を入れようとすると、エラーになります。",
+              "hint": "要素の型の後ろに、角括弧を付けます。",
+              "example": "商品名の一覧を string[]、金額の一覧を number[] と宣言しておけば、金額の配列に、うっかり文字列を入れる間違いを防げます。"
+            },
+            {
+              "id": "q-beg-配列・オブジェクト・関数の型-2",
+              "text": "ユーザーのように、決まった形のオブジェクトの型を定義するときに使うのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "interface User { name: string; age: number }",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "class User = { name: string }",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "object User(name, age)",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "var User: { name, age }",
+                  "correct": false
+                }
+              ],
+              "explanation": "interface（または type）で、オブジェクトがどんなプロパティを持つかを定義します。定義したあと、const user: User = { name: \"太郎\", age: 20 } のように使うと、足りないプロパティや、型が違う値をエラーにできます。",
+              "hint": "オブジェクトの「形」に名前を付ける仕組みです。",
+              "example": "会員の情報を interface User { name: string; age: number } と定義しておけば、name を name2 とタイプミスしたり、age を入れ忘れたりしたときに、エラーで教えてくれます。"
+            },
+            {
+              "id": "q-beg-配列・オブジェクト・関数の型-3",
+              "text": "function add(a: number, b: number): number のうち、最後の : number が表すのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "引数の個数",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "関数の名前",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "関数の実行時間",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "関数の戻り値の型",
+                  "correct": true
+                }
+              ],
+              "explanation": "括弧の後ろの型は、戻り値の型です。この関数は、number を返すと宣言しています。戻り値の型を書いておけば、うっかり文字列を返しても、エラーで気づけます。",
+              "hint": "引数の型は、引数名の後ろに付いています。括弧の外に付いているものは？",
+              "example": "税込み価格を計算する関数に、: number と戻り値の型を書いておけば、うっかり、文字列（\"1,100円\"）を返したときに、すぐ気づけます。"
+            },
+            {
+              "id": "q-beg-配列・オブジェクト・関数の型-4",
+              "text": "interface Profile { name: string; nickname?: string } の nickname について、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "必ず指定しなければならない",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "省略してもよく、省略した場合は undefined になる",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "数値を入れなければならない",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "空文字を入れなければならない",
+                  "correct": false
+                }
+              ],
+              "explanation": "プロパティ名の後ろの ? は、オプション（省略可能）を表します。省略すると undefined になるので、nickname の型は、実質 string | undefined として扱われます。使うときは、undefined の場合も考える必要があります。",
+              "hint": "名前の後ろの ? は、あってもなくてもよいことを表します。",
+              "example": "プロフィール画面で、ニックネームは任意入力にしたいとき、nickname?: string と書きます。表示するときは、未入力（undefined）の場合の表示も、考えておきます。"
+            }
+          ]
+        }
+      ],
+      "intermediate": [
+        {
+          "id": "typescript-intermediate-1",
+          "title": "ユニオン型と絞り込み",
+          "content": "「AかBのどちらか」を表す型と、使う前に型を絞り込む方法を学びます。",
+          "questions": [
+            {
+              "id": "q-int-ユニオン型と絞り込み-1",
+              "text": "let id: string | number; と宣言したとき、id に入れられる値は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "文字列と数値の両方を、同時に",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "文字列か数値の、どちらか1つ",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "文字列だけ",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "何でも入れられる",
+                  "correct": false
+                }
+              ],
+              "explanation": "A | B はユニオン型で、「A か B のどちらか」を表します。id は、string か number のどちらかの値を持てます。ただし、メソッドを呼ぶには、どちらの型かを絞り込む必要があります。",
+              "hint": "| は「または」を表します。",
+              "example": "ID が、「数値のこともあれば、文字列のこともある」システムで、string | number と書いて、両方を受け付けます。"
+            },
+            {
+              "id": "q-int-ユニオン型と絞り込み-2",
+              "text": "string | number 型の値 x に対して、文字列のときだけ x.toUpperCase() を呼びたいときの書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "そのまま x.toUpperCase() と書く",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "x as string と書いて、毎回、型を上書きする",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "if (typeof x === \"string\") { x.toUpperCase() }",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "x を any に変えてから、呼び出す",
+                  "correct": false
+                }
+              ],
+              "explanation": "typeof などで分岐すると、その分岐の中では、型が自動で絞り込まれます（型の絞り込み）。そのまま呼ぶと、number の可能性があるため、エラーになります。as や any で黙らせるより、絞り込むほうが安全です。",
+              "hint": "実行時に、値が何の型かを調べて、分岐します。",
+              "example": "数値か文字列かで、処理を分けたいとき、typeof で調べると、その中では、型が自動で絞り込まれ、文字列用のメソッドが安全に使えます。"
+            },
+            {
+              "id": "q-int-ユニオン型と絞り込み-3",
+              "text": "type Status = \"loading\" | \"success\" | \"error\"; のように、決まった文字列だけを許す型を______といいます。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "列挙型の継承",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "リテラル型（のユニオン）",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "関数型",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "タプル型",
+                  "correct": false
+                }
+              ],
+              "explanation": "特定の値そのものを型にしたものをリテラル型といい、それを | でつなぐと、「この中のどれか」だけを許す型になります。タイプミス（\"sucess\" など）を、書いた時点でエラーにできます。",
+              "hint": "\"loading\" のような、特定の値そのものを型として使います。",
+              "example": "通信の状態を \"loading\" | \"success\" | \"error\" と書くと、\"sucess\" のようなタイプミスは、書いた時点でエラーになります。"
+            },
+            {
+              "id": "q-int-ユニオン型と絞り込み-4",
+              "text": "user?.address?.city という書き方の働きは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "user が、必ず存在すると断言する",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "user を、address と city に分解する",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "city を、自動で文字列に変換する",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "user や address が null か undefined のとき、エラーにせず undefined を返す",
+                  "correct": true
+                }
+              ],
+              "explanation": "?. は、手前の値が null または undefined のとき、その先を評価せず、undefined を返します。エラーで止まらず、値がない場合も安全に扱えます。ただし、結果が undefined の可能性は、型にも残ります。",
+              "hint": "?. は、オプショナルチェーンと呼ばれます。",
+              "example": "ユーザーの住所が未登録でも、user?.address?.city と書けば、エラーで止まらず、undefined が返ります。表示側で、「未登録」と出せます。"
+            }
+          ]
+        },
+        {
+          "id": "typescript-intermediate-2",
+          "title": "ジェネリクスと便利な型",
+          "content": "型を引数のように使うジェネリクスと、既存の型から新しい型を作る方法を学びます。",
+          "questions": [
+            {
+              "id": "q-int-ジェネリクスと便利な型-1",
+              "text": "ジェネリクス（Array<T> の T）の役割は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "配列の、長さを決める",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "型を引数のように受け取り、さまざまな型に使い回せるようにする",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "配列を、昇順に並べ替える",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "null を、禁止する",
+                  "correct": false
+                }
+              ],
+              "explanation": "ジェネリクスは、型を引数のように受け取る仕組みです。Array<T> の T に string を渡せば文字列の配列、number を渡せば数値の配列になります。同じ処理を、型ごとに書き直さずに済みます。",
+              "hint": "Array<string> と Array<number> は、同じ Array を、別の型で使っています。",
+              "example": "配列の型 Array<T> のように、同じ仕組みを、文字列にも数値にも使い回せます。自分でも、「どんな型でも受け取って、そのまま返す関数」などを作れます。"
+            },
+            {
+              "id": "q-int-ジェネリクスと便利な型-2",
+              "text": "Partial<User> が表す型は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "User の、一部のプロパティだけを削除した型",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "User と全く同じ型",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "User のすべてのプロパティを、省略可能にした型",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "User の、すべてのプロパティを読み取り専用にした型",
+                  "correct": false
+                }
+              ],
+              "explanation": "Partial<T> は、T のすべてのプロパティに ? を付けたのと同じ型です。更新処理で、変更したい項目だけを渡す場合に使います。読み取り専用にするのは Readonly<T> です。",
+              "hint": "「一部だけ指定すればよい」ことを表すのに便利です。",
+              "example": "プロフィールの更新画面で、名前だけ、メールアドレスだけ、といった一部の項目の変更を受け付けたいとき、Partial<User> を引数の型にします。"
+            },
+            {
+              "id": "q-int-ジェネリクスと便利な型-3",
+              "text": "unknown と any の違いとして、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "まったく同じで、書き方の好みである",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "unknown は、any よりも、型のチェックが緩い",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "unknown は、型を絞り込んでからでないと、値を使えない",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "unknown は、数値専用である",
+                  "correct": false
+                }
+              ],
+              "explanation": "unknown は「何が入っているか分からない」という型で、使う前に、typeof などで型を絞り込む必要があります。any は、チェックが無効になるのに対し、unknown は、安全を保ったまま、分からない値を受け取れます。",
+              "hint": "型が分からない値を、安全に扱いたい場面を考えてみます。",
+              "example": "外部から届く、型が分からない値を、unknown として受け取れば、使う前に、typeof などで確かめる必要があり、安全に扱えます。"
+            },
+            {
+              "id": "q-int-ジェネリクスと便利な型-4",
+              "text": "interface と type の違いについて、実務で押さえておくべきことは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "interface は、オブジェクトにしか使えず、type は使えない",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "どちらもオブジェクトの形を表せるが、interface は同名で宣言を追加でき、type はユニオンなども表せる",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "type は、古い書き方で、現在は使えない",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "interface のほうが、必ず高速に動く",
+                  "correct": false
+                }
+              ],
+              "explanation": "オブジェクトの形は、どちらでも表せます。interface は、同じ名前で宣言を重ねて拡張でき、type は、ユニオンやリテラル型など、より幅広い型に名前を付けられます。プロジェクトでは、どちらを使うか、ルールを決めておくと混乱しません。",
+              "hint": "「A | B」のような型に名前を付けられるのは、どちらでしょうか。",
+              "example": "チームで、「オブジェクトの形は interface、ユニオン型は type」のようにルールを決めておけば、書き方がそろって、コードが読みやすくなります。"
+            }
+          ]
+        }
+      ],
+      "advanced": [
+        {
+          "id": "typescript-advanced-1",
+          "title": "型を使った設計",
+          "content": "型の力で、間違った状態をそもそも作れないようにする設計と、型の限界を学びます。",
+          "questions": [
+            {
+              "id": "q-adv-型を使った設計-1",
+              "text": "判別可能なユニオン型（kind のような共通のプロパティで分ける型）の利点は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "kind を調べるだけで、型が絞り込まれ、状態ごとに使えるプロパティを安全に扱える",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "どんな型でも、any として扱える",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "実行速度が、大きく向上する",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "プロパティを、1つも書かなくてよくなる",
+                  "correct": false
+                }
+              ],
+              "explanation": "共通の kind プロパティで状態を判別できると、switch や if で kind を調べた分岐の中で、その状態に合うプロパティだけが使えるように、型が絞り込まれます。「エラーなのに value を読む」といった間違いを、書いた時点で防げます。",
+              "hint": "type Result = { kind: \"ok\"; value: number } | { kind: \"error\"; message: string } のような型です。",
+              "example": "決済の結果を、{ kind: \"ok\", value } と { kind: \"error\", message } で表しておけば、kind を調べた分岐の中で、エラー時に value を読むような、間違いを防げます。"
+            },
+            {
+              "id": "q-adv-型を使った設計-2",
+              "text": "as による型アサーション（const x = data as User）の注意点は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "実行時に、自動で User 型に変換される",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "必ず、正しい型であることが保証される",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "どんな型にも使え、まったく危険はない",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "コンパイラを黙らせるだけで、実行時に実際の値が合っている保証はない",
+                  "correct": true
+                }
+              ],
+              "explanation": "as は、コンパイラに「この型として扱ってほしい」と伝えるだけで、値を検査したり、変換したりはしません。実際の値が違えば、実行時に不具合になります。使うのは、本当に型が確かな場面に限り、できるだけ型の絞り込みを使います。",
+              "hint": "as は、「この値は、この型だと私が保証します」という宣言です。",
+              "example": "API の結果を、とりあえず as User で型を付けて、そのまま使うと、データが違ったときに、実行時にだけ不具合が出ます。as は、型が確かなときに限って使います。"
+            },
+            {
+              "id": "q-adv-型を使った設計-3",
+              "text": "tsconfig.json で \"strict\": true を指定する意味は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "コードの、実行速度が上がる",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "null の扱いなど、厳密な型チェックをまとめて有効にする",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "コメントを、禁止する",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "型注釈を、すべて必須にする",
+                  "correct": false
+                }
+              ],
+              "explanation": "strict は、strictNullChecks（null や undefined を厳密に扱う）など、厳密な型チェックを、まとめて有効にする設定です。新しいプロジェクトでは、有効にしておくのが基本で、型の安全性が大きく高まります。",
+              "hint": "より多くの間違いを、コンパイル時に見つけるための設定です。",
+              "example": "新しいプロジェクトを作るときは、tsconfig.json に \"strict\": true を書いておきます。null や undefined の扱い漏れを、最初から検出できます。"
+            },
+            {
+              "id": "q-adv-型を使った設計-4",
+              "text": "外部の API から受け取った JSON に、型を付けて安心できない理由は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "JSON には、型を付けられないため",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "TypeScript は、API の通信に対応していないため",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "型は実行時には存在せず、実際に届いたデータが、型どおりである保証はないため",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "JSON は、必ず文字列になるため",
+                  "correct": false
+                }
+              ],
+              "explanation": "型は、コンパイル時に消え、実行時には残りません。API のレスポンスは、実行時に届くデータなので、約束と違う形で届く可能性があります。必要に応じて、実行時に中身を検証する（型ガード関数や、検証用のライブラリを使う）必要があります。",
+              "hint": "TypeScript の型は、コードを実行する前の、チェックのための仕組みです。",
+              "example": "外部の API が、ドキュメントと違う形でデータを返すことがあります。型だけでは守れないため、受け取った値を、実行時にも検証します。"
+            }
+          ]
+        }
+      ],
+      "basics": {
+        "beginner": [
+          {
+            "id": "typescript-basics-beginner",
+            "title": "型を付けて、間違いに早く気づく",
+            "content": "TypeScript は、JavaScript に「型」を加えた言語です。値の種類をあらかじめ書いておくことで、実行する前に、多くの間違いに気づけます。基本の型の書き方を押さえましょう。",
+            "sections": [
+              {
+                "heading": "TypeScript とは",
+                "body": "JavaScript に型の仕組みを加えた言語です。ブラウザは TypeScript を直接実行できないため、書いたコードは JavaScript に変換（コンパイル）されます。JavaScript の書き方は、そのまま使えます。",
+                "example": "React や Node.js の開発では、.ts や .tsx のファイルで書き、ビルドで JavaScript に変換して使います。"
+              },
+              {
+                "heading": "型注釈と型推論",
+                "body": "変数の後ろに : 型 を書くのが型注釈です。数値の変数に文字列を入れる、といった間違いは、実行前にエラーになります。初期値がある場合は、型が自動で決まる（型推論）ので、型注釈を省略しても構いません。",
+                "code": "let age: number = 20;\nage = \"二十歳\"; // エラー\n\nlet name = \"太郎\"; // string と推論される"
+              },
+              {
+                "heading": "any は、できるだけ使わない",
+                "body": "any は、何でも入れてよい型で、型のチェックがすべて無効になります。便利に見えますが、間違いに気づけなくなるので、TypeScript を使う意味が薄れます。型が分からない値には、後述の unknown を検討します。"
+              },
+              {
+                "heading": "配列とオブジェクトの型",
+                "body": "配列は、string[] や number[] のように、要素の型の後ろに [] を付けます。オブジェクトの形は、interface（または type）で定義します。プロパティ名の後ろの ? は、省略してもよいことを表します。",
+                "code": "interface User {\n  name: string;\n  age: number;\n  nickname?: string; // 省略可能\n}\n\nconst users: User[] = [{ name: \"太郎\", age: 20 }];"
+              },
+              {
+                "heading": "関数の型",
+                "body": "引数の型と、戻り値の型を書きます。戻り値の型を書いておくと、関数の中で、約束と違う値を返したときに、エラーで気づけます。",
+                "code": "function add(a: number, b: number): number {\n  return a + b;\n}"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "typescript-basics-intermediate",
+            "title": "ユニオン型・絞り込み・ジェネリクス",
+            "content": "現実のデータは、「Aかもしれないし、Bかもしれない」ものがたくさんあります。そうした値を、安全に扱うための型の使い方を学びます。",
+            "sections": [
+              {
+                "heading": "ユニオン型",
+                "body": "A | B と書くと、「A か B のどちらか」を表します。決まった文字列だけを許す、リテラル型のユニオンも、よく使います。タイプミスを、書いた時点でエラーにできます。",
+                "code": "let id: string | number;\ntype Status = \"loading\" | \"success\" | \"error\";"
+              },
+              {
+                "heading": "型の絞り込み",
+                "body": "ユニオン型の値は、どちらの型かを調べてから使います。typeof などで分岐すると、その分岐の中では、型が自動で絞り込まれます。as で型を上書きするより、絞り込みのほうが安全です。",
+                "code": "function show(x: string | number) {\n  if (typeof x === \"string\") {\n    console.log(x.toUpperCase()); // string として扱える\n  }\n}"
+              },
+              {
+                "heading": "undefined と、オプショナルチェーン",
+                "body": "省略できる値や、見つからないかもしれない値は、undefined を含む型になります。使う前に、undefined でないことを確かめます。?. を使うと、値がないとき、エラーにせず undefined を返します。",
+                "code": "const city = user?.address?.city; // user や address がなければ undefined"
+              },
+              {
+                "heading": "ジェネリクス",
+                "body": "ジェネリクスは、型を引数のように受け取る仕組みです。Array<string> は文字列の配列、Promise<User> は、終わると User が得られる非同期の処理を表します。同じ仕組みを、さまざまな型に使い回せます。",
+                "code": "const names: Array<string> = [\"太郎\", \"花子\"];\n\nasync function fetchUser(): Promise<User> { /* ... */ }"
+              },
+              {
+                "heading": "Partial と unknown",
+                "body": "Partial<User> は、User のすべてのプロパティを省略可能にした型で、一部の項目だけを渡す更新処理に便利です。unknown は、何が入っているか分からない値の型で、any と違い、型を絞り込んでからでないと使えません。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "typescript-basics-advanced",
+            "title": "型で設計し、型の限界を知る",
+            "content": "型は、単にエラーを防ぐだけでなく、「ありえない状態を作れなくする」設計の道具です。同時に、型にも限界があります。両方を理解しましょう。",
+            "sections": [
+              {
+                "heading": "判別可能なユニオン型",
+                "body": "kind や status のような共通のプロパティで状態を分けると、それを調べた分岐の中で、その状態に合うプロパティだけが使えるように、型が絞り込まれます。「失敗なのに、データがある」といった矛盾を、型の上で作れなくできます。",
+                "code": "type Result =\n  | { kind: \"ok\"; value: number }\n  | { kind: \"error\"; message: string };\n\nfunction show(r: Result) {\n  if (r.kind === \"ok\") console.log(r.value);\n  else console.log(r.message);\n}"
+              },
+              {
+                "heading": "網羅性のチェック（never）",
+                "body": "判別可能なユニオン型のすべての種類を処理したあと、残る型は never（存在しない型）になります。default で never に代入しておけば、新しい種類を追加して、処理を書き忘れたとき、コンパイルエラーで気づけます。",
+                "code": "default: {\n  const _check: never = r; // 種類を足して、処理を忘れるとエラー\n  return _check;\n}"
+              },
+              {
+                "heading": "型アサーション（as）の危険",
+                "body": "as は、コンパイラに「この型として扱ってほしい」と伝えるだけで、実際の値を検査したり、変換したりはしません。実際の値が違えば、実行時に不具合になります。使うのは、型が確かな場面に限り、できるだけ型の絞り込みを使います。"
+              },
+              {
+                "heading": "型は、実行時には存在しない",
+                "body": "型は、コンパイルのときに消え、実行時には残りません。そのため、外部の API が返す JSON や、利用者の入力は、型を付けただけでは、安全にはなりません。unknown として受け取り、型ガード関数（x is User）や、検証用のライブラリで、中身を確かめてから使います。",
+                "code": "function isUser(x: unknown): x is User {\n  return typeof x === \"object\" && x !== null\n    && typeof (x as { name?: unknown }).name === \"string\";\n}"
+              },
+              {
+                "heading": "strict を有効にする",
+                "body": "tsconfig.json の \"strict\": true は、null や undefined の厳密な扱いなど、厳しい型チェックをまとめて有効にします。新しいプロジェクトでは、最初から有効にしておくのが基本で、あとから有効にすると、直す量が大きくなります。"
+              }
+            ]
+          }
+        ]
+      },
+      "thinking": {
+        "beginner": [
+          {
+            "id": "typescript-thinking-beginner",
+            "title": "型エラーを、読んで直す",
+            "content": "正解は1つではありません。ここまでの知識を使って、自分の言葉で考えを書いてみましょう。書き終えたら、観点チェックと模範解答で見直します。",
+            "prompts": [
+              {
+                "id": "typescript-thinking-beginner-1",
+                "scenario": "後輩が書いた関数で、フォームから受け取った価格（文字列）を、そのまま number の変数に代入していて、エディタに赤い波線が出ています。後輩は、「動くのに、うるさい」と言って、any を付けて、波線を消そうとしています。",
+                "code": "let price: number = 0;\nconst input = document.querySelector(\"input\")!.value; // string\nprice = input; // エラー",
+                "question": "波線が出る理由と、any で消してはいけない理由を説明し、正しい直し方を書いてください。",
+                "checkpoints": [
+                  "フォームの値は文字列で、number 型の変数に代入できないことを説明している",
+                  "any で消すと型のチェックが無効になり、本当の間違いに気づけなくなることを指摘している",
+                  "Number() や parseInt で、文字列を数値に変換してから代入する方法を示している",
+                  "変換に失敗した場合（数値でない入力）にも触れている"
+                ],
+                "modelAnswer": "フォームから取得した value は、数値のように見えても、型は string です。number 型の price に代入しようとしているので、型が合わず、エラーになっています。波線は、「実行すると、数値として計算できず、不具合になる」という、重要な警告です。any を付けて消すと、型のチェックが無効になり、本当に間違ったコードでも、気づけなくなります。正しくは、Number(input) で、文字列を数値に変換してから代入します。さらに、入力が数値でない場合（\"abc\" など）は、変換の結果が NaN になるので、Number.isNaN で確かめ、エラーメッセージを表示するなどの対応も必要です。",
+                "tip": "型エラーは、「この組み合わせは、実行すると失敗するかもしれない」という、先回りの知らせです。消す前に、中身を読みましょう。"
+              },
+              {
+                "id": "typescript-thinking-beginner-2",
+                "scenario": "ユーザー情報を扱うコードで、プロパティ名をタイプミスした（user.nmae）のに、実行するまで気づかず、画面に「undefined」と表示されてしまいました。チームでは、「TypeScript を導入すれば、防げたのでは」という話が出ています。",
+                "question": "TypeScript を使うと、どのようにこの問題を防げるかを説明し、interface をどう使うか、書いてください。",
+                "checkpoints": [
+                  "ユーザーのプロパティを、interface などで定義することを示している",
+                  "存在しないプロパティ（nmae）を書くと、実行前にエラーになることを説明している",
+                  "エディタの補完が効き、そもそもタイプミスしにくくなる利点に触れている",
+                  "型を付けるだけでは防げない問題（実行時の値の確認など）が残る可能性にも触れている"
+                ],
+                "modelAnswer": "interface User { name: string; age: number } のように、ユーザーが持つプロパティを定義し、変数や関数の引数に User 型を付けます。すると、user.nmae のように、定義にないプロパティを書いたとき、実行する前に、「nmae は User に存在しない」というエラーが出ます。書いている最中にも、補完で正しいプロパティ名の候補が出るので、そもそもタイプミスしにくくなります。JavaScript のときは、実行してから「undefined」が表示されて、初めて気づいていた間違いを、書いた時点で防げます。ただし、外部から届くデータが、定義どおりの形であるかどうかは、型だけでは保証できないので、その部分は別に確認する必要があります。",
+                "tip": "型を付けるときは、「このデータには、どんなプロパティがあるか」を、先に書き出すところから始めましょう。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "typescript-thinking-intermediate",
+            "title": "「ないかもしれない値」を、安全に扱う",
+            "content": "実行時のエラーの多くは、「値がないのに、使おうとした」ことが原因です。型を使って、それをどう防ぐかを考えてみましょう。",
+            "prompts": [
+              {
+                "id": "typescript-thinking-intermediate-1",
+                "scenario": "会員検索の関数 findUser(id: number): User | undefined を使って、画面にユーザー名を表示するコードを書きました。しかし、存在しない id で検索したとき、画面が真っ白になる不具合が出ました。",
+                "code": "const user = findUser(999);\nconsole.log(user.name); // エラー",
+                "question": "なぜエラーになるのかと、型がどのように教えてくれていたかを説明し、直し方を書いてください。",
+                "checkpoints": [
+                  "見つからないとき、findUser は undefined を返し、undefined の name は読めないことを説明している",
+                  "戻り値の型 User | undefined が、undefined の可能性を、あらかじめ示していたことを説明している",
+                  "if で undefined を調べ、絞り込んでから使う（または ?. を使う）直し方を示している",
+                  "見つからなかったときに、何を表示するか（メッセージなど）を決める必要があることに触れている"
+                ],
+                "modelAnswer": "存在しない id では、findUser は undefined を返します。undefined に対して user.name を読もうとするので、エラーになり、画面が真っ白になります。実は、戻り値の型が User | undefined になっているので、TypeScript は、「undefined の可能性がある」と、事前にエラーで教えてくれていました。直し方は、使う前に、if (!user) { /* 見つからなかったときの処理 */ return; } のように分岐し、undefined でないことを確かめてから、user.name を使います。この分岐のあとでは、user は User 型に絞り込まれます。「見つかりませんでした」と表示するなど、見つからなかったときの、利用者向けの動作も、決めておく必要があります。",
+                "tip": "型に undefined が含まれていたら、「見つからない場合に、何をするか」を考えるサインです。"
+              },
+              {
+                "id": "typescript-thinking-intermediate-2",
+                "scenario": "通信の状態を、次のような型で表しています。画面では、loading が true のときはスピナー、error があればメッセージ、data があれば一覧を表示しています。ところが、まれに、loading が true のまま、data も表示されるという、おかしな画面が出ます。",
+                "code": "interface State {\n  loading: boolean;\n  data?: Item[];\n  error?: string;\n}",
+                "question": "この型の問題点を指摘し、判別可能なユニオン型を使った、より良い型を書いてください。",
+                "checkpoints": [
+                  "すべてが独立しているため、loading と data が同時にある、といった矛盾した組み合わせが作れてしまうことを指摘している",
+                  "status のような共通のプロパティで、状態を分けるユニオン型を示している",
+                  "状態ごとに、必要なプロパティだけを持たせている",
+                  "状態を調べた分岐の中で、型が絞り込まれる利点を説明している"
+                ],
+                "modelAnswer": "loading、data、error が、それぞれ独立しているので、「loading が true なのに data もある」「error と data が同時にある」といった、ありえない組み合わせが、型の上では許されてしまいます。それを、更新のしかたの間違いで作ってしまうのが、不具合の原因です。type State = { status: \"loading\" } | { status: \"success\"; data: Item[] } | { status: \"error\"; message: string } のように、status で状態を分けて、状態ごとに、必要なプロパティだけを持たせます。こうすると、「loading なのに data がある」状態は、そもそも作れません。画面側でも、status を調べた分岐の中で、その状態に合うプロパティだけが使えるように、型が絞り込まれるので、書き間違いも減ります。",
+                "tip": "「同時に存在してはいけない」ものを、別々の省略可能なプロパティにしていないか、見直してみましょう。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "typescript-thinking-advanced",
+            "title": "型を、どこまで信じるか",
+            "content": "型は強力ですが、実行時のデータまでは守れません。型の力と限界を、理由まで書いて整理してみましょう。",
+            "prompts": [
+              {
+                "id": "typescript-thinking-advanced-1",
+                "scenario": "外部の API から受け取った JSON を、as User で型を付けて使っています。ある日、API の仕様が変わり、name が null で返ってくるようになりました。TypeScript のコンパイルは通っているのに、画面でエラーが出ました。",
+                "code": "const res = await fetch(\"/api/user/1\");\nconst user = (await res.json()) as User;\nconsole.log(user.name.toUpperCase());",
+                "question": "なぜ、コンパイルが通ったのに、エラーが出たのかを説明し、安全にするための対策を書いてください。",
+                "checkpoints": [
+                  "as は、コンパイラに型を伝えるだけで、実際の値を検査しないことを説明している",
+                  "型は実行時には存在せず、API の実際のデータを守れないことを説明している",
+                  "unknown で受け取り、型ガード関数や検証用のライブラリで確かめる対策を示している",
+                  "検証に失敗したときの処理（エラー表示や、記録）にも触れている"
+                ],
+                "modelAnswer": "as User は、「この値を User として扱ってほしい」とコンパイラに伝えているだけで、実際のデータの中身は検査していません。コンパイルは、「約束どおりなら、問題ない」という前提で通りますが、型は実行時には消えるので、API が約束と違う形（name が null）で返してきたときは、守れません。対策は、まず json() の結果を unknown として受け取ることです。そのうえで、isUser(x: unknown): x is User のような型ガード関数や、検証用のライブラリを使い、name が文字列であることなどを実行時に確かめます。検証に成功したときだけ、User として扱います。失敗したときは、エラーメッセージの表示や、記録を残すなど、あらかじめ決めた対応をします。",
+                "tip": "型は「コードを書くときの約束」を守る道具で、「実行時に届くデータ」は、別に確かめる必要があります。"
+              },
+              {
+                "id": "typescript-thinking-advanced-2",
+                "scenario": "決済の状態を、\"pending\" | \"paid\" | \"failed\" で管理しています。新しい要件で、\"refunded\"（返金済み）を追加することになりました。画面には、状態ごとの表示を、switch で書いた箇所が、20 か所以上あります。",
+                "question": "追加のときに、処理の書き忘れを防ぐために、型でどんな工夫ができるかを書いてください。また、その仕組みの利点も説明してください。",
+                "checkpoints": [
+                  "switch の default で、never 型の変数に代入するなど、網羅性をチェックする工夫を示している",
+                  "新しい状態を追加すると、処理が足りない箇所が、コンパイルエラーとして見つかることを説明している",
+                  "20 か所を、目で探す必要がなくなる利点に触れている",
+                  "状態を、リテラル型のユニオンや、判別可能なユニオンで定義しておく前提を説明している"
+                ],
+                "modelAnswer": "状態を、リテラル型のユニオン（または判別可能なユニオン）で定義しておき、各 switch の default で、const _check: never = status; のように、never 型の変数に代入します。すべての状態を処理していれば、default に来る値の型は never になり、問題ありません。しかし、\"refunded\" を追加したのに、その分岐を書き忘れていると、default に来る型が \"refunded\" になり、never に代入できないため、コンパイルエラーになります。この仕組みの利点は、20 か所以上ある switch のうち、対応が必要な箇所を、コンパイラが、すべて見つけてくれることです。目で探したり、テストで気づいたりする必要がなく、書き忘れによる不具合を、リリース前に防げます。",
+                "tip": "「あとから種類が増えるもの」は、型で網羅性をチェックできるように書いておくと、変更に強くなります。"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "shortLabel": "TS"
   }
 ]
