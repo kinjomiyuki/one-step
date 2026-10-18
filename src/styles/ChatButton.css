@@ -10,8 +10,13 @@
   z-index: 999;
 }
 
-.chat-fab.active {
-  background: var(--neu-accent-dark);
+.chat-fab.neu-fab {
+  background: #111111;
+  color: #ffffff;
+}
+
+.chat-fab.neu-fab.active {
+  background: #333333;
 }
 
 /* モーダルオーバーレイ */
