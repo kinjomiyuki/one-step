@@ -23,7 +23,7 @@ function flatten(value, prefix = '', out = []) {
   return out;
 }
 
-async function request(method, path, params) {
+export async function request(method, path, params) {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) throw new StripeError('STRIPE_SECRET_KEY が設定されていません', 500);
 
