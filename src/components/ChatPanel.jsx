@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import MessageText from './MessageText';
 import '../styles/ChatPanel.css';
 
 // AI に接続できないときの簡易回答
@@ -119,7 +120,9 @@ export default function ChatPanel({ context }) {
                 {msg.sender === 'user' ? 'あなた' : 'AI'}
               </div>
               <div className="message-content">
-                <p>{msg.text}</p>
+                <div className="message-bubble">
+                  <MessageText text={msg.text} />
+                </div>
                 <span className="message-time">{msg.timestamp}</span>
               </div>
             </div>

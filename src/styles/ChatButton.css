@@ -63,20 +63,20 @@
 
 .chat-modal-close {
   position: absolute;
-  top: 12px;
+  top: 14px;
   right: 12px;
   background: none;
   border: none;
-  color: #6b7280;
-  font-size: 24px;
+  color: var(--neu-on-accent);
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 2px 8px;
   z-index: 1001;
-  transition: transform 0.2s ease;
 }
 
 .chat-modal-close:hover {
-  transform: rotate(90deg);
+  text-decoration: underline;
 }
 
 /* モバイル対応 */
