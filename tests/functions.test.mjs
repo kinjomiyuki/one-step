@@ -176,3 +176,46 @@ test('chat: 有料プランが無効のあいだは、トークンなしでも�
   assert.equal(res.status, 200);
   assert.equal((await res.json()).reply, 'こんにちは');
 });
+
+test('chat: 費用を抑えるため、考える量を最小にし、履歴と回答の長さを制限して送る', async () => {
+  reply('api.anthropic.com', { content: [{ type: 'text', text: 'こたえ' }], stop_reason: 'end_turn' });
+  const history = Array.from({ length: 10 }, (_, i) => ({
+    role: i % 2 === 0 ? 'user' : 'assistant',
+    content: `${i}${'あ'.repeat(i % 2 === 0 ? 1500 : 800)}`
+  }));
+  history.push({ role: 'user', content: '最新の質問' });
+  const res = await chat(post('chat', { messages: history }, { Authorization: `Bearer ${accessToken()}` }));
+  assert.equal(res.status, 200);
+
+  const sent = JSON.parse(calls.find((c) => c.url.includes('anthropic')).init.body);
+  assert.deepEqual(sent.output_config, { effort: 'low' });
+  assert.equal(sent.max_tokens, 600);
+  assert.ok(sent.messages.length <= 6, `履歴が長すぎます: ${sent.messages.length}件`);
+  assert.equal(sent.messages[0].role, 'user');
+  assert.equal(sent.messages.at(-1).content, '最新の質問');
+  for (const m of sent.messages) {
+    assert.ok(m.content.length <= (m.role === 'user' ? 1000 : 400), `長すぎる発言: ${m.role} ${m.content.length}字`);
+  }
+});
+
+test('chat: 回答が上限で途切れたときは、続きを促す一文を添える', async () => {
+  reply('api.anthropic.com', { content: [{ type: 'text', text: 'ここまで' }], stop_reason: 'max_tokens' });
+  const res = await chat(
+    post('chat', { messages: [{ role: 'user', content: '長く説明して' }] }, { Authorization: `Bearer ${accessToken()}` })
+  );
+  const { reply: text } = await res.json();
+  assert.ok(text.startsWith('ここまで'));
+  assert.match(text, /続けて/);
+});
+
+test('chat: ANTHROPIC_EFFORT を空にすると、effort を送らない(対応していない古いモデル向け)', async () => {
+  process.env.ANTHROPIC_EFFORT = '';
+  // 環境変数は読み込み時に決まるため、新しく読み込み直して確かめる
+  const { default: freshChat } = await import(`../netlify/functions/chat.mjs?effort-off=${Date.now()}`);
+  reply('api.anthropic.com', { content: [{ type: 'text', text: 'こたえ' }] });
+  await freshChat(
+    post('chat', { messages: [{ role: 'user', content: '質問' }] }, { Authorization: `Bearer ${accessToken()}` })
+  );
+  const sent = JSON.parse(calls.find((c) => c.url.includes('anthropic')).init.body);
+  assert.equal('output_config' in sent, false);
+});

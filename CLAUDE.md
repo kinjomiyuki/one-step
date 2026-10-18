@@ -68,5 +68,6 @@ Actions が使えないときの手動デプロイ(手元のプロジェクト�
 
 - `ANTHROPIC_API_KEY`: チャットの Function が使う Claude API キー。変更したら再デプロイする
 - `ANTHROPIC_MODEL`: 任意。チャットで使うモデルを変えたいとき(既定は `claude-haiku-5-5`)
+- `ANTHROPIC_EFFORT`: 任意。チャットの考える量(既定は `low`。費用を抑えるため)。effort に対応していない古いモデルを使うときは、空にする
 
 チャットが「AI に接続できません」と返すときの確認先: API のクレジット残高、`ANTHROPIC_API_KEY` の値、Netlify の Functions ログ(`chat`)。

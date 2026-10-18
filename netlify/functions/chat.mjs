@@ -5,8 +5,16 @@ import { bearerToken, verifyToken } from '../lib/token.mjs';
 import { isPremiumEnabled } from '../lib/config.mjs';
 
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-haiku-5-5';
-const MAX_MESSAGES = 10;
-const MAX_TEXT_LENGTH = 1000;
+
+// 費用を抑えるための上限。入力(会話の履歴)と出力(回答)の両方が、課金の対象になる
+const MAX_MESSAGES = 6; // 直近3往復まで。古い会話は送らない
+const MAX_QUESTION_LENGTH = 1000; // 学習者の発言の、1件あたりの最大文字数
+const MAX_HISTORY_ANSWER_LENGTH = 400; // 過去の AI の回答は、文脈として要点だけ送れば足りる
+const MAX_OUTPUT_TOKENS = 600; // 回答の上限(考える処理の分も含む)。回答の目安は300字程度
+// 初心者向けの短い回答には、深く考える必要がないので、考える量を最小にする(課金される出力トークンが減る)。
+// effort に対応していない古いモデルを ANTHROPIC_MODEL に指定するときは、ANTHROPIC_EFFORT を空にして無効にする
+const EFFORT = process.env.ANTHROPIC_EFFORT ?? 'low';
+const TRUNCATED_NOTE = '\n\n(回答が長くなったため、ここまでです。続きは「続けて」と送ってください)';
 
 function buildSystemPrompt(context) {
   const lines = [
@@ -52,7 +60,10 @@ export default async (req) => {
   const messages = (Array.isArray(payload.messages) ? payload.messages : [])
     .filter(m => (m?.role === 'user' || m?.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
     .slice(-MAX_MESSAGES)
-    .map(m => ({ role: m.role, content: m.content.slice(0, MAX_TEXT_LENGTH) }));
+    .map(m => ({
+      role: m.role,
+      content: m.content.slice(0, m.role === 'user' ? MAX_QUESTION_LENGTH : MAX_HISTORY_ANSWER_LENGTH)
+    }));
 
   // API は user から始まり user で終わる必要がある
   while (messages.length && messages[0].role !== 'user') messages.shift();
@@ -71,7 +82,8 @@ export default async (req) => {
       },
       body: JSON.stringify({
         model: MODEL,
-        max_tokens: 700,
+        max_tokens: MAX_OUTPUT_TOKENS,
+        ...(EFFORT ? { output_config: { effort: EFFORT } } : {}),
         system: buildSystemPrompt(payload.context),
         messages
       })
@@ -88,5 +100,5 @@ export default async (req) => {
   const data = await res.json();
   const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
   if (!text) return json({ error: '回答を生成できませんでした' }, 502);
-  return json({ reply: text });
+  return json({ reply: data.stop_reason === 'max_tokens' ? text + TRUNCATED_NOTE : text });
 };
