@@ -19,7 +19,7 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 - `src/components/`: 画面ごとのコンポーネント
 - `src/data/courses.js`: コースと問題のデータ。全コース共通の構造(初級/中級/上級 × 基礎・クイズ・シミュレーション・思考力)
 - `netlify/functions/`: chat(Claude API を呼ぶ)、checkout・entitlement・portal・login-link(Stripe と購入の確認)、config(有料プランのスイッチ)
-- `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン)。パッケージは追加せず、fetch で Stripe を呼ぶ
+- `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン、チャットの1日の費用の上限)。Stripe は、パッケージを使わず、fetch で呼ぶ。保存が必要なものは、Netlify Blobs(`@netlify/blobs`)を使う
 - `src/hooks/useEntitlement.js`、`src/utils/entitlement.js`、`src/utils/plans.js`: プレミアムプランの確認と、無料のレベルの定義
 - `public/sw.js`、`public/manifest.webmanifest`: PWA(Service Worker は、本番ビルドだけで登録する)
 - `src/utils/progress.js`: レベルとステップの定義、進捗の判定
@@ -69,5 +69,7 @@ Actions が使えないときの手動デプロイ(手元のプロジェクト�
 - `ANTHROPIC_API_KEY`: チャットの Function が使う Claude API キー。変更したら再デプロイする
 - `ANTHROPIC_MODEL`: 任意。チャットで使うモデルを変えたいとき(既定は `claude-haiku-5-5`)
 - `ANTHROPIC_EFFORT`: 任意。チャットの考える量(既定は `low`。費用を抑えるため)。effort に対応していない古いモデルを使うときは、空にする
+- `CHAT_DAILY_BUDGET_YEN`: 任意。チャットの API 費用の、1日の上限(円。サービス全体の合計、日本時間で区切る)。既定は 50。`0` か `off` で、上限なし。超えた日は、AI 回答を止める(`netlify/lib/budget.mjs`。合計は Netlify Blobs に保存)
+- `ANTHROPIC_PRICE_INPUT`、`ANTHROPIC_PRICE_OUTPUT`、`USD_JPY`: 任意。上限のための費用の計算に使う料金(ドル/100万トークン)と換算レート。既定は Claude Haiku 5.5 の料金と 160 円。モデルを変えたら、合わせる
 
 チャットが「AI に接続できません」と返すときの確認先: API のクレジット残高、`ANTHROPIC_API_KEY` の値、Netlify の Functions ログ(`chat`)。
