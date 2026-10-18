@@ -175,7 +175,7 @@ function App() {
       {/* チャットボタン（質問ポップアップ） */}
       <ChatButton
         context={lessonContext}
-        access={{ isPro: entitlement.isPro, token: entitlement.token, onUpgrade: entitlement.upgrade }}
+        access={{ isPro: entitlement.isPro, token: entitlement.token, onUpgrade: entitlement.upgrade, onProRequired: entitlement.revalidate }}
       />
     </div>
   );

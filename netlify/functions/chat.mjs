@@ -3,6 +3,7 @@
 import { json } from '../lib/http.mjs';
 import { bearerToken, verifyToken } from '../lib/token.mjs';
 import { isPremiumEnabled } from '../lib/config.mjs';
+import { isRevoked } from '../lib/membership.mjs';
 import { dailyBudgetYen, readSpentYen, addSpentYen, costYen } from '../lib/budget.mjs';
 
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-haiku-5-5';
@@ -45,7 +46,10 @@ export default async (req) => {
       console.error('token check failed', e.message);
       return json({ error: 'サーバーの設定に問題があります' }, 500);
     }
-    if (!member) return json({ error: 'AI での回答は、プレミアムプランの機能です', code: 'pro_required' }, 402);
+    // トークンの期限内でも、解約などで失効した顧客は、すぐに止める
+    if (!member || (await isRevoked(member.c))) {
+      return json({ error: 'AI での回答は、プレミアムプランの機能です', code: 'pro_required' }, 402);
+    }
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;

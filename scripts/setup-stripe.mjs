@@ -7,12 +7,14 @@
 //
 // オプション:
 //   --netlify      STRIPE_SECRET_KEY と STRIPE_PRICE_ID を、Netlify に secret として登録する(鍵は表示しない)
+//   --webhook      解約などの通知(Webhook)の受け取り口を作り、STRIPE_WEBHOOK_SECRET を Netlify に登録する。テストと本番で、別々に必要
 //   --entitlement  ENTITLEMENT_SECRET を新しく作り、Netlify に登録する。初回だけ使う(やり直すと、購入者のトークンが無効になる)
 //   --live         本番の鍵(sk_live_... / rk_live_...)を使うことを許可する。付けないと、本番の鍵は拒否する
 import { execFileSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { request } from '../netlify/lib/stripe.mjs';
+import { WEBHOOK_EVENTS } from '../netlify/functions/stripe-webhook.mjs';
 
 // 登録先の Netlify のサイト(one-step-programing)。別のサイトに連携されたフォルダで実行しても、ここにだけ登録する
 export const NETLIFY_SITE_ID = process.env.NETLIFY_SITE_ID || 'df24e90d-11bc-4e4b-89ea-fda4734d1db4';
@@ -61,6 +63,22 @@ export async function ensurePortal(api = request) {
   return { id: created.id, created: true };
 }
 
+export const webhookUrl = (env = process.env) =>
+  `${(env.SITE_URL || 'https://one-step-programing.netlify.app').replace(/\/$/, '')}/.netlify/functions/stripe-webhook`;
+
+// 署名用のシークレットは、作成した直後の応答にしか出ない。すでにある受け取り口からは、取り出せない
+export async function ensureWebhook(url, api = request) {
+  const existing = await api('GET', '/webhook_endpoints', { limit: 100 });
+  const found = (existing.data || []).find((endpoint) => endpoint.url === url);
+  if (found) return { id: found.id, created: false };
+  const created = await api('POST', '/webhook_endpoints', {
+    url,
+    enabled_events: WEBHOOK_EVENTS,
+    description: 'OneStep: 解約などの反映'
+  });
+  return { id: created.id, created: true, secret: created.secret };
+}
+
 function setNetlifyEnv(name, value, { secret }) {
   // secret は、開発用以外の適用先(--context)を指定しないと、Netlify に拒否される
   const args = ['netlify', 'env:set', name, value, '--site', NETLIFY_SITE_ID, '--force', ...(secret ? ['--secret', '--context', 'production'] : [])];
@@ -94,6 +112,15 @@ export async function run({ env = process.env, argv = process.argv.slice(2), log
     setEnv('STRIPE_SECRET_KEY', key, { secret: true });
     setEnv('STRIPE_PRICE_ID', price.id, { secret: false });
     log('Netlify に登録しました: STRIPE_SECRET_KEY(secret)、STRIPE_PRICE_ID');
+  }
+  if (argv.includes('--webhook')) {
+    const hook = await ensureWebhook(webhookUrl(env), api);
+    if (hook.created) {
+      setEnv('STRIPE_WEBHOOK_SECRET', hook.secret, { secret: true });
+      log(`Webhook: ${hook.id}(新しく作成)。Netlify に登録しました: STRIPE_WEBHOOK_SECRET(secret。値は表示しません)`);
+    } else {
+      log(`Webhook: ${hook.id}(すでにあります)。シークレットは再表示できないため、登録し直すには、Stripe のダッシュボードで、この Webhook を削除してから、もう一度実行してください`);
+    }
   }
   if (argv.includes('--entitlement')) {
     setEnv('ENTITLEMENT_SECRET', randomBytes(32).toString('hex'), { secret: true });
