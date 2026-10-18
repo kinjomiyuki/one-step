@@ -4,7 +4,6 @@ import { getLevelContent, markLessonCompleted, isLevelCompleted, getResumeTarget
 import CourseList from './components/CourseList';
 import LessonView from './components/LessonView';
 import ChatButton from './components/ChatButton';
-import ChatPanel from './components/ChatPanel';
 import './index.css';
 
 const LEVEL_LABELS = { beginner: '初級', intermediate: '中級', advanced: '上級' };
@@ -32,15 +31,6 @@ function App() {
   }));
   const [progress, setProgress] = useState(() => migrateProgress(courses, loadSaved('oneStepProgress', {})));
   const [onboarded, setOnboarded] = useState(() => loadSaved('oneStepOnboarded', false));
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('oneStepProgress', JSON.stringify(progress));
@@ -156,15 +146,8 @@ function App() {
         )}
       </div>
 
-      {/* 固定チャットパネル（デスクトップ） */}
-      {isDesktop && (
-        <div style={{ width: '320px', borderLeft: '1px solid #d1d5db', backgroundColor: 'white', overflow: 'hidden', flexShrink: 0 }}>
-          <ChatPanel context={lessonContext} />
-        </div>
-      )}
-
-      {/* チャットボタン（モバイル） */}
-      {!isDesktop && <ChatButton context={lessonContext} />}
+      {/* チャットボタン（質問ポップアップ） */}
+      <ChatButton context={lessonContext} />
     </div>
   );
 }
