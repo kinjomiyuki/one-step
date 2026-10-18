@@ -42,6 +42,12 @@ https://app.netlify.com/projects/one-step-programing/configuration/env に、す
 | `SITE_URL` | 任意。購入後の戻り先を固定したいとき(例: `https://one-step-programing.netlify.app`) |
 | `PREMIUM_ENABLED` | **最後に** `true` にする。有料プランの開始のスイッチ |
 
+`ENTITLEMENT_SECRET` は、画面や会話に表示せずに登録するのが安全。手元の PowerShell で、プロジェクトのフォルダ(`C:\dev\one-step`)から、次の1行を実行する(生成と登録を一度に行い、値は表示されない)。
+
+```
+npx netlify env:set ENTITLEMENT_SECRET (node -e "console.log(require('crypto').randomBytes(32).toString('hex'))") --secret
+```
+
 `ENTITLEMENT_SECRET` を変えると、発行済みのトークンがすべて無効になる(購入者は、メールで戻す必要がある)。
 
 ### 4. テストモードで確かめる(`PREMIUM_ENABLED` を `true` にしてから)
@@ -60,10 +66,13 @@ https://app.netlify.com/projects/one-step-programing/configuration/env に、す
 
 ## 公開前に、準備が必要なもの(日本で有料のサービスを提供する場合)
 
-- 特定商取引法に基づく表記(販売事業者名、所在地、連絡先、料金、支払い方法・時期、解約の方法など)
-- 利用規約、プライバシーポリシー
-- 上の3つへのリンクを、購入の画面の近くに置く(Stripe の審査でも、確認されることがある)
-- 消費税の扱い(Stripe Tax を使うか、税込の価格として扱うか)
+特定商取引法に基づく表記、利用規約、プライバシーポリシーの画面は、すでに作ってある(`/tokushoho`、`/terms`、`/privacy`)。次の作業が残っている。
+
+1. `src/data/business.js` に、販売事業者の情報(名称、運営責任者、所在地、電話番号、メールアドレス)を記入する。**すべて記入するまでは、リンクが画面に出ず、特定商取引法の表記は「準備中」と表示される**。個人で、住所や電話番号を公開しない場合の書き方は、専門家や消費者庁の案内で確認する
+2. `src/data/legalTexts.js` の文面は、初期の案。返金・解約の方針(「お支払い後の返金はしない」「解約後も、支払い済みの期間は使える」)、準拠法などを、運営者が決めて、**専門家(弁護士、行政書士など)に確認してもらう**
+3. 消費税の扱い(Stripe Tax を使うか、税込の価格として扱うか)を決める
+
+記入後、購入の画面と、コース一覧の下に、3つの画面へのリンクが出る(有料プランが有効なときだけ)。Stripe の審査でも、これらのページが確認されることがある。
 
 ## 注意点と制限
 
