@@ -16,6 +16,7 @@ const FALLBACK_RESPONSES = [
 ];
 const FALLBACK_DEFAULT = '今は AI に接続できず、この質問には答えられませんでした。しばらくしてからもう一度お試しください。';
 const UPSELL = 'AI による、質問への詳しい回答は、プレミアムプランの機能です。';
+const BUDGET_EXCEEDED = 'AI での回答は、本日の上限に達しました。明日(日本時間の 0 時以降)に、またご利用ください。';
 
 function keywordAnswer(question) {
   const hit = FALLBACK_RESPONSES.find(([pattern]) => new RegExp(pattern, 'i').test(question));
@@ -47,6 +48,10 @@ async function fetchAnswer(history, context, token) {
     const data = await res.json().catch(() => null);
     if (!data) throw new Error(`Function が JSON を返しませんでした (${res.status})`);
     if (res.status === 402) return { text: UPSELL, upsell: true };
+    if (res.status === 429 && data.code === 'budget_exceeded') {
+      const answer = keywordAnswer(history[history.length - 1].text);
+      return { text: answer ? `${answer}\n\n${BUDGET_EXCEEDED}` : BUDGET_EXCEEDED };
+    }
     if (!res.ok || !data.reply) throw new Error(data.error || `エラー (${res.status})`);
     return { text: data.reply };
   } catch (e) {

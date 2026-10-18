@@ -3,6 +3,7 @@
 import { json } from '../lib/http.mjs';
 import { bearerToken, verifyToken } from '../lib/token.mjs';
 import { isPremiumEnabled } from '../lib/config.mjs';
+import { dailyBudgetYen, readSpentYen, addSpentYen, costYen } from '../lib/budget.mjs';
 
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-haiku-5-5';
 
@@ -49,6 +50,20 @@ export default async (req) => {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return json({ error: 'ANTHROPIC_API_KEY が設定されていません' }, 500);
+
+  // 1日の費用の上限(サービス全体)。超えていたら、その日の AI 回答は止める
+  const budgetYen = dailyBudgetYen();
+  if (budgetYen > 0) {
+    try {
+      if ((await readSpentYen()) >= budgetYen) {
+        return json({ error: '本日の AI 回答は、上限に達しました', code: 'budget_exceeded' }, 429);
+      }
+    } catch (e) {
+      // 上限を確認できないまま、費用がかかる処理は行わない
+      console.error('budget check failed', e.message);
+      return json({ error: '利用状況を確認できませんでした。時間をおいて、もう一度お試しください' }, 503);
+    }
+  }
 
   let payload;
   try {
@@ -98,6 +113,14 @@ export default async (req) => {
   }
 
   const data = await res.json();
+  if (budgetYen > 0) {
+    try {
+      const total = await addSpentYen(costYen(data.usage));
+      console.log(`chat spend today: ${total.toFixed(3)} / ${budgetYen} yen`);
+    } catch (e) {
+      console.error('budget update failed', e.message);
+    }
+  }
   const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
   if (!text) return json({ error: '回答を生成できませんでした' }, 502);
   return json({ reply: data.stop_reason === 'max_tokens' ? text + TRUNCATED_NOTE : text });

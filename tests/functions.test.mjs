@@ -7,6 +7,7 @@ import loginLink from '../netlify/functions/login-link.mjs';
 import chat from '../netlify/functions/chat.mjs';
 import config from '../netlify/functions/config.mjs';
 import { createToken, verifyToken } from '../netlify/lib/token.mjs';
+import { setStoreFactory, dayKey } from '../netlify/lib/budget.mjs';
 
 const ENV = {
   STRIPE_SECRET_KEY: 'sk_test_dummy',
@@ -20,6 +21,20 @@ const ENV = {
 const BASE = 'https://one-step.example';
 const calls = [];
 let routes = [];
+let saved = new Map(); // 模擬の Netlify Blobs(キー: 値の JSON)
+let storeError = null; // 読み取りと保存の、両方を失敗させる
+let saveError = null; // 保存だけを失敗させる
+setStoreFactory(async () => ({
+  get: async (key) => {
+    if (storeError) throw storeError;
+    return saved.has(key) ? JSON.parse(saved.get(key)) : null;
+  },
+  setJSON: async (key, value) => {
+    if (storeError || saveError) throw storeError || saveError;
+    saved.set(key, JSON.stringify(value));
+  }
+}));
+const todayKey = () => `day-${dayKey()}`;
 let savedEnv;
 const realFetch = globalThis.fetch;
 
@@ -32,6 +47,9 @@ beforeEach(() => {
   delete process.env.SITE_URL;
   calls.length = 0;
   routes = [];
+  saved = new Map();
+  storeError = null;
+  saveError = null;
   globalThis.fetch = async (url, init = {}) => {
     calls.push({ url: String(url), init });
     const route = routes.find((r) => String(url).includes(r.match));
@@ -218,4 +236,68 @@ test('chat: ANTHROPIC_EFFORT を空にすると、effort を送らない(対応�
   );
   const sent = JSON.parse(calls.find((c) => c.url.includes('anthropic')).init.body);
   assert.equal('output_config' in sent, false);
+});
+
+const askChat = () =>
+  chat(post('chat', { messages: [{ role: 'user', content: '質問' }] }, { Authorization: `Bearer ${accessToken()}` }));
+const answer = (usage) =>
+  reply('api.anthropic.com', { content: [{ type: 'text', text: 'こたえ' }], stop_reason: 'end_turn', usage });
+
+test('budget: 回答のたびに、実際の使用量から計算した費用(円)を、今日の合計に加える', async () => {
+  answer({ input_tokens: 1000, output_tokens: 500 });
+  assert.equal((await askChat()).status, 200);
+  // (1000 × 0.10 + 500 × 0.50) / 100万 × 160円 = 0.056円
+  assert.ok(Math.abs(JSON.parse(saved.get(todayKey())).yen - 0.056) < 1e-9);
+
+  await askChat();
+  assert.ok(Math.abs(JSON.parse(saved.get(todayKey())).yen - 0.112) < 1e-9);
+});
+
+test('budget: 今日の合計が上限(50円)に達したら、AI を呼ばずに 429 を返す', async () => {
+  saved.set(todayKey(), JSON.stringify({ yen: 50 }));
+  answer({ input_tokens: 1, output_tokens: 1 });
+  const res = await askChat();
+  assert.equal(res.status, 429);
+  assert.equal((await res.json()).code, 'budget_exceeded');
+  assert.equal(calls.some((c) => c.url.includes('anthropic')), false);
+});
+
+test('budget: 上限に届く直前の質問には答え、その費用で上限を超えたら、次の質問から止める', async () => {
+  saved.set(todayKey(), JSON.stringify({ yen: 49.99 }));
+  answer({ input_tokens: 1000, output_tokens: 500 }); // 0.056円
+  assert.equal((await askChat()).status, 200);
+  assert.equal((await askChat()).status, 429);
+});
+
+test('budget: 日付は日本時間で区切り、前日の合計は、今日に持ち越さない', async () => {
+  assert.equal(dayKey(Date.UTC(2026, 9, 17, 14, 59, 59)), '2026-10-17'); // 日本時間 23:59:59
+  assert.equal(dayKey(Date.UTC(2026, 9, 17, 15, 0, 0)), '2026-10-18'); // 日本時間 翌 0:00
+
+  saved.set('day-2000-01-01', JSON.stringify({ yen: 9999 }));
+  answer({ input_tokens: 100, output_tokens: 100 });
+  assert.equal((await askChat()).status, 200);
+});
+
+test('budget: 利用状況を確認できないときは、費用がかかる処理をせず、503 を返す', async () => {
+  storeError = new Error('Blobs に接続できません');
+  answer({ input_tokens: 1, output_tokens: 1 });
+  assert.equal((await askChat()).status, 503);
+  assert.equal(calls.some((c) => c.url.includes('anthropic')), false);
+});
+
+test('budget: 合計の保存に失敗しても、回答は返す', async () => {
+  saveError = new Error('保存できません');
+  answer({ input_tokens: 1, output_tokens: 1 });
+  assert.equal((await askChat()).status, 200);
+});
+
+test('budget: CHAT_DAILY_BUDGET_YEN で上限を変えられ、off で、上限なしにできる', async () => {
+  process.env.CHAT_DAILY_BUDGET_YEN = '10';
+  saved.set(todayKey(), JSON.stringify({ yen: 10 }));
+  answer({ input_tokens: 1, output_tokens: 1 });
+  assert.equal((await askChat()).status, 429);
+
+  process.env.CHAT_DAILY_BUDGET_YEN = 'off';
+  storeError = new Error('off のときは、保存先を使わない');
+  assert.equal((await askChat()).status, 200);
 });
