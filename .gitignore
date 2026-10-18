@@ -29,4 +29,6 @@ dist-ssr
 *.sw?
 .vercel
 .netlify
-.claude
+# 個人の設定は除外し、プロジェクトのスキルだけを、リポジトリに入れる
+.claude/*
+!.claude/skills/
