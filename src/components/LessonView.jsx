@@ -3,6 +3,7 @@ import QuizQuestion from './QuizQuestion';
 import BasicsView from './BasicsView';
 import ThinkingTraining from './ThinkingTraining';
 import StepIndicator from './StepIndicator';
+import LevelSelector from './LevelSelector';
 import { getLevelContent, isLevelCompleted, STEPS } from '../utils/progress';
 
 const stepLabel = (key) => STEPS.find(s => s.key === key)?.label;
@@ -11,6 +12,7 @@ export default function LessonView({
   course,
   courseProgress,
   level,
+  isPro,
   currentLessonIndex,
   onChangeLevel,
   onNextLesson,
@@ -140,22 +142,7 @@ export default function LessonView({
             </div>
           </div>
 
-          {/* Level Selector */}
-          <div className="flex gap-3 mb-6">
-            {Object.entries(levelLabels).map(([key, label]) => (
-              <button
-                key={key}
-                onClick={() => onChangeLevel(key)}
-                className={`neu-btn px-4 py-2 font-semibold text-sm md:text-base ${
-                  level === key
-                    ? 'neu-btn-primary'
-                    : ''
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          <LevelSelector level={level} isPro={isPro} onChange={onChangeLevel} />
         </div>
 
         {step === 'basics' && (

@@ -15,18 +15,30 @@ const FALLBACK_RESPONSES = [
   ['python', 'Python は print() で出力、# でコメント、変数名は snake_case が基本です。']
 ];
 const FALLBACK_DEFAULT = '今は AI に接続できず、この質問には答えられませんでした。しばらくしてからもう一度お試しください。';
+const UPSELL = 'AI による、質問への詳しい回答は、プレミアムプランの機能です。';
 
-function fallbackAnswer(question, reason) {
+function keywordAnswer(question) {
   const hit = FALLBACK_RESPONSES.find(([pattern]) => new RegExp(pattern, 'i').test(question));
-  return hit ? hit[1] : `${FALLBACK_DEFAULT}（原因: ${reason}）`;
+  return hit ? hit[1] : null;
+}
+
+// AI に接続できなかったときの回答(原因を添える)
+function fallbackAnswer(question, reason) {
+  return keywordAnswer(question) || `${FALLBACK_DEFAULT}(原因: ${reason})`;
+}
+
+// プレミアムプランでない人への回答。AI は使わず、簡単な回答と、プランの案内を返す
+function freeAnswer(question) {
+  const answer = keywordAnswer(question);
+  return { text: answer ? `${answer}\n\nより詳しい回答が必要なときは、プレミアムプランで、AI がお答えします。` : UPSELL, upsell: true };
 }
 
 // 会話履歴を送って AI の回答を取得する。失敗したら簡易回答を返す
-async function fetchAnswer(history, context) {
+async function fetchAnswer(history, context, token) {
   try {
     const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       body: JSON.stringify({
         messages: history.map(m => ({ role: m.sender, content: m.text })),
         context
@@ -34,14 +46,15 @@ async function fetchAnswer(history, context) {
     });
     const data = await res.json().catch(() => null);
     if (!data) throw new Error(`Function が JSON を返しませんでした (${res.status})`);
+    if (res.status === 402) return { text: UPSELL, upsell: true };
     if (!res.ok || !data.reply) throw new Error(data.error || `エラー (${res.status})`);
-    return data.reply;
+    return { text: data.reply };
   } catch (e) {
-    return fallbackAnswer(history[history.length - 1].text, e.message);
+    return { text: fallbackAnswer(history[history.length - 1].text, e.message) };
   }
 }
 
-export default function ChatPanel({ context }) {
+export default function ChatPanel({ context, access }) {
   const [messages, setMessages] = useState(() => {
     // LocalStorage から質問履歴を読み込む
     try {
@@ -86,8 +99,10 @@ export default function ChatPanel({ context }) {
     setInputValue('');
     setIsLoading(true);
 
-    const text = await fetchAnswer(history, context);
-    setMessages(prev => [...prev, { id: Date.now() + 1, text, sender: 'assistant', timestamp: now() }]);
+    const answer = access?.isPro
+      ? await fetchAnswer(history, context, access.token)
+      : freeAnswer(question);
+    setMessages(prev => [...prev, { id: Date.now() + 1, ...answer, sender: 'assistant', timestamp: now() }]);
     setIsLoading(false);
   };
 
@@ -122,6 +137,11 @@ export default function ChatPanel({ context }) {
               <div className="message-content">
                 <div className="message-bubble">
                   <MessageText text={msg.text} />
+                  {msg.upsell && !access?.isPro && (
+                    <button onClick={access?.onUpgrade} className="neu-btn neu-btn-primary mt-3 px-4 py-2 text-sm font-semibold">
+                      プレミアムを始める
+                    </button>
+                  )}
                 </div>
                 <span className="message-time">{msg.timestamp}</span>
               </div>

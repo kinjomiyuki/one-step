@@ -1,5 +1,6 @@
 import { getLatestResume, STEPS } from '../utils/progress';
 import Onboarding from './Onboarding';
+import AccountBar from './AccountBar';
 
 const LEVELS = [
   { key: 'beginner', label: '初級' },
@@ -18,13 +19,16 @@ export default function CourseList({
   showOnboarding,
   onStartRecommended,
   onDismissOnboarding,
-  onSelectCourse
+  onSelectCourse,
+  account
 }) {
   const resume = getLatestResume(courses, progress);
 
   return (
     <div style={{ background: 'var(--neu-bg)', minHeight: '100vh' }} className="py-12 px-4">
       <div className="max-w-6xl mx-auto">
+        {account.premiumEnabled && <AccountBar {...account} />}
+
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: 'var(--neu-text)' }}>
