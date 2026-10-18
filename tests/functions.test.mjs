@@ -84,6 +84,8 @@ test('checkout: 月額サブスクの購入画面を作り、成功と取り消�
   assert.equal(body.get('success_url'), `${BASE}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`);
   assert.equal(body.get('cancel_url'), `${BASE}/?checkout=cancel`);
   assert.equal(calls[0].init.headers.Authorization, 'Bearer sk_test_dummy');
+  assert.equal(body.get('subscription_data[billing_mode][type]'), 'flexible');
+  assert.equal(calls[0].init.headers['Stripe-Version'], '2025-09-30.clover');
 });
 
 test('checkout: 価格 ID が未設定ならエラー、POST 以外は受け付けない', async () => {

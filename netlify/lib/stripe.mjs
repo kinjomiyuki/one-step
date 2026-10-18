@@ -23,7 +23,7 @@ function flatten(value, prefix = '', out = []) {
   return out;
 }
 
-export async function request(method, path, params) {
+export async function request(method, path, params, { version } = {}) {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) throw new StripeError('STRIPE_SECRET_KEY が設定されていません', 500);
 
@@ -33,6 +33,7 @@ export async function request(method, path, params) {
     method,
     headers: {
       Authorization: `Bearer ${key}`,
+      ...(version ? { 'Stripe-Version': version } : {}),
       ...(isGet ? {} : { 'Content-Type': 'application/x-www-form-urlencoded' })
     },
     body: isGet ? undefined : query
@@ -42,15 +43,29 @@ export async function request(method, path, params) {
   return data;
 }
 
+// STRIPE_AUTOMATIC_TAX=true のとき、Stripe Tax で税を自動計算し、事業者の税番号(T番号)の入力欄も出す。
+// Stripe ダッシュボードで、Stripe Tax の事業所の住所と、日本の税務登録を済ませてから有効にする。
+const automaticTaxEnabled = () => process.env.STRIPE_AUTOMATIC_TAX === 'true';
+
+// billing_mode は 2025-06-30.basil 以降の API でだけ使える。アカウントの既定のバージョンに左右されないよう、ここだけ固定する。
+const CHECKOUT_API_VERSION = '2025-09-30.clover';
+
 export const createCheckoutSession = ({ priceId, successUrl, cancelUrl }) =>
   request('POST', '/checkout/sessions', {
+    // 日割りや請求の計算が正確になる「柔軟な課金モード」を使う
+    subscription_data: { billing_mode: { type: 'flexible' } },
+    ...(automaticTaxEnabled() && {
+      automatic_tax: { enabled: true },
+      tax_id_collection: { enabled: true },
+      billing_address_collection: 'required'
+    }),
     mode: 'subscription',
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: successUrl,
     cancel_url: cancelUrl,
     locale: 'ja',
     allow_promotion_codes: true
-  });
+  }, { version: CHECKOUT_API_VERSION });
 
 export const retrieveCheckoutSession = (id) =>
   request('GET', `/checkout/sessions/${encodeURIComponent(id)}`, { expand: ['subscription'] });
