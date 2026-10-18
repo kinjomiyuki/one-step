@@ -5,6 +5,25 @@ description: Webアプリに月額課金(Stripe)と AI 機能の費用上限を�
 
 # アプリをマネタイズする型(OneStep で実際に通った流れ)
 
+## 新しいアプリで使うとき(最初に)
+
+課金のコード(Function、画面の部品、設定スクリプト、テスト、法務の文面)は、OneStep のリポジトリ(https://github.com/kinjomiyuki/one-step、手元は `C:\dev\one-step`)にある。この文書のファイル名は、そのリポジトリのものなので、新しいアプリには、まだ、ない。
+
+1. 新しいアプリのフォルダに、課金のファイルをコピーする(OneStep のフォルダで実行する)。
+
+```
+cd C:\dev\one-step
+git fetch origin; git reset --hard origin/main
+node scripts/export-monetization.mjs <新しいアプリのフォルダ>
+```
+
+   AI の回答と費用の上限が要らないときは、`--no-ai` を付ける。すでにあるファイルは、上書きしない。
+2. コピーしたあとの、手で直すところは、コピーされた `docs/monetization-template.md` に従う(設定ファイル、名前・価格・サイト ID・無料の範囲、法務の文面、画面へのつなぎ込み)。
+3. そのあとは、下の「手順(この順番)」を進める。
+
+OneStep のフォルダが、手元にないときは、先に、リポジトリを `git clone` する。
+
+
 構成: フロントは React + Vite、サーバーは Netlify Functions。Stripe は SDK を使わず fetch で呼ぶ。購入の確認は、Stripe に確かめ直す署名付きトークン(データベースなし)。保存が必要なものは Netlify Blobs。メールは Resend。詳細は `docs/premium-setup.md`、実装は `netlify/functions/`、`netlify/lib/`、`scripts/`。
 
 ## 進め方の原則
