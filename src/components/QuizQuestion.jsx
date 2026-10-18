@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { shuffle } from '../utils/shuffle';
 
 export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect, onRetry, onRestartLesson, navigation }) {
   const [showQuestion, setShowQuestion] = useState(false);
   const [userQuestion, setUserQuestion] = useState('');
   const [submittedQuestions, setSubmittedQuestions] = useState([]);
+
+  // 正解が先頭に固定されないよう、問題ごとに選択肢の順番を並べ替える(同じ問題の間は固定)
+  const options = useMemo(() => shuffle(question.options), [question]);
 
   const selectedOption = question.options.find(opt => opt.id === selectedAnswer);
   const isCorrect = selectedOption?.correct;
@@ -28,7 +32,7 @@ export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect,
 
       {/* Options */}
       <div className="space-y-3 mb-8">
-        {question.options.map((option, index) => {
+        {options.map((option, index) => {
           const isSelected = selectedAnswer === option.id;
           const showResult = isAnswered && isSelected;
 
