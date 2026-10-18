@@ -25,6 +25,10 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 - `src/utils/progress.js`: レベルとステップの定義、進捗の判定
 - `scripts/`: 問題データを生成・更新するスクリプト。`courses.js` を直接書き換えるので、実行前にコミットしておく
 
+## Skills
+
+- `.claude/skills/monetize-app/`: アプリを月額課金で売り始めるまでの型(OneStep で通った手順と、つまずいた点)。マネタイズ・Stripe・有料プランの話のときに使う
+
 ## Design rules
 
 - デザインは Neumorphism。ベースカラーは白、ポイントカラーは黄色
