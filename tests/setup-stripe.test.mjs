@@ -57,6 +57,7 @@ test('run: 鍵がない、形式が違う、本番の鍵に --live がない、�
   await assert.rejects(run({ env: {}, argv: [], log: silent }), /STRIPE_SECRET_KEY/);
   await assert.rejects(run({ env: { STRIPE_SECRET_KEY: 'abc' }, argv: [], log: silent }), /STRIPE_SECRET_KEY/);
   await assert.rejects(run({ env: { STRIPE_SECRET_KEY: 'sk_live_x' }, argv: [], log: silent }), /--live/);
+  await assert.rejects(run({ env: { STRIPE_SECRET_KEY: 'rk_live_x' }, argv: [], log: silent }), /--live/);
 });
 
 test('run --netlify --entitlement: 鍵と価格 ID と ENTITLEMENT_SECRET を登録し、鍵や秘密の値を、出力に出さない', async () => {

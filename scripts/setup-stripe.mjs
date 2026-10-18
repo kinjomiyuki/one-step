@@ -2,13 +2,13 @@
 // 何度実行しても、同じ結果になる(すでにあるものは、再利用する)。
 //
 // 使い方(プロジェクトのフォルダで。鍵は、この画面に入力するだけで、ファイルには残らない):
-//   PowerShell:  $env:STRIPE_SECRET_KEY = "sk_test_..."
+//   PowerShell:  $env:STRIPE_SECRET_KEY = "sk_test_..."(制限付きキーの rk_test_... でもよい)
 //                node scripts/setup-stripe.mjs --netlify
 //
 // オプション:
 //   --netlify      STRIPE_SECRET_KEY と STRIPE_PRICE_ID を、Netlify に secret として登録する(鍵は表示しない)
 //   --entitlement  ENTITLEMENT_SECRET を新しく作り、Netlify に登録する。初回だけ使う(やり直すと、購入者のトークンが無効になる)
-//   --live         本番の鍵(sk_live_...)を使うことを許可する。付けないと、本番の鍵は拒否する
+//   --live         本番の鍵(sk_live_... / rk_live_...)を使うことを許可する。付けないと、本番の鍵は拒否する
 import { execFileSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
@@ -76,13 +76,13 @@ function setNetlifyEnv(name, value, { secret }) {
 
 export async function run({ env = process.env, argv = process.argv.slice(2), log = console.log, api = request, setEnv = setNetlifyEnv } = {}) {
   const key = env.STRIPE_SECRET_KEY || '';
-  if (!/^sk_(test|live)_/.test(key)) {
-    throw new Error('環境変数 STRIPE_SECRET_KEY に、Stripe のシークレットキー(sk_test_...)を設定してください');
+  if (!/^(sk|rk)_(test|live)_/.test(key)) {
+    throw new Error('環境変数 STRIPE_SECRET_KEY に、Stripe のシークレットキー(sk_test_... または rk_test_...)を設定してください');
   }
-  if (key.startsWith('sk_live_') && !argv.includes('--live')) {
+  if (key.includes('_live_') && !argv.includes('--live')) {
     throw new Error('本番の鍵です。本番に作成してよい場合だけ、--live を付けて、もう一度実行してください');
   }
-  log(`モード: ${key.startsWith('sk_live_') ? '本番' : 'テスト'}`);
+  log(`モード: ${key.includes('_live_') ? '本番' : 'テスト'}`);
 
   const { price, created: priceCreated } = await ensurePrice(api);
   log(`価格: ${price.id}(${priceCreated ? '新しく作成' : 'すでにあるものを利用'}、月額 ${price.unit_amount} 円)`);
