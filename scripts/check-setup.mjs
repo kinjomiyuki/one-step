@@ -14,8 +14,9 @@ export const REQUIRED_ENV = ['STRIPE_SECRET_KEY', 'STRIPE_PRICE_ID', 'STRIPE_WEB
 const ok = (text) => `[OK]   ${text}`;
 const ng = (text) => `[要対応] ${text}`;
 
+// 本番の適用先に、登録されている変数の名前を返す(適用先を指定しないと、本番だけに登録したものが、見えない)
 function listNetlifyEnvNames() {
-  const out = execFileSync('npx', ['netlify', 'env:list', '--json', '--site', NETLIFY_SITE_ID], {
+  const out = execFileSync('npx', ['netlify', 'env:list', '--json', '--context', 'production', '--site', NETLIFY_SITE_ID], {
     stdio: ['ignore', 'pipe', 'pipe'],
     shell: process.platform === 'win32'
   }).toString();
