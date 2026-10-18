@@ -18,8 +18,8 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 
 - `src/components/`: 画面ごとのコンポーネント
 - `src/data/courses.js`: コースと問題のデータ。全コース共通の構造(初級/中級/上級 × 基礎・クイズ・シミュレーション・思考力)
-- `netlify/functions/`: chat(Claude API を呼ぶ)、checkout・entitlement・portal・login-link(Stripe と購入の確認)、config(有料プランのスイッチ)
-- `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン、チャットの1日の費用の上限)。Stripe は、パッケージを使わず、fetch で呼ぶ。保存が必要なものは、Netlify Blobs(`@netlify/blobs`)を使う
+- `netlify/functions/`: chat(Claude API を呼ぶ)、checkout・entitlement・portal・login-link・stripe-webhook(Stripe と購入の確認。stripe-webhook は、解約などを受け取って失効を記録する)、config(有料プランのスイッチ)
+- `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン、Webhook の署名の確認、失効した顧客の記録、チャットの1日の費用の上限)。Stripe は、パッケージを使わず、fetch で呼ぶ。保存が必要なものは、Netlify Blobs(`@netlify/blobs`)を使う
 - `src/hooks/useEntitlement.js`、`src/utils/entitlement.js`、`src/utils/plans.js`: プレミアムプランの確認と、無料のレベルの定義
 - `public/sw.js`、`public/manifest.webmanifest`: PWA(Service Worker は、本番ビルドだけで登録する)
 - `src/utils/progress.js`: レベルとステップの定義、進捗の判定
@@ -64,7 +64,7 @@ Actions が使えないときの手動デプロイ(手元のプロジェクト�
 環境変数(Netlify の Environment variables に設定。値は secret にする。有料プランの設定は `docs/premium-setup.md`):
 
 - `PREMIUM_ENABLED`: `true` にすると、有料プランが有効になる(未設定なら、全員が無料)
-- `STRIPE_SECRET_KEY`、`STRIPE_PRICE_ID`、`ENTITLEMENT_SECRET`、`RESEND_API_KEY`、`MAIL_FROM`: 有料プラン用
+- `STRIPE_SECRET_KEY`、`STRIPE_PRICE_ID`、`ENTITLEMENT_SECRET`、`STRIPE_WEBHOOK_SECRET`、`RESEND_API_KEY`、`MAIL_FROM`: 有料プラン用
 
 - `ANTHROPIC_API_KEY`: チャットの Function が使う Claude API キー。変更したら再デプロイする
 - `ANTHROPIC_MODEL`: 任意。チャットで使うモデルを変えたいとき(既定は `claude-haiku-5-5`)

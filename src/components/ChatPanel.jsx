@@ -35,7 +35,7 @@ function freeAnswer(question) {
 }
 
 // 会話履歴を送って AI の回答を取得する。失敗したら簡易回答を返す
-async function fetchAnswer(history, context, token) {
+async function fetchAnswer(history, context, token, onProRequired) {
   try {
     const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
@@ -47,7 +47,10 @@ async function fetchAnswer(history, context, token) {
     });
     const data = await res.json().catch(() => null);
     if (!data) throw new Error(`Function が JSON を返しませんでした (${res.status})`);
-    if (res.status === 402) return { text: UPSELL, upsell: true };
+    if (res.status === 402) {
+      onProRequired?.(); // 解約などで失効していたら、画面の側も、無料の状態に戻す
+      return { text: UPSELL, upsell: true };
+    }
     if (res.status === 429 && data.code === 'budget_exceeded') {
       const answer = keywordAnswer(history[history.length - 1].text);
       return { text: answer ? `${answer}\n\n${BUDGET_EXCEEDED}` : BUDGET_EXCEEDED };
@@ -105,7 +108,7 @@ export default function ChatPanel({ context, access }) {
     setIsLoading(true);
 
     const answer = access?.isPro
-      ? await fetchAnswer(history, context, access.token)
+      ? await fetchAnswer(history, context, access.token, access.onProRequired)
       : freeAnswer(question);
     setMessages(prev => [...prev, { id: Date.now() + 1, ...answer, sender: 'assistant', timestamp: now() }]);
     setIsLoading(false);

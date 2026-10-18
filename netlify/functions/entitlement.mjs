@@ -6,6 +6,7 @@
 // 環境変数: STRIPE_SECRET_KEY, ENTITLEMENT_SECRET
 import { json, readJson } from '../lib/http.mjs';
 import { retrieveCheckoutSession, hasActiveSubscription, isActiveStatus } from '../lib/stripe.mjs';
+import { isRevoked, setMembershipActive } from '../lib/membership.mjs';
 import { createToken, verifyToken, ACCESS_TTL_SECONDS, REFRESH_GRACE_SECONDS } from '../lib/token.mjs';
 
 const inactive = () => json({ active: false, error: '有効なプレミアムプランが見つかりません' }, 402);
@@ -33,6 +34,12 @@ export default async (req) => {
     const customerId = await customerFromRequest(await readJson(req));
     if (!customerId) return inactive();
     if (!(await hasActiveSubscription(customerId))) return inactive();
+    // 再契約したのに、失効の記録が残っているときは、Stripe の確認結果に合わせて直す
+    try {
+      if (await isRevoked(customerId)) await setMembershipActive(customerId, true);
+    } catch (e) {
+      console.error('membership repair failed', e.message);
+    }
 
     const { token, expiresAt } = createToken({ type: 'a', customerId, ttlSeconds: ACCESS_TTL_SECONDS });
     return json({ active: true, token, expiresAt });

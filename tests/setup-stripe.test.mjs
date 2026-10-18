@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { run, ensurePrice, ensurePortal, PRICE_LOOKUP_KEY, NETLIFY_SITE_ID } from '../scripts/setup-stripe.mjs';
+import { ensureWebhook, webhookUrl, run, ensurePrice, ensurePortal, PRICE_LOOKUP_KEY, NETLIFY_SITE_ID } from '../scripts/setup-stripe.mjs';
 
 // Stripe の呼び出しを記録し、決めた応答を返す、模擬の API
 function fakeApi(routes) {
@@ -98,4 +98,22 @@ test('run: --netlify を付けなければ、Netlify には何も登録しない
 
 test('登録先の Netlify のサイトは、one-step-programing に固定されている', () => {
   assert.equal(NETLIFY_SITE_ID, 'df24e90d-11bc-4e4b-89ea-fda4734d1db4');
+});
+
+test('ensureWebhook: なければ、解約の通知を受け取る口を作り、シークレットを返す。すでにあれば、作り直さない', async () => {
+  const url = webhookUrl({});
+  assert.equal(url, 'https://one-step-programing.netlify.app/.netlify/functions/stripe-webhook');
+  assert.equal(webhookUrl({ SITE_URL: 'https://example.com/' }), 'https://example.com/.netlify/functions/stripe-webhook');
+
+  const created = fakeApi({
+    'GET /webhook_endpoints': { data: [] },
+    'POST /webhook_endpoints': { id: 'we_1', secret: 'whsec_abc' }
+  });
+  assert.deepEqual(await ensureWebhook(url, created.api), { id: 'we_1', created: true, secret: 'whsec_abc' });
+  const sent = created.calls.find((c) => c.method === 'POST').params;
+  assert.equal(sent.url, url);
+  assert.ok(sent.enabled_events.includes('customer.subscription.deleted'));
+
+  const existing = fakeApi({ 'GET /webhook_endpoints': { data: [{ id: 'we_2', url }] } });
+  assert.deepEqual(await ensureWebhook(url, existing.api), { id: 'we_2', created: false });
 });

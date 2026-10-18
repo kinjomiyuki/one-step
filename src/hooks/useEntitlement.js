@@ -116,6 +116,14 @@ export default function useEntitlement() {
     [redirectTo, entitlement]
   );
 
+  // サーバーから「有料ではない」と言われたときに、手持ちのトークンを確かめ直す。失効していれば、無料の状態に戻す
+  const revalidate = useCallback(async () => {
+    if (!entitlement?.token) return;
+    const result = await refreshEntitlement(entitlement.token);
+    if (result.ok && result.data.active) store(toEntitlement(result.data));
+    else if (result.status !== 0) store(null);
+  }, [entitlement, store]);
+
   const restore = useCallback(async (email) => {
     setBusy(true);
     const result = await requestLoginLink(email);
@@ -138,6 +146,7 @@ export default function useEntitlement() {
     upgrade,
     manage,
     restore,
+    revalidate,
     dismissNotice: () => setNotice(null)
   };
 }
