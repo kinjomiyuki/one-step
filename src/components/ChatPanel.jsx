@@ -15,9 +15,9 @@ const FALLBACK_RESPONSES = [
 ];
 const FALLBACK_DEFAULT = '今は AI に接続できず、この質問には答えられませんでした。しばらくしてからもう一度お試しください。';
 
-function fallbackAnswer(question) {
+function fallbackAnswer(question, reason) {
   const hit = FALLBACK_RESPONSES.find(([pattern]) => new RegExp(pattern, 'i').test(question));
-  return hit ? hit[1] : FALLBACK_DEFAULT;
+  return hit ? hit[1] : `${FALLBACK_DEFAULT}（原因: ${reason}）`;
 }
 
 // 会話履歴を送って AI の回答を取得する。失敗したら簡易回答を返す
@@ -31,12 +31,12 @@ async function fetchAnswer(history, context) {
         context
       })
     });
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const data = await res.json();
-    if (!data.reply) throw new Error('empty reply');
+    const data = await res.json().catch(() => null);
+    if (!data) throw new Error(`Function が JSON を返しませんでした (${res.status})`);
+    if (!res.ok || !data.reply) throw new Error(data.error || `エラー (${res.status})`);
     return data.reply;
-  } catch {
-    return fallbackAnswer(history[history.length - 1].text);
+  } catch (e) {
+    return fallbackAnswer(history[history.length - 1].text, e.message);
   }
 }
 
