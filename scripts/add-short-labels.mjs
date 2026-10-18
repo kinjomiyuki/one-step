@@ -8,7 +8,10 @@ const labels = {
   react: 'Re',
   laravel: 'La',
   html: 'HT',
-  scss: 'SC'
+  scss: 'SC',
+  css: 'CS',
+  sql: 'SQ',
+  typescript: 'TS'
 };
 
 for (const course of courses) {
