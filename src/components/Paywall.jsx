@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import RestoreForm from './RestoreForm';
+import LegalLinks from './LegalLinks';
 import { PRICE_LABEL } from '../utils/plans';
 
 const BENEFITS = [
@@ -45,6 +46,10 @@ export default function Paywall({ title, busy, onUpgrade, onRestore }) {
         すでに購入済みの方はこちら
       </button>
       {showRestore && <RestoreForm busy={busy} onRestore={onRestore} />}
+
+      <div className="mt-6">
+        <LegalLinks />
+      </div>
     </div>
   );
 }

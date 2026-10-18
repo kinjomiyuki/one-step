@@ -1,6 +1,7 @@
 import { getLatestResume, STEPS } from '../utils/progress';
 import Onboarding from './Onboarding';
 import AccountBar from './AccountBar';
+import LegalLinks from './LegalLinks';
 
 const LEVELS = [
   { key: 'beginner', label: '初級' },
@@ -122,6 +123,12 @@ export default function CourseList({
             <li>ゲストモードで始められます（アカウント不要）</li>
           </ul>
         </div>
+
+        {account.premiumEnabled && (
+          <div className="mt-8 mb-4">
+            <LegalLinks />
+          </div>
+        )}
       </div>
     </div>
   );
