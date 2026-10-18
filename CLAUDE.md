@@ -28,6 +28,7 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 ## Skills
 
 - `.claude/skills/monetize-app/`: アプリを月額課金で売り始めるまでの型(OneStep で通った手順と、つまずいた点)。マネタイズ・Stripe・有料プランの話のときに使う
+- 別のアプリに、課金の部分を持っていくときは、`node scripts/export-monetization.mjs <コピー先>` でコピーし、`docs/monetization-template.md` に従って、手で直す
 
 ## Design rules
 
