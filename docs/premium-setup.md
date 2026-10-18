@@ -89,3 +89,8 @@ npx netlify env:set ENTITLEMENT_SECRET (node -e "console.log(require('crypto').r
 - 解約しても、トークンの有効期限(最大7日)までは、使える場合がある。アプリを開くたびに、1日に1回、再確認する
 - Webhook は使わない。決済の失敗(支払いが止まった状態)は、次の再確認のときに反映される
 - チャットは、利用ごとに Anthropic の API 料金がかかる。月の上限を、https://console.anthropic.com/settings/limits で設定しておく
+
+## 税とインボイス(任意)
+
+- 価格は税込(tax_behavior: inclusive)で登録済み。購入者への領収書とインボイスは、Stripe が購入と更新のたびに自動で発行する(ダッシュボードの「設定 → 請求書」で、屋号・住所・適格請求書発行事業者の登録番号を設定する)。
+- Stripe Tax で税を自動計算したいときは、ダッシュボードの「Tax」で事業所の住所と日本の登録を済ませてから、Netlify の環境変数 `STRIPE_AUTOMATIC_TAX` を `true` にして再デプロイする。購入画面に、請求先住所と税番号の入力欄が出る。設定前に `true` にすると購入が失敗するので注意。

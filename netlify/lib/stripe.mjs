@@ -42,8 +42,17 @@ export async function request(method, path, params) {
   return data;
 }
 
+// STRIPE_AUTOMATIC_TAX=true のとき、Stripe Tax で税を自動計算し、事業者の税番号(T番号)の入力欄も出す。
+// Stripe ダッシュボードで、Stripe Tax の事業所の住所と、日本の税務登録を済ませてから有効にする。
+const automaticTaxEnabled = () => process.env.STRIPE_AUTOMATIC_TAX === 'true';
+
 export const createCheckoutSession = ({ priceId, successUrl, cancelUrl }) =>
   request('POST', '/checkout/sessions', {
+    ...(automaticTaxEnabled() && {
+      automatic_tax: { enabled: true },
+      tax_id_collection: { enabled: true },
+      billing_address_collection: 'required'
+    }),
     mode: 'subscription',
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: successUrl,
