@@ -50,22 +50,30 @@ export default async (req) => {
     return json({ error: '質問が空です' }, 400);
   }
 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01'
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: 700,
-      system: buildSystemPrompt(payload.context),
-      messages
-    })
-  });
+  let res;
+  try {
+    res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 700,
+        system: buildSystemPrompt(payload.context),
+        messages
+      })
+    });
+  } catch (e) {
+    return json({ error: `AI への接続に失敗しました: ${e.message}` }, 502);
+  }
 
-  if (!res.ok) return json({ error: `AI の呼び出しに失敗しました (${res.status})` }, 502);
+  if (!res.ok) {
+    const detail = await res.json().then(d => d?.error?.message).catch(() => '');
+    return json({ error: `AI がエラーを返しました (${res.status}) ${detail || ''}`.trim() }, 502);
+  }
 
   const data = await res.json();
   const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
