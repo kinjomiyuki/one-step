@@ -62,9 +62,16 @@ export async function ensurePortal(api = request) {
 }
 
 function setNetlifyEnv(name, value, { secret }) {
-  const args = ['netlify', 'env:set', name, value, '--site', NETLIFY_SITE_ID, '--force', ...(secret ? ['--secret'] : [])];
+  // secret は、開発用以外の適用先(--context)を指定しないと、Netlify に拒否される
+  const args = ['netlify', 'env:set', name, value, '--site', NETLIFY_SITE_ID, '--force', ...(secret ? ['--secret', '--context', 'production'] : [])];
   // 値を画面に出さないよう、出力は捨てる。Windows では、npx を、シェル経由で呼ぶ
-  execFileSync('npx', args, { stdio: 'pipe', shell: process.platform === 'win32' });
+  try {
+    execFileSync('npx', args, { stdio: 'pipe', shell: process.platform === 'win32' });
+  } catch (e) {
+    // e.message には、実行したコマンド(秘密の値を含む)が入っているので、使わない
+    const detail = String(e.stderr || '').split('\n').find((line) => line.trim()) || '';
+    throw new Error(`Netlify への ${name} の登録に失敗しました。${detail.replace(value, '***')}`);
+  }
 }
 
 export async function run({ env = process.env, argv = process.argv.slice(2), log = console.log, api = request, setEnv = setNetlifyEnv } = {}) {
