@@ -41,15 +41,21 @@ Netlify に公開している。進捗や回答はブラウザの localStorage �
 
 ## Deploy
 
-公開サイト(`one-step-programing`)は、Git 連携ではなく Netlify CLI で手動デプロイしている。
-`main` にマージしただけでは公開されない(CI は lint・テスト・ビルドの確認のみ)。
+公開サイト(`one-step-programing`)は、`main` に入ると GitHub Actions(`.github/workflows/deploy.yml`)が Netlify に本番公開する。
+流れは、lint → テスト → `netlify deploy --prod`(ビルドは `netlify.toml` に従い、Function も含む)。プルリクエストでは公開しない。
 
-1. 変更を `main` にマージし、手元で `git pull origin main`
-2. プロジェクトのフォルダで `npx netlify status` を実行し、`Current project: one-step-programing` と出ることを確認する(別サイトに連携されたままだと、別サイトを上書きする)
+GitHub の Secrets(Settings → Secrets and variables → Actions)に、次の2つが必要:
+
+- `NETLIFY_AUTH_TOKEN`: Netlify の Personal access token
+- `NETLIFY_SITE_ID`: `df24e90d-11bc-4e4b-89ea-fda4734d1db4`
+
+Actions が使えないときの手動デプロイ(手元のプロジェクトのフォルダで):
+
+1. `git pull origin main`
+2. `npx netlify status` で `Current project: one-step-programing` と出ることを確認する(別サイトに連携されたままだと、別サイトを上書きする)
 3. `npx netlify deploy --prod`
-4. 公開後、チャットに質問して回答が返ることを確認する
 
-初回やフォルダを作り直したときは、`npx netlify link --id df24e90d-11bc-4e4b-89ea-fda4734d1db4` で連携する。
+公開後は、チャットに質問して回答が返ることを確認する。
 
 環境変数(Netlify の Environment variables に設定。値は secret にする):
 

@@ -1,0 +1,38 @@
+name: Deploy
+
+# main に入ったら Netlify に本番公開する(プルリクエストでは動かさない)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    steps:
+      - name: Check secrets
+        if: env.NETLIFY_AUTH_TOKEN == '' || env.NETLIFY_SITE_ID == ''
+        run: |
+          echo "::error::GitHub の Secrets に NETLIFY_AUTH_TOKEN と NETLIFY_SITE_ID を登録してください"
+          exit 1
+      - uses: actions/checkout@v7
+      # netlify-cli は Node 22.13 以上が必要なため、このワークフローは Node 22 を使う
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      # ビルドは netlify.toml の build.command(npm ci && npm run build)に従い、Function も含めて公開する
+      - run: npx --yes netlify-cli@27.13.0 deploy --prod
