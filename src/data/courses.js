@@ -10314,6 +10314,1227 @@ export const courses = [
     "shortLabel": "SQ"
   },
   {
+    "id": "php",
+    "name": "PHP",
+    "description": "サーバー側で動く言語 PHP で、画面に値を出す、フォームを受け取る、データを安全に扱う、基本を学びます",
+    "icon": "fa-brands fa-php",
+    "lessons": {
+      "projects": {
+        "beginner": [
+          {
+            "id": "php-project-beginner-1",
+            "title": "PHP 初級プロジェクト",
+            "content": "商品の一覧を、配列で持ち、foreach で表示しながら、金額の計算と表示を確認します。",
+            "questions": [
+              {
+                "id": "q-beg-PHP初級プロジェクト-1",
+                "text": "商品を、名前と価格の組で、複数持つデータとして、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "$products = \"りんご,120,みかん,80\";",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "$products = [['name' => 'りんご', 'price' => 120], ['name' => 'みかん', 'price' => 80]];",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "$products = 'りんご' + 120;",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "$products = [りんご, 120];",
+                    "correct": false
+                  }
+                ],
+                "explanation": "連想配列を、さらに配列に入れると、「複数の商品」を、整理して持てます。foreach で、1件ずつ取り出して、$product['name'] のように、使えます。",
+                "hint": "1つの商品が、名前と価格を持ち、それが複数あります。",
+                "example": "商品を、名前と価格の組にして、配列に入れておけば、一覧表示も、合計の計算も、同じデータを使って行えます。"
+              },
+              {
+                "id": "q-beg-PHP初級プロジェクト-2",
+                "text": "商品一覧を、HTML の <li> で、1行ずつ出力する書き方として、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "foreach ($products as $p) { echo \"<li>\" . $p['name'] . \"</li>\"; }",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "echo \"<li>\" . $products . \"</li>\";",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "foreach ($p as $products) { echo $p; }",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "for ($products) { echo \"<li>\"; }",
+                    "correct": false
+                  }
+                ],
+                "explanation": "foreach で、$products から、1件ずつ $p に取り出し、その name を、<li> で囲んで出力します。なお、利用者が入力した値を出力する場合は、htmlspecialchars() を通すのが、安全です。",
+                "hint": "配列の要素を、1つずつ取り出して、その中の名前を出力します。",
+                "example": "商品一覧の HTML を、foreach の中に、1 回だけ書けば、商品が、何件あっても、同じ見た目で、並べられます。"
+              },
+              {
+                "id": "q-beg-PHP初級プロジェクト-3",
+                "text": "価格 1000 円の、消費税 10% を加えた金額を、小数が出ないように計算する書き方は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "1000 + 10",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "1000 * \"1.1\"",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "1000 . 1.1",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "(int) round(1000 * 1.1)",
+                    "correct": true
+                  }
+                ],
+                "explanation": "1000 * 1.1 は、小数の計算になるので、round() で丸めて、整数にします。金額の計算は、端数の扱い（切り捨て、四捨五入など）を、あらかじめ決めておくことが大切です。",
+                "hint": "掛け算で求めたあと、整数に整えます。",
+                "example": "税抜 1000 円の商品の、税込価格は、round(1000 * 1.1) で求めます。端数の扱い（切り捨て、四捨五入）は、先に決めておきます。"
+              },
+              {
+                "id": "q-beg-PHP初級プロジェクト-4",
+                "text": "1234567 を、3桁区切りの「1,234,567」にして表示する関数は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "format_comma(1234567)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "number_format(1234567)",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "sprintf(1234567)",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "str_comma(1234567)",
+                    "correct": false
+                  }
+                ],
+                "explanation": "number_format() は、数値を、3桁区切りなどの書式に整えます。第2引数で、小数点以下の桁数も指定できます。金額の表示に、よく使います。",
+                "hint": "「数値の書式」という意味の関数です。",
+                "example": "number_format(1234567) で、「1,234,567」と表示できます。価格が大きくなるほど、読みやすくなります。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "php-project-intermediate-1",
+            "title": "PHP 中級プロジェクト",
+            "content": "お問い合わせフォームを作りながら、入力の確認と、安全な出力、送信後の動きを確認します。",
+            "questions": [
+              {
+                "id": "q-int-PHP中級プロジェクト-1",
+                "text": "お問い合わせフォームで、名前が「未入力、または、空白だけ」のときにエラーにしたい場合、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "if ($_POST['name'] == 0)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "if (isset($_POST['name']))",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "if (trim($_POST['name'] ?? '') === '')",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "if ($_POST['name'] === null)",
+                    "correct": false
+                  }
+                ],
+                "explanation": "trim() で、前後の空白を取り除き、空文字かどうかを調べます。?? '' を付けておくと、フォームの項目自体が、届かなかったときも、警告なしで扱えます。入力の確認は、利用者の操作に頼らず、必ず、サーバー側で行います。",
+                "hint": "前後の空白を取り除いてから、空かどうかを調べます。",
+                "example": "お問い合わせフォームで、名前が、空白だけで送られたときに、trim() で空白を取り除いて、空かどうかを調べ、「名前を入力してください」と表示します。"
+              },
+              {
+                "id": "q-int-PHP中級プロジェクト-2",
+                "text": "メールアドレスの形式を、確認するのに使える関数は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "check_mail($email)",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "filter_var($email, FILTER_VALIDATE_EMAIL)",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "is_email($email)",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "strlen($email) > 5",
+                    "correct": false
+                  }
+                ],
+                "explanation": "filter_var() に FILTER_VALIDATE_EMAIL を指定すると、メールアドレスとして、正しい形式かを調べられます。形式が正しいだけで、実在することまでは、保証されない点に、注意が必要です。",
+                "hint": "値の検証や、変換をする、標準の関数があります。",
+                "example": "メールアドレスの入力欄に、「abc」のような、形式の違う値が入ったときに、filter_var() で見つけて、やり直しを促せます。"
+              },
+              {
+                "id": "q-int-PHP中級プロジェクト-3",
+                "text": "確認画面で、入力された内容を、表示するときに、必要なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "出力する前に、strtoupper() を通す",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "出力する前に、htmlspecialchars() を通す",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "何もせず、そのまま出力する",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "出力する前に、md5() を通す",
+                    "correct": false
+                  }
+                ],
+                "explanation": "利用者の入力を、HTML にそのまま出力すると、スクリプトを埋め込まれる危険（XSS）があります。画面に出す直前に、htmlspecialchars() を通すのが基本です。",
+                "hint": "入力された文字列は、信用できない値として、扱います。",
+                "example": "確認画面に、入力した内容を表示するときは、htmlspecialchars() を通します。入力欄に書かれた <script> が、実行されるのを防げます。"
+              },
+              {
+                "id": "q-int-PHP中級プロジェクト-4",
+                "text": "送信が完了したあと、header('Location: thanks.php'); exit; で、別のページに移動させる主な目的は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "画面を再読み込みしたときに、同じ内容が、もう一度送信されるのを防ぐため",
+                    "correct": true
+                  },
+                  {
+                    "id": "b",
+                    "text": "ページを、速く表示するため",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "データを、暗号化するため",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "PHP のバージョンを、切り替えるため",
+                    "correct": false
+                  }
+                ],
+                "explanation": "送信の結果を、そのまま表示すると、再読み込みで、同じ POST が、もう一度送られてしまいます。完了後に、別のページへ移動させる（リダイレクト）と、二重送信を防げます。header() のあとは、exit で、処理を止めます。",
+                "hint": "POST した直後の画面を、再読み込みすると、何が起きるでしょうか。",
+                "example": "送信が完了したあと、header('Location: thanks.php'); で、お礼のページへ移動します。画面を再読み込みしても、同じ問い合わせが、もう一度送られません。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "php-project-advanced-1",
+            "title": "PHP 上級プロジェクト",
+            "content": "ログイン機能を作りながら、パスワード、セッション、データベース検索の安全な書き方を確認します。",
+            "questions": [
+              {
+                "id": "q-adv-PHP上級プロジェクト-1",
+                "text": "ログイン時に、入力されたパスワードと、データベースの値を、照合する方法は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "入力されたパスワードを、== で、保存された値と比べる",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "保存された値を、画面に表示して、目で確かめる",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "password_verify($入力, $保存されたハッシュ) で確かめる",
+                    "correct": true
+                  },
+                  {
+                    "id": "d",
+                    "text": "入力されたパスワードを、SQL の WHERE に、直接書き込む",
+                    "correct": false
+                  }
+                ],
+                "explanation": "保存されているのは、ハッシュなので、入力されたパスワードと、直接は、比べられません。password_verify() は、入力から、ハッシュと一致するかを、安全に判定します。",
+                "hint": "保存されているのは、元に戻せない形（ハッシュ）です。",
+                "example": "ログイン処理では、password_verify() で、入力されたパスワードと、保存されたハッシュを、照合します。データベースの値を、画面に出す必要は、ありません。"
+              },
+              {
+                "id": "q-adv-PHP上級プロジェクト-2",
+                "text": "ログインに成功した直後に、session_regenerate_id(true); を呼ぶ目的は______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "パスワードを、再び入力させるため",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "セッションの、保存期間を長くするため",
+                    "correct": false
+                  },
+                  {
+                    "id": "c",
+                    "text": "データベースの接続を、切るため",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "セッション ID を新しくして、他人に、事前に仕込まれた ID を使われる攻撃（セッション固定）を防ぐため",
+                    "correct": true
+                  }
+                ],
+                "explanation": "セッション ID を、ログインの前後で、そのまま使うと、攻撃者に、あらかじめ知られた ID で、ログイン状態を、乗っ取られる危険があります。ログイン成功の直後に、ID を作り直すと、この攻撃を防げます。",
+                "hint": "ログインの前後で、識別用の ID を、変えておきます。",
+                "example": "ログインに成功した直後に、session_regenerate_id(true) を呼んで、セッション ID を作り直します。他人に、先に仕込まれた ID で、乗っ取られるのを防げます。"
+              },
+              {
+                "id": "q-adv-PHP上級プロジェクト-3",
+                "text": "ユーザーを、メールアドレスで検索する処理として、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "$pdo->query(\"SELECT * FROM users WHERE email = '\" . $email . \"'\")",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "$stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email'); $stmt->execute(['email' => $email]);",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "$pdo->query(\"SELECT * FROM users WHERE email = $email\")",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "file_get_contents('users.txt') で、全件を読み込んで探す",
+                    "correct": false
+                  }
+                ],
+                "explanation": "入力された値を、SQL 文に、直接つなげると、SQL インジェクションの危険があります。プレースホルダ（:email）を使い、値は、execute() で、別に渡します。",
+                "hint": "SQL の形と、値を、分けて渡す方法です。",
+                "example": "ユーザーの検索は、prepare() と execute() で、メールアドレスを、別に渡します。入力された値が、SQL の命令として解釈されません。"
+              },
+              {
+                "id": "q-adv-PHP上級プロジェクト-4",
+                "text": "ログインに失敗したとき、利用者に出すメッセージとして、適切なのは______です。",
+                "options": [
+                  {
+                    "id": "a",
+                    "text": "「このメールアドレスは、登録されていません」",
+                    "correct": false
+                  },
+                  {
+                    "id": "b",
+                    "text": "「メールアドレスまたはパスワードが、正しくありません」",
+                    "correct": true
+                  },
+                  {
+                    "id": "c",
+                    "text": "「パスワードが、1文字違います」",
+                    "correct": false
+                  },
+                  {
+                    "id": "d",
+                    "text": "データベースの、エラーメッセージを、そのまま表示する",
+                    "correct": false
+                  }
+                ],
+                "explanation": "「メールアドレスが、登録されていません」と伝えると、攻撃者に、登録済みのメールアドレスを、推測する手がかりを与えます。どちらが違うのかを、特定できない、共通のメッセージにします。内部のエラーの内容も、利用者には、見せません。",
+                "hint": "攻撃者に、手がかりを与えない言い方を、考えます。",
+                "example": "ログインに失敗したときは、「メールアドレスまたはパスワードが正しくありません」と、共通のメッセージを出します。登録されているメールアドレスを、推測されにくくなります。"
+              }
+            ]
+          }
+        ]
+      },
+      "beginner": [
+        {
+          "id": "php-beginner-1",
+          "title": "PHP の基本",
+          "content": "PHP がどこで動くのかと、変数・文字列・出力の基本を学びます。",
+          "questions": [
+            {
+              "id": "q-beg-PHPの基本-1",
+              "text": "PHP のコードが実行される場所として、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "閲覧者のブラウザの中",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "Web サーバーの中。実行結果の HTML が、ブラウザに届く",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "閲覧者のパソコンの、OS の中",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "どこでも実行されず、そのまま画面に表示される",
+                  "correct": false
+                }
+              ],
+              "explanation": "PHP は、サーバー側で実行されます。ブラウザに届くのは、実行した結果の HTML などで、PHP のコード自体は届きません。そのため、閲覧者は、ソースを表示しても、PHP のコードを見ることができません。",
+              "hint": "ブラウザに届くものは、何でしょうか。",
+              "example": "会員の名前を表示するマイページは、サーバー側の PHP が、データベースから名前を取り出して、HTML にして、ブラウザに返します。閲覧者は、PHP のコードを見ることはできません。"
+            },
+            {
+              "id": "q-beg-PHPの基本-2",
+              "text": "PHP で、変数 name に \"太郎\" を入れる書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "let name = \"太郎\";",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "name = \"太郎\"",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "var name = \"太郎\";",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "$name = \"太郎\";",
+                  "correct": true
+                }
+              ],
+              "explanation": "PHP の変数は、名前の前に $ を付けます。let や var は、PHP では使いません。文の終わりには、セミコロン（;）を付けます。",
+              "hint": "PHP の変数には、名前の前に付ける印があります。",
+              "example": "$price = 980; のように、値に名前を付けておくと、あとから、同じ値を、何度も使えます。PHP の変数は、名前の前に $ を付けます。"
+            },
+            {
+              "id": "q-beg-PHPの基本-3",
+              "text": "文字列 \"山田\" と \"さん\" をつなげて、\"山田さん\" にする書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "\"山田\" + \"さん\"",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "\"山田\" . \"さん\"",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "\"山田\" & \"さん\"",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "\"山田\" , \"さん\"",
+                  "correct": false
+                }
+              ],
+              "explanation": "PHP で文字列をつなぐ演算子は、ピリオド（.）です。+ は、数値の足し算に使います。文字列に + を使うと、意図した結果にならないので、注意が必要です。",
+              "hint": "JavaScript では + を使いますが、PHP は違います。",
+              "example": "\"山田\" . \"さん\" のように、名前と敬称を、ピリオドでつなぎます。PHP では、文字列のつなぎに、+ ではなく、ピリオドを使います。"
+            },
+            {
+              "id": "q-beg-PHPの基本-4",
+              "text": "$name = \"太郎\"; のとき、echo \"こんにちは、$name さん\"; と echo 'こんにちは、$name さん'; の違いは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "どちらも、「こんにちは、太郎 さん」と出る",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "どちらも、「こんにちは、$name さん」と出る",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "ダブルクォートは、$name が値に置き換わり、シングルクォートは、そのまま「$name」と出る",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "ダブルクォートは、エラーになる",
+                  "correct": false
+                }
+              ],
+              "explanation": "ダブルクォート（\"）の中では、変数が値に置き換わります。シングルクォート（'）の中は、書いたとおりの文字列として扱われます。変数を埋め込みたいときは、ダブルクォートを使います。",
+              "hint": "変数を文字列の中に埋め込めるのは、どちらの引用符でしょうか。",
+              "example": "メールの文面を、\"{$name} 様、ご注文ありがとうございます\" のように、ダブルクォートの中に、変数を埋め込んで作れます。シングルクォートでは、変数が展開されません。"
+            }
+          ]
+        },
+        {
+          "id": "php-beginner-2",
+          "title": "配列と繰り返し",
+          "content": "複数の値をまとめる配列と、それを順番に処理する foreach を学びます。",
+          "questions": [
+            {
+              "id": "q-beg-配列と繰り返し-1",
+              "text": "商品名と価格のような「名前と値の組」を持つ配列を、PHP では______といいます。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "数値配列",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "多次元配列",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "連想配列",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "ハッシュ関数",
+                  "correct": false
+                }
+              ],
+              "explanation": "['name' => 'りんご', 'price' => 120] のように、キーと値の組でできた配列を、連想配列といいます。$item['name'] のように、キーを指定して、値を取り出します。",
+              "hint": "名前（キー）で、値を取り出せる配列です。",
+              "example": "商品名と価格を、['name' => 'りんご', 'price' => 120] のように持てば、$item['name'] で、名前を取り出せます。データの意味が、読み取りやすくなります。"
+            },
+            {
+              "id": "q-beg-配列と繰り返し-2",
+              "text": "配列 $users の要素を、1つずつ取り出して処理する書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "foreach ($users as $user) { ... }",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "for each $users in $user { ... }",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "while ($users) { ... }",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "loop ($users => $user) { ... }",
+                  "correct": false
+                }
+              ],
+              "explanation": "foreach ($配列 as $要素) { ... } で、配列の要素を、先頭から順に取り出して処理できます。連想配列では、foreach ($配列 as $キー => $値) のように、キーも一緒に取り出せます。",
+              "hint": "「配列の各要素について」という意味の命令です。",
+              "example": "商品の一覧ページで、配列の商品を、foreach で 1 件ずつ取り出して、<li> を、1 件ずつ出力します。商品が増えても、コードは、変わりません。"
+            },
+            {
+              "id": "q-beg-配列と繰り返し-3",
+              "text": "配列に、いくつの要素が入っているかを調べる関数は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "length($array)",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "size_of($array)",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "$array.length",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "count($array)",
+                  "correct": true
+                }
+              ],
+              "explanation": "count($array) で、要素の数を取得できます。PHP の配列には、JavaScript のような length プロパティは、ありません。",
+              "hint": "「数える」という意味の英単語です。",
+              "example": "買い物かごに入っている商品の数を、count($cart) で数えて、「カートに 3 点」と表示できます。"
+            },
+            {
+              "id": "q-beg-配列と繰り返し-4",
+              "text": "\"1\" == 1 は true になりますが、\"1\" === 1 は______になります。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "true",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "false",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "エラー",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "null",
+                  "correct": false
+                }
+              ],
+              "explanation": "== は、型を合わせてから比べるので、\"1\"（文字列）と 1（数値）は、等しいと判断されます。=== は、値と型が、どちらも同じときだけ true です。意図しない一致を避けるため、基本は === を使います。",
+              "hint": "=== は、値だけでなく、型も同じか調べます。",
+              "example": "入力された値が \"0\" のときに、== で比べると、意図しない一致が起きることがあります。=== を使えば、型も含めて、厳密に比べられます。"
+            }
+          ]
+        }
+      ],
+      "intermediate": [
+        {
+          "id": "php-intermediate-1",
+          "title": "フォームと安全な出力",
+          "content": "フォームから届く値の受け取り方と、画面に出すときの安全な書き方を学びます。",
+          "questions": [
+            {
+              "id": "q-int-フォームと安全な出力-1",
+              "text": "method=\"post\" のフォームで、name=\"email\" の入力欄に入れた値を受け取る書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "$_GET['email']",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "$email",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "$_POST['email']",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "post('email')",
+                  "correct": false
+                }
+              ],
+              "explanation": "POST で送られたフォームの値は、$_POST という配列に入ります。GET（URL に付く値）は、$_GET です。name 属性の値が、配列のキーになります。",
+              "hint": "POST で送られた値は、決まった名前の配列に入ります。",
+              "example": "お問い合わせフォームで、method=\"post\" で送られたメールアドレスは、$_POST['email'] で受け取ります。"
+            },
+            {
+              "id": "q-int-フォームと安全な出力-2",
+              "text": "ユーザーが入力した文字列を、HTML に表示するときに、htmlspecialchars() を通す目的は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "文字列を、短くするため",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "文字列を、暗号化するため",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "文字列を、数値に変換するため",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "< や > などを無害な表記に変えて、悪意のあるスクリプトが実行されるのを防ぐため",
+                  "correct": true
+                }
+              ],
+              "explanation": "入力された文字列を、そのまま HTML に出力すると、<script> などが実行される危険があります（XSS）。htmlspecialchars() は、< や > などを、安全な表記に変えるので、画面に出す直前に、必ず通します。",
+              "hint": "入力欄に <script> と書かれたら、どうなるでしょうか。",
+              "example": "利用者が、名前の欄に <script> と書いても、画面に出す前に htmlspecialchars() を通せば、ただの文字として、表示されます。"
+            },
+            {
+              "id": "q-int-フォームと安全な出力-3",
+              "text": "検索フォームは GET、会員登録フォームは POST にするのが適切な理由は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "GET は、パスワードを暗号化して送れるため",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "GET は、条件が URL に残り、共有や再読み込みに向く。登録のようにデータを変える処理は、POST にするのが基本のため",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "POST は、URL が長くなるため",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "どちらでも、まったく違いはないため",
+                  "correct": false
+                }
+              ],
+              "explanation": "GET は、値が URL に付くので、検索結果を共有したり、ブックマークしたりできます。一方、登録や更新のように、データを変える処理は、POST で送るのが基本です。なお、POST にしても、値が暗号化されるわけではありません。",
+              "hint": "URL に値が付くと、何が起きるでしょうか。",
+              "example": "商品の検索は、GET にすれば、検索結果の URL を、そのまま共有できます。会員登録のような、データを変える処理は、POST にします。"
+            },
+            {
+              "id": "q-int-フォームと安全な出力-4",
+              "text": "フォームの値が未入力でも、警告を出さずに、既定値を使いたいとき、$name = ______; と書けます。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "$_POST['name'] or '名無し'",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "$_POST['name'] ?? '名無し'",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "$_POST['name'] || '名無し'",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "$_POST['name'] : '名無し'",
+                  "correct": false
+                }
+              ],
+              "explanation": "?? は、null 合体演算子で、左側が、存在しない、または null のとき、右側の値を使います。未入力で、キー自体がないときも、警告が出ません。",
+              "hint": "「なければ、右側の値を使う」という演算子です。",
+              "example": "検索ページで、キーワードが未入力のときに、$keyword = $_GET['q'] ?? ''; と書けば、警告を出さずに、空文字として扱えます。"
+            }
+          ]
+        },
+        {
+          "id": "php-intermediate-2",
+          "title": "データベースとセッション",
+          "content": "PDO でデータベースを安全に扱う方法と、ログイン状態を保つセッションを学びます。",
+          "questions": [
+            {
+              "id": "q-int-データベースとセッション-1",
+              "text": "ユーザーが入力したメールアドレスで、データベースを検索するとき、安全なのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "プレースホルダを使ったプリペアドステートメントで、値を別に渡す",
+                  "correct": true
+                },
+                {
+                  "id": "b",
+                  "text": "SQL 文に、入力された文字列を、そのままつなげる",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "SQL 文に、htmlspecialchars() を通した文字列を、つなげる",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "どの書き方でも、安全性は同じ",
+                  "correct": false
+                }
+              ],
+              "explanation": "SQL 文に、入力された文字列を直接つなげると、SQL を書き換えられる攻撃（SQL インジェクション）の危険があります。プリペアドステートメントは、SQL の形と値を分けて、データベースに渡すので、値が命令として解釈されません。",
+              "hint": "SQL の命令と、値を、分けて扱う方法があります。",
+              "example": "ログイン画面で、入力されたメールアドレスから、ユーザーを探すときは、プレースホルダを使い、値を別に渡します。SQL インジェクションを防げます。"
+            },
+            {
+              "id": "q-int-データベースとセッション-2",
+              "text": "PDO で、検索結果を、列名をキーにした連想配列として、1行ずつ取り出したいとき、使うのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "$stmt->fetch(PDO::FETCH_NUM)",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "$stmt->fetch(PDO::FETCH_OBJ_ONLY)",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "$stmt->fetch(PDO::FETCH_ASSOC)",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "$stmt->get()",
+                  "correct": false
+                }
+              ],
+              "explanation": "PDO::FETCH_ASSOC を指定すると、列名をキーにした連想配列で、行を取得できます。$row['email'] のように、列名で、値を取り出せるので、読みやすくなります。",
+              "hint": "ASSOC は、連想配列（associative array）の略です。",
+              "example": "$stmt->fetch(PDO::FETCH_ASSOC) で、取り出した 1 行を、$row['name'] のように、列名で読み取れます。"
+            },
+            {
+              "id": "q-int-データベースとセッション-3",
+              "text": "設定ファイルを読み込むとき、require と include の違いは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "require は、何度でも読み込め、include は、1回だけ",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "require は、ブラウザ側で動き、include は、サーバー側で動く",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "ファイルが見つからないとき、require は処理を止め、include は警告を出して続ける",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "違いは、まったくない",
+                  "correct": false
+                }
+              ],
+              "explanation": "require は、ファイルを読み込めないと、致命的なエラーとして、処理を止めます。include は、警告を出して、処理を続けます。設定ファイルのように、なければ動かないものは、require を使います。",
+              "hint": "読み込めなかったときの、動きが違います。",
+              "example": "データベースの設定を書いたファイルは、require で読み込みます。ファイルがないのに、処理が続くと、原因の分かりにくい不具合になるためです。"
+            },
+            {
+              "id": "q-int-データベースとセッション-4",
+              "text": "ログイン状態を保つために、session_start() を使う理由は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "ブラウザに、パスワードそのものを保存するため",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "サーバー側に、ユーザーごとのデータを保存し、ブラウザには、その識別用の ID だけを持たせるため",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "データベースを、自動で作るため",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "ページの表示を、速くするため",
+                  "correct": false
+                }
+              ],
+              "explanation": "セッションは、ユーザーごとのデータを、サーバー側に保存し、ブラウザには、それを見つけるための ID（Cookie）だけを持たせる仕組みです。パスワードのような、重要な情報を、ブラウザ側に置かずに済みます。session_start() は、その処理の開始を宣言します。",
+              "hint": "ブラウザに持たせる情報は、できるだけ少なくします。",
+              "example": "ログイン後、ページを移動しても、ログイン状態を保つために、session_start() を呼んで、$_SESSION にユーザーの ID を入れます。"
+            }
+          ]
+        }
+      ],
+      "advanced": [
+        {
+          "id": "php-advanced-1",
+          "title": "安全で、読みやすい設計",
+          "content": "パスワードの扱い、例外、型宣言、ライブラリの管理など、実務で必要な考え方を学びます。",
+          "questions": [
+            {
+              "id": "q-adv-安全で、読みやすい設計-1",
+              "text": "会員のパスワードをデータベースに保存する方法として、適切なのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "そのままの文字列で保存する",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "base64 で変換して保存する",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "password_hash() で、ハッシュ化して保存し、確認には password_verify() を使う",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "md5() で、ハッシュ化して保存する",
+                  "correct": false
+                }
+              ],
+              "explanation": "password_hash() は、安全な方式で、パスワードをハッシュ化します。元の文字列には戻せないので、データが漏れても、パスワードそのものは、分かりません。ログイン時は、password_verify() で、入力と保存した値が一致するかを確かめます。md5 は、現在は、パスワードの保存には、不適切です。",
+              "hint": "パスワードは、元の文字列に戻せない形で保存します。",
+              "example": "会員登録時に、password_hash() で、パスワードをハッシュ化して保存します。データベースが漏れても、元のパスワードは、分かりません。"
+            },
+            {
+              "id": "q-adv-安全で、読みやすい設計-2",
+              "text": "失敗するかもしれない処理（ファイルの読み込みなど）を、安全に扱う書き方は______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "失敗しても、何も書かずに無視する",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "echo でメッセージを出して、そのまま続ける",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "どんな処理も、必ず成功するものとして書く",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "try { ... } catch (Exception $e) { ... } で、例外を受け取って、対処する",
+                  "correct": true
+                }
+              ],
+              "explanation": "try の中で、例外が投げられると、catch に処理が移ります。ここで、エラーを記録したり、利用者に分かりやすいメッセージを出したりできます。エラーを握りつぶすと、原因が分からなくなるので、必ず何らかの対処をします。",
+              "hint": "エラーが起きたときの、処理を、別に書く構文です。",
+              "example": "ファイルの保存や、外部サービスへの接続のように、失敗しうる処理は、try-catch で囲み、失敗したときの、案内を決めておきます。"
+            },
+            {
+              "id": "q-adv-安全で、読みやすい設計-3",
+              "text": "ファイルの先頭に declare(strict_types=1); を書くと、______になります。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "すべての変数に、型を書かないと、エラーになる",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "関数が、速く実行される",
+                  "correct": false
+                },
+                {
+                  "id": "c",
+                  "text": "関数の引数に、宣言と違う型の値（例えば、int に \"5\"）を渡すと、自動で変換されず、TypeError になる",
+                  "correct": true
+                },
+                {
+                  "id": "d",
+                  "text": "PHP のバージョンが、自動で上がる",
+                  "correct": false
+                }
+              ],
+              "explanation": "strict_types=1 を指定すると、型宣言のある関数に、違う型の値を渡したとき、自動変換されず、エラーになります。意図しない型の値が、紛れ込む間違いを、早く見つけられます。",
+              "hint": "型を、どこまで厳しく見るかの設定です。",
+              "example": "金額を計算する関数に、int の型を宣言し、strict_types=1 を指定しておけば、\"1,000\" のような、文字列を渡す間違いを、すぐに、見つけられます。"
+            },
+            {
+              "id": "q-adv-安全で、読みやすい設計-4",
+              "text": "Composer の役割として、正しいのは______です。",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "PHP のコードを、速く実行する",
+                  "correct": false
+                },
+                {
+                  "id": "b",
+                  "text": "ライブラリの導入とバージョンの管理をし、クラスを自動で読み込む仕組み（オートロード）を用意する",
+                  "correct": true
+                },
+                {
+                  "id": "c",
+                  "text": "データベースを、作成する",
+                  "correct": false
+                },
+                {
+                  "id": "d",
+                  "text": "Web サーバーを、起動する",
+                  "correct": false
+                }
+              ],
+              "explanation": "Composer は、PHP のパッケージ管理ツールです。composer require で、ライブラリを導入でき、composer.json にバージョンが記録されます。vendor/autoload.php を読み込めば、クラスが自動で読み込まれ、require を大量に書かずに済みます。",
+              "hint": "他の人が作った部品を、使うための道具です。",
+              "example": "メール送信や、日付の処理に、便利なライブラリを、composer require で導入し、vendor/autoload.php を読み込んで、使えます。"
+            }
+          ]
+        }
+      ],
+      "basics": {
+        "beginner": [
+          {
+            "id": "php-basics-beginner",
+            "title": "サーバーで動く PHP の基本",
+            "content": "PHP は、Web サーバーの中で動く言語です。ここでは、PHP がどこで動くのかと、変数・文字列・配列・繰り返しの、基本の書き方を押さえましょう。",
+            "sections": [
+              {
+                "heading": "PHP とは",
+                "body": "Web サーバーの中で実行される言語です。実行した結果の HTML が、ブラウザに届きます。そのため、閲覧者は、ソースを表示しても、PHP のコードを見ることができません。PHP のコードは、<?php と ?> の間に書きます。",
+                "example": "会員ごとに表示が変わるマイページや、フォームの内容をデータベースに保存する処理は、サーバー側の PHP が行います。"
+              },
+              {
+                "heading": "変数と文字列",
+                "body": "変数は、名前の前に $ を付けます。文の終わりには、セミコロンを付けます。文字列をつなぐ演算子は、ピリオド（.）です。ダブルクォートの中では、変数が値に置き換わりますが、シングルクォートの中では、置き換わりません。",
+                "code": "<?php\n$name = \"太郎\";\necho \"こんにちは、\" . $name . \"さん\";\necho \"こんにちは、$name さん\"; // 変数が展開される\necho 'こんにちは、$name さん'; // そのまま出る"
+              },
+              {
+                "heading": "配列と連想配列",
+                "body": "複数の値は、配列にまとめます。名前（キー）と値の組でできた配列を、連想配列といいます。キーを指定して、値を取り出します。要素の数は、count() で調べます。",
+                "code": "$colors = [\"赤\", \"青\", \"緑\"];\n$item = [\"name\" => \"りんご\", \"price\" => 120];\necho $item[\"name\"]; // りんご\necho count($colors); // 3"
+              },
+              {
+                "heading": "foreach で繰り返す",
+                "body": "配列の要素を、1つずつ取り出して処理するときは、foreach を使います。連想配列では、キーも一緒に取り出せます。",
+                "code": "foreach ($colors as $color) {\n  echo \"<li>$color</li>\";\n}"
+              },
+              {
+                "heading": "== と ===",
+                "body": "== は、型を合わせてから比べます。=== は、値と型が、どちらも同じときだけ、true になります。意図しない一致を避けるため、基本は、=== を使います。",
+                "code": "var_dump(\"1\" == 1);  // true\nvar_dump(\"1\" === 1); // false"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "php-basics-intermediate",
+            "title": "フォームの受け取りと、安全な出力・保存",
+            "content": "Web アプリの多くは、利用者の入力を、受け取って処理します。入力は、信用できない値として扱い、出力と保存のときに、安全に処理する習慣を身につけましょう。",
+            "sections": [
+              {
+                "heading": "フォームの値の受け取り",
+                "body": "POST で送られた値は $_POST、URL に付いた値は $_GET に入ります。name 属性の値が、キーになります。値がない場合に備えて、?? で、既定値を決めておくと、警告を避けられます。検索は GET、登録や更新は POST が、基本です。",
+                "code": "$name = $_POST[\"name\"] ?? \"\";\n$keyword = $_GET[\"q\"] ?? \"\";"
+              },
+              {
+                "heading": "出力のときの、エスケープ",
+                "body": "利用者の入力を、HTML にそのまま出力すると、<script> などを埋め込まれて、実行される危険があります（XSS）。画面に出す直前に、htmlspecialchars() を通します。",
+                "code": "function e(string $s): string {\n  return htmlspecialchars($s, ENT_QUOTES, \"UTF-8\");\n}\necho e($name);"
+              },
+              {
+                "heading": "入力の確認は、サーバー側で",
+                "body": "必須かどうか、形式が正しいかは、サーバー側で、必ず確認します。画面側（ブラウザ）の確認は、書き換えられるので、補助にすぎません。メールアドレスは、filter_var() で形式を調べられます。",
+                "code": "if (trim($name) === \"\") { $errors[] = \"名前を入力してください\"; }\nif (!filter_var($email, FILTER_VALIDATE_EMAIL)) { $errors[] = \"メールアドレスの形式が正しくありません\"; }"
+              },
+              {
+                "heading": "データベースは、プリペアドステートメントで",
+                "body": "SQL 文に、入力された値を、直接つなげると、SQL を書き換えられる攻撃（SQL インジェクション）の危険があります。PDO のプリペアドステートメントで、SQL の形と値を分けて渡します。",
+                "code": "$stmt = $pdo->prepare(\"SELECT * FROM users WHERE email = :email\");\n$stmt->execute([\"email\" => $email]);\n$user = $stmt->fetch(PDO::FETCH_ASSOC);"
+              },
+              {
+                "heading": "セッションと、二重送信の防止",
+                "body": "ログイン状態などは、セッションで保持します。サーバー側にデータを置き、ブラウザには、識別用の ID だけを持たせます。また、送信が完了したら、別のページへ移動させる（リダイレクト）と、再読み込みによる、二重送信を防げます。",
+                "code": "session_start();\n$_SESSION[\"user_id\"] = $user[\"id\"];\n\nheader(\"Location: thanks.php\");\nexit;"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "php-basics-advanced",
+            "title": "認証・例外・型・ライブラリの管理",
+            "content": "実務の PHP では、安全性と、読みやすさの両方が、求められます。パスワードの扱い、例外、型宣言、Composer など、品質を支える仕組みを学びます。",
+            "sections": [
+              {
+                "heading": "パスワードは、ハッシュ化して保存",
+                "body": "パスワードは、そのままでは保存せず、password_hash() で、ハッシュ化します。元の文字列には戻せないので、データが漏れても、パスワードそのものは分かりません。ログイン時は、password_verify() で、照合します。",
+                "code": "$hash = password_hash($password, PASSWORD_DEFAULT);\n// ログイン時\nif (password_verify($input, $hash)) { /* 成功 */ }"
+              },
+              {
+                "heading": "セッション固定対策と、エラーメッセージ",
+                "body": "ログインに成功した直後に、session_regenerate_id(true) で、セッション ID を作り直します。また、ログイン失敗の理由は、「メールアドレスまたはパスワードが正しくありません」のように、どちらが違うのかを、特定できない形で伝えます。",
+                "code": "if (password_verify($input, $user[\"password_hash\"])) {\n  session_regenerate_id(true);\n  $_SESSION[\"user_id\"] = $user[\"id\"];\n}"
+              },
+              {
+                "heading": "例外で、エラーを扱う",
+                "body": "失敗するかもしれない処理は、try { ... } catch (Exception $e) { ... } で囲み、例外を受け取って、対処します。エラーを握りつぶさず、記録を残し、利用者には、内部の詳細を見せずに、分かりやすい案内を出します。",
+                "code": "try {\n  $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);\n} catch (PDOException $e) {\n  error_log($e->getMessage());\n  echo \"ただいま、混み合っています\";\n}"
+              },
+              {
+                "heading": "型宣言と strict_types",
+                "body": "引数や戻り値に型を書くと、意図しない型の値が、紛れ込む間違いを、早く見つけられます。ファイルの先頭に declare(strict_types=1); を書くと、自動変換が行われず、型の違いが、エラーになります。",
+                "code": "<?php\ndeclare(strict_types=1);\n\nfunction price_with_tax(int $price): int {\n  return (int) round($price * 1.1);\n}"
+              },
+              {
+                "heading": "Composer で、部品を管理する",
+                "body": "Composer は、ライブラリの導入と、バージョンの管理をする道具です。composer require で、部品を入れると、composer.json に記録されます。vendor/autoload.php を読み込めば、クラスが自動で読み込まれます。",
+                "code": "composer require vlucas/phpdotenv\n\n// PHP\nrequire __DIR__ . \"/vendor/autoload.php\";"
+              }
+            ]
+          }
+        ]
+      },
+      "thinking": {
+        "beginner": [
+          {
+            "id": "php-thinking-beginner",
+            "title": "値の扱いと、出力を考える",
+            "content": "正解は1つではありません。ここまでの知識を使って、自分の言葉で、考えを書いてみましょう。書き終えたら、観点チェックと、模範解答で、見直します。",
+            "prompts": [
+              {
+                "id": "php-thinking-beginner-1",
+                "scenario": "新人が書いた PHP で、挨拶を表示しようとしたのに、画面には「こんにちは、$name さん」と、変数名がそのまま出てしまいました。",
+                "code": "<?php\n$name = \"太郎\";\necho 'こんにちは、$name さん';",
+                "question": "変数名が、そのまま出た理由を説明し、直し方を、2通り書いてください。",
+                "checkpoints": [
+                  "シングルクォートの中では、変数が値に置き換わらないことを説明している",
+                  "ダブルクォートに変える直し方を示している",
+                  "ピリオド（.）で文字列をつなぐ直し方を示している",
+                  "PHP で文字列をつなぐ演算子が、+ ではないことに触れている"
+                ],
+                "modelAnswer": "文字列を、シングルクォート（'）で囲むと、中身が、書いたとおりの文字列として扱われ、$name も、変数ではなく、ただの文字になります。直し方は、2通りあります。1つ目は、ダブルクォート（\"）に変えることです。ダブルクォートの中では、変数が値に置き換わるので、「こんにちは、太郎 さん」と出ます。2つ目は、ピリオドでつなぐことです。'こんにちは、' . $name . 'さん' と書けば、変数の値が、文字列の間に入ります。PHP で、文字列をつなぐ演算子は、ピリオドで、+ は、数値の足し算に使うので、注意が必要です。",
+                "tip": "迷ったら、「変数を入れたいかどうか」で、引用符を選びましょう。"
+              },
+              {
+                "id": "php-thinking-beginner-2",
+                "scenario": "商品の一覧ページを作っています。商品は、名前と価格のデータを、5件持っています。同じ HTML を、5回、コピーして書いている新人に、アドバイスをします。",
+                "question": "商品のデータを、どのように持ち、どのように、画面に出すのがよいか、説明してください。",
+                "checkpoints": [
+                  "商品を、連想配列（名前と価格の組）で持ち、それを配列にまとめることを示している",
+                  "foreach で、1件ずつ取り出して、同じ HTML を、繰り返し出力することを説明している",
+                  "商品が増えても、コードを、書き足さずに済む利点に触れている",
+                  "出力する値が、利用者の入力に由来するなら、htmlspecialchars() を通すことに触れている"
+                ],
+                "modelAnswer": "商品を、名前と価格の組（連想配列）にして、それを、配列にまとめます。例えば、[[\"name\" => \"りんご\", \"price\" => 120], ...] のように持ちます。表示は、foreach で、1件ずつ取り出し、その中で、同じ HTML の書き方を、1回だけ書きます。こうすると、商品が、5件でも、50件でも、コードを書き足す必要がなく、変更も、1か所で済みます。価格の表示は、number_format() で、3桁区切りにできます。また、商品名が、利用者の入力に由来する場合は、画面に出す直前に、htmlspecialchars() を通して、安全にします。",
+                "tip": "同じことを、何度も書いていたら、「配列と繰り返し」に、まとめられないかを、考えましょう。"
+              }
+            ]
+          }
+        ],
+        "intermediate": [
+          {
+            "id": "php-thinking-intermediate",
+            "title": "利用者の入力を、安全に扱う",
+            "content": "入力は、信用できない値です。受け取り、確認し、表示し、保存する、それぞれの場面で、何に気をつけるかを、考えます。",
+            "prompts": [
+              {
+                "id": "php-thinking-intermediate-1",
+                "scenario": "お問い合わせフォームの確認画面で、入力された内容を、そのまま画面に表示しています。テストで、名前の欄に <script>alert(1)</script> と入力したところ、画面にダイアログが出ました。",
+                "code": "<p>お名前: <?php echo $_POST[\"name\"]; ?></p>",
+                "question": "何が起きているか、どんな危険があるか、直し方を、説明してください。",
+                "checkpoints": [
+                  "入力された文字列が、HTML として、そのまま解釈されていることを説明している",
+                  "スクリプトを、埋め込まれる攻撃（XSS）の危険があることを指摘している",
+                  "出力する直前に、htmlspecialchars() を通すことを示している",
+                  "入力の時点ではなく、出力のときに、エスケープする考え方に触れている"
+                ],
+                "modelAnswer": "入力された <script> が、文字としてではなく、HTML として解釈され、スクリプトが実行されています。悪意のある人が、他の利用者の画面で、スクリプトを実行させたり、Cookie を盗んだりできる、XSS（クロスサイトスクリプティング）という脆弱性です。直し方は、画面に出す直前に、htmlspecialchars($_POST[\"name\"], ENT_QUOTES, \"UTF-8\") を通すことです。< や > などが、無害な表記に変わり、入力した文字が、そのまま画面に表示されるだけになります。エスケープは、出力する場面に合わせて、出力のときに行うのが基本です。",
+                "tip": "出力するたびに書くのが、面倒なら、e() のような、短い関数を作って、使いましょう。"
+              },
+              {
+                "id": "php-thinking-intermediate-2",
+                "scenario": "会員検索の機能で、入力された名前を、SQL 文に、直接つなげています。先輩に、「SQL インジェクションの危険がある」と、指摘されました。",
+                "code": "$sql = \"SELECT * FROM members WHERE name = '\" . $_GET[\"name\"] . \"'\";\n$rows = $pdo->query($sql)->fetchAll();",
+                "question": "なぜ危険なのかを説明し、安全な書き方に、直してください。",
+                "checkpoints": [
+                  "入力された文字列が、SQL の命令の一部として、解釈されうることを説明している",
+                  "全件の取得や、データの削除などの、被害の例を挙げている",
+                  "プリペアドステートメント（プレースホルダ）を使う書き方を示している",
+                  "SQL の形と、値を、別々に渡す仕組みであることを説明している"
+                ],
+                "modelAnswer": "入力された文字列が、SQL 文に、そのまま入るため、「' OR '1' = '1」のような値を入れられると、条件が常に真になり、全会員の情報が、取得されてしまいます。ほかにも、データの書き換えや削除を、される恐れがあります。直し方は、プリペアドステートメントです。$stmt = $pdo->prepare(\"SELECT * FROM members WHERE name = :name\"); $stmt->execute([\"name\" => $_GET[\"name\"]]); のように、SQL の形と、値を別々に渡します。値は、命令としては解釈されず、ただの値として扱われるので、攻撃を防げます。",
+                "tip": "SQL に、変数を、直接つなげたくなったら、まず、プレースホルダに、できないかを考えましょう。"
+              }
+            ]
+          }
+        ],
+        "advanced": [
+          {
+            "id": "php-thinking-advanced",
+            "title": "認証と、エラーの扱いを設計する",
+            "content": "ログインや、エラー処理は、安全性が問われる部分です。何を守りたいかを、先に考えてから、書き方を選びます。",
+            "prompts": [
+              {
+                "id": "php-thinking-advanced-1",
+                "scenario": "会員のパスワードを、データベースに、そのままの文字列で保存している既存のシステムを、引き継ぎました。ログインの処理は、保存された値と、入力された値を、比べています。",
+                "question": "この設計の問題点と、安全な保存と照合の方法を、説明してください。",
+                "checkpoints": [
+                  "データが漏れると、パスワードが、そのまま知られてしまうことを指摘している",
+                  "password_hash() で、ハッシュ化して保存することを示している",
+                  "ログイン時に、password_verify() で、照合することを示している",
+                  "既存の会員のパスワードを、どう移行するか（次回ログイン時に、ハッシュ化するなど）に触れている"
+                ],
+                "modelAnswer": "パスワードを、そのまま保存していると、データベースが、漏れたときに、全員のパスワードが、そのまま知られてしまいます。多くの人が、同じパスワードを、他のサービスでも使っているので、被害が広がります。安全な方法は、password_hash() で、ハッシュ化して保存することです。ハッシュは、元の文字列に戻せません。ログイン時は、password_verify($入力, $保存されたハッシュ) で、照合します。既存の会員の移行は、平文のパスワードを、一括で変換するのではなく、次にログインしたときに、入力された値で照合し、成功したら、ハッシュ化して、保存し直す方法が、現実的です。",
+                "tip": "パスワードを、「保存する」のではなく、「照合できる形で残す」と、考えましょう。"
+              },
+              {
+                "id": "php-thinking-advanced-2",
+                "scenario": "ログインに失敗したとき、「このメールアドレスは、登録されていません」と、「パスワードが違います」の、2種類のメッセージを、出し分けているシステムがあります。また、データベースに接続できないときは、エラーの詳細が、画面に表示されます。",
+                "question": "それぞれの、問題点と、直し方を、説明してください。",
+                "checkpoints": [
+                  "2種類のメッセージから、登録済みのメールアドレスを、推測されてしまうことを指摘している",
+                  "「メールアドレスまたはパスワードが正しくありません」のような、共通のメッセージにすることを示している",
+                  "エラーの詳細が、攻撃の手がかりになることを説明している",
+                  "try-catch で受け取り、詳細は、ログに残し、利用者には、簡単な案内だけを出すことを示している"
+                ],
+                "modelAnswer": "出し分けると、攻撃者は、メッセージの違いから、「このメールアドレスは、登録されている」と、推測できるので、そのアドレスに絞って、パスワードを試せます。直し方は、「メールアドレスまたはパスワードが、正しくありません」のように、どちらが違うのか、特定できない、共通のメッセージにすることです。また、データベースのエラーの詳細（接続先や、SQL 文など）を、画面に出すと、内部の構成が、攻撃の手がかりになります。try-catch で例外を受け取り、詳細は、error_log() でログに残し、利用者には、「ただいま、混み合っています」のような、簡単な案内だけを出します。",
+                "tip": "利用者に見せる情報と、開発者が見る情報は、分けて考えましょう。"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "shortLabel": "PHP"
+  },
+  {
     "id": "laravel",
     "name": "Laravel",
     "description": "PHPのLaravelフレームワークでWebアプリを開発します",
