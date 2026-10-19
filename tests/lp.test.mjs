@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { courses } from '../src/data/courses.js';
 import { PRICE_LABEL, FREE_LEVELS } from '../src/utils/plans.js';
 import * as lp from '../src/data/lpContent.js';
@@ -50,4 +50,8 @@ test('LP: 共有時の見出し・説明・正規の URL が、静的な HTML �
     assert.ok(html.includes(tag), `${tag} がありません`);
   }
   assert.ok(html.includes(`${lp.SITE_URL}/lp/`));
+});
+
+test('LP: ヒーローに使うアプリの画面の画像が、ある', () => {
+  assert.ok(existsSync(new URL('../public/lp/app-quiz.jpg', import.meta.url)));
 });
