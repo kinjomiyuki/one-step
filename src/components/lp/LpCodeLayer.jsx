@@ -27,7 +27,7 @@ function LpCodeLayer({ index, lineHeight, wrapperRef, flowRef }) {
           <pre
             key={copy}
             className="m-0 font-mono whitespace-pre"
-            style={{ fontSize: `${lineHeight - 4}px`, lineHeight: `${lineHeight}px` }}
+            style={{ fontSize: `${lineHeight - 4}px`, lineHeight: `${lineHeight}px`, textShadow: '0 0 6px rgba(57, 255, 20, 0.45)' }}
           >
             {lines.map(({ tokens }, row) => (
               <div key={row} style={{ height: `${lineHeight}px` }}>
