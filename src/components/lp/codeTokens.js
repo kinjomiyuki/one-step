@@ -29,12 +29,12 @@ export function tokenizeLine(line) {
   return tokens;
 }
 
-// 明るい背景でも、読める濃さにした、色(飾りなので、控えめ)
+// 黒い背景に映える、蛍光の緑の濃淡(キーワードは明るく、コメントは暗く)
 export const TOKEN_COLORS = {
-  plain: '#6b7184',
-  keyword: '#c98f00',
-  string: '#4f8a68',
-  tag: '#3d6ea3',
-  number: '#b4543c',
-  comment: '#a6abb8'
+  plain: '#39ff14',
+  keyword: '#c6ff4d',
+  string: '#8affb2',
+  tag: '#00e676',
+  number: '#e0ff7a',
+  comment: '#1d7a35'
 };

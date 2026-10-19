@@ -1,12 +1,14 @@
-// スマホの枠に、アプリの実際の画面(public/lp/app-quiz.jpg)を、はめ込む。枠は、CSS で描く(画像は、画面だけ)
-export default function LpPhoneMock() {
+// スマホの枠に、アプリの実際の画面(public/lp/app-quiz.jpg)を、はめ込む。枠は、CSS で描く(画像は、画面だけ)。glow は、黒い背景の上で使うとき
+export default function LpPhoneMock({ glow = false }) {
   return (
     <div
       className="mx-auto w-56 md:w-72 p-2.5"
       style={{
         background: '#2b2e38',
         borderRadius: '2.5rem',
-        boxShadow: '14px 14px 28px var(--neu-shadow-dark), -14px -14px 28px var(--neu-shadow-light)'
+        boxShadow: glow
+          ? '0 0 60px rgba(57, 255, 20, 0.28), 0 0 0 1px rgba(57, 255, 20, 0.35)'
+          : '14px 14px 28px var(--neu-shadow-dark), -14px -14px 28px var(--neu-shadow-light)'
       }}
     >
       <div className="relative overflow-hidden" style={{ borderRadius: '2rem', background: 'var(--neu-bg)' }}>
