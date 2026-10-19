@@ -17,6 +17,59 @@ const ok = (text) => `[OK]   ${text}`;
 const ng = (text) => `[要対応] ${text}`;
 
 // 本番の適用先に、登録されている変数の名前を返す(適用先を指定しないと、本番だけに登録したものが、見えない)
+// Stripe が、足りないと返す項目の名前(主なもの)。それ以外は、名前をそのまま出す
+const REQUIREMENT_LABELS = {
+  external_account: '入金先の銀行口座',
+  'business_profile.url': '事業のサイトの URL',
+  'business_profile.mcc': '事業の種類(業種)',
+  'business_profile.product_description': '商品・サービスの説明',
+  'tos_acceptance.date': 'Stripe の利用規約への同意',
+  'tos_acceptance.ip': 'Stripe の利用規約への同意',
+  'individual.verification.document': '本人確認の書類',
+  'individual.verification.additional_document': '本人確認の追加の書類',
+  'individual.first_name_kanji': '氏名(漢字)',
+  'individual.last_name_kanji': '氏名(漢字)',
+  'individual.first_name_kana': '氏名(かな)',
+  'individual.last_name_kana': '氏名(かな)',
+  'individual.dob.day': '生年月日',
+  'individual.address_kanji.postal_code': '住所(郵便番号)',
+  'individual.phone': '電話番号',
+  'individual.email': 'メールアドレス',
+  'representative.verification.document': '代表者の本人確認の書類',
+  'company.tax_id': '法人番号'
+};
+const labelOf = (key) => (REQUIREMENT_LABELS[key] ? `${REQUIREMENT_LABELS[key]}(${key})` : key);
+
+// アカウントが、本番の課金や入金を受け付けられる状態か、足りない項目は何かを、読みやすく並べる
+export function describeAccount(account) {
+  const lines = [];
+  const yesNo = (value) => (value ? 'はい' : 'いいえ');
+  const charges = account.charges_enabled === true;
+  lines.push(
+    charges
+      ? ok('本番の課金: 受け付けられます')
+      : ng('本番の課金: 受け付けられません(Stripe が、課金を止めています。これが、購入画面が開かない原因です)')
+  );
+  lines.push(`       入金を受け取れるか: ${yesNo(account.payouts_enabled)}、情報の提出は、完了しているか: ${yesNo(account.details_submitted)}`);
+
+  const req = account.requirements || {};
+  if (req.disabled_reason) lines.push(`       止められている理由(Stripe の表記): ${req.disabled_reason}`);
+  if (req.current_deadline) lines.push(`       提出の期限: ${new Date(req.current_deadline * 1000).toISOString().slice(0, 10)}`);
+  const groups = [
+    ['今すぐ、必要な項目', req.currently_due],
+    ['期限を過ぎている項目', req.past_due],
+    ['確認中の項目', req.pending_verification],
+    ['あとで、必要になる項目', req.eventually_due]
+  ];
+  for (const [title, items] of groups) {
+    if (Array.isArray(items) && items.length) lines.push(`       ${title}: ${[...new Set(items.map(labelOf))].join('、')}`);
+  }
+  if (!charges && !Array.isArray(req.currently_due) && !req.disabled_reason) {
+    lines.push('       足りない項目は、返されませんでした。ダッシュボードの「アカウントを有効化」の案内を、確認してください');
+  }
+  return lines;
+}
+
 function listNetlifyEnvNames() {
   const out = execFileSync('npx', ['netlify', 'env:list', '--json', '--context', 'production', '--site', NETLIFY_SITE_ID], {
     stdio: ['ignore', 'pipe', 'pipe'],
@@ -36,8 +89,9 @@ export async function checkSetup({ env = process.env, api = request, envNames = 
   try {
     const account = await api('GET', '/account');
     lines.push(ok(`Stripe のアカウント: ${account.id}`));
+    lines.push(...describeAccount(account));
   } catch {
-    lines.push(`(アカウントの ID は、この鍵の権限では、読み取れませんでした)`);
+    lines.push(`(アカウントの状態は、この鍵の権限では、読み取れませんでした)`);
   }
 
   try {

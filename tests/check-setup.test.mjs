@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { checkSetup, REQUIRED_ENV } from '../scripts/check-setup.mjs';
+import { checkSetup, describeAccount, REQUIRED_ENV } from '../scripts/check-setup.mjs';
 import { webhookUrl } from '../scripts/setup-stripe.mjs';
 
 const KEY = 'sk_test_dummy';
@@ -10,7 +10,7 @@ const fakeApi = (routes) => async (method, path) => {
   return typeof handler === 'function' ? handler() : handler;
 };
 const all = {
-  'GET /account': { id: 'acct_1' },
+  'GET /account': { id: 'acct_1', charges_enabled: true, payouts_enabled: true, details_submitted: true, requirements: { currently_due: [] } },
   'GET /prices': { data: [{ id: 'price_1', unit_amount: 980 }] },
   'GET /billing_portal/configurations': { data: [{ id: 'bpc_1' }] },
   'GET /webhook_endpoints': { data: [{ id: 'we_1', url: webhookUrl({}), status: 'enabled', enabled_events: ['a', 'b'] }] }
@@ -62,4 +62,37 @@ test('checkSetup --checkout: 購入画面を作れたかを示し、失敗した
   let called = false;
   await checkSetup({ ...base, checkout: false, createCheckout: async () => { called = true; return {}; } });
   assert.equal(called, false);
+});
+
+test('describeAccount: 課金できないときは、原因と、足りない項目を出す。できるときは、要対応を出さない', () => {
+  const blocked = describeAccount({
+    id: 'acct_1',
+    charges_enabled: false,
+    payouts_enabled: false,
+    details_submitted: true,
+    requirements: {
+      disabled_reason: 'requirements.past_due',
+      current_deadline: 1792399264,
+      currently_due: ['external_account', 'individual.verification.document', 'something.new'],
+      past_due: ['external_account'],
+      eventually_due: []
+    }
+  }).join('\n');
+  assert.match(blocked, /要対応/);
+  assert.match(blocked, /受け付けられません/);
+  assert.match(blocked, /requirements\.past_due/);
+  assert.match(blocked, /入金先の銀行口座/);
+  assert.match(blocked, /本人確認の書類/);
+  assert.match(blocked, /something\.new/);
+  assert.match(blocked, /2026-10-19/);
+
+  const fine = describeAccount({ charges_enabled: true, payouts_enabled: true, details_submitted: true, requirements: { currently_due: [] } }).join('\n');
+  assert.equal(fine.includes('要対応'), false);
+  assert.match(fine, /受け付けられます/);
+});
+
+test('checkSetup: アカウントの状態を、結果に含める', async () => {
+  const api = fakeApi({ ...all, 'GET /account': { id: 'acct_1', charges_enabled: false, requirements: { currently_due: ['external_account'] } } });
+  const lines = await checkSetup({ env: { STRIPE_SECRET_KEY: KEY }, api, envNames: () => [...REQUIRED_ENV, 'PREMIUM_ENABLED'] });
+  assert.match(lines.join('\n'), /入金先の銀行口座/);
 });
