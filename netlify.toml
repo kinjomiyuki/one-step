@@ -20,6 +20,11 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+[[headers]]
+  for = "/lp/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # Service Worker は、毎回確認させる(更新が遅れると、古い画面を出し続けてしまう)
 [[headers]]
   for = "/sw.js"
@@ -37,6 +42,12 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# LP は、/lp/ で公開する(末尾のスラッシュなしでも、開けるようにする)
+[[redirects]]
+  from = "/lp"
+  to = "/lp/"
+  status = 301
 
 [[redirects]]
   from = "/*"
