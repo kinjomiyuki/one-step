@@ -3,9 +3,11 @@
 // 使い方(プロジェクトのフォルダで):
 //   PowerShell:  $env:STRIPE_SECRET_KEY = "sk_test_..." (または rk_test_...)
 //                node scripts/check-setup.mjs
+//                node scripts/check-setup.mjs --checkout   購入画面を、実際に作ってみて、Stripe からの返事を確かめる
+//                                                          (支払いの前の状態で、24時間たつと、自動で期限切れになる。課金はされない)
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
-import { request } from '../netlify/lib/stripe.mjs';
+import { request, createCheckoutSession } from '../netlify/lib/stripe.mjs';
 import { PRICE_LOOKUP_KEY, NETLIFY_SITE_ID, webhookUrl } from './setup-stripe.mjs';
 
 // Netlify に必要な環境変数(名前だけを確認する)
@@ -23,7 +25,7 @@ function listNetlifyEnvNames() {
   return Object.keys(JSON.parse(out));
 }
 
-export async function checkSetup({ env = process.env, api = request, envNames = listNetlifyEnvNames } = {}) {
+export async function checkSetup({ env = process.env, api = request, envNames = listNetlifyEnvNames, checkout = false, createCheckout = createCheckoutSession } = {}) {
   const lines = [];
   const key = env.STRIPE_SECRET_KEY || '';
   if (!/^(sk|rk)_(test|live)_/.test(key)) {
@@ -42,6 +44,19 @@ export async function checkSetup({ env = process.env, api = request, envNames = 
     const prices = await api('GET', '/prices', { lookup_keys: [PRICE_LOOKUP_KEY], active: true, limit: 1 });
     const price = prices.data?.[0];
     lines.push(price ? ok(`価格: ${price.id}(月額 ${price.unit_amount} 円)`) : ng('価格がありません。setup-stripe.mjs を実行してください'));
+    if (checkout && price) {
+      try {
+        const origin = (env.SITE_URL || 'https://one-step-programing.netlify.app').replace(/\/$/, '');
+        const session = await createCheckout({
+          priceId: price.id,
+          successUrl: `${origin}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${origin}/?checkout=cancel`
+        });
+        lines.push(ok(`購入画面を作れました(${session.id}。支払いの前なので、課金はされません)`));
+      } catch (e) {
+        lines.push(ng(`購入画面を作れませんでした。Stripe の返事: ${e.message}`));
+      }
+    }
   } catch (e) {
     lines.push(ng(`価格を確認できませんでした: ${e.message}`));
   }
@@ -76,7 +91,7 @@ export async function checkSetup({ env = process.env, api = request, envNames = 
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  checkSetup()
+  checkSetup({ checkout: process.argv.includes('--checkout') })
     .then((lines) => console.log(lines.join('\n')))
     .catch((e) => {
       console.error(`失敗しました: ${e.message}`);

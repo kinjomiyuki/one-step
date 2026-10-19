@@ -108,4 +108,4 @@ npx netlify env:set ENTITLEMENT_SECRET (node -e "console.log(require('crypto').r
 
 ## 設定の状態を確認する
 
-鍵を入れた PowerShell で `node scripts/check-setup.mjs` を実行すると、Stripe の価格・ポータル・Webhook と、Netlify の環境変数の名前が、そろっているかを一覧で確認できる(何も変更せず、鍵や値は表示しない)。「要対応」と出た行が、足りないもの。
+鍵を入れた PowerShell で `node scripts/check-setup.mjs` を実行すると、Stripe の価格・ポータル・Webhook と、Netlify の環境変数の名前が、そろっているかを一覧で確認できる(何も変更せず、鍵や値は表示しない)。「要対応」と出た行が、足りないもの。購入画面が開かないときは、`node scripts/check-setup.mjs --checkout` で、購入画面を、実際に作ってみて、Stripe の返事(拒否の理由)を確かめられる(支払い前の状態で、24時間で、自動で期限切れになる。課金はされない)。

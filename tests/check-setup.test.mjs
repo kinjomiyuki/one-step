@@ -46,3 +46,20 @@ test('checkSetup: 鍵がなければエラー。Netlify を読めなくても、
   assert.match(lines.join('\n'), /netlify login/);
   assert.match(lines.join('\n'), /price_1/);
 });
+
+test('checkSetup --checkout: 購入画面を作れたかを示し、失敗したときは Stripe の返事を出す', async () => {
+  const base = { env: { STRIPE_SECRET_KEY: KEY }, api: fakeApi(all), envNames: () => [...REQUIRED_ENV, 'PREMIUM_ENABLED'], checkout: true };
+
+  const okLines = await checkSetup({ ...base, createCheckout: async (args) => ({ id: 'cs_1', url: 'u', priceId: args.priceId }) });
+  assert.match(okLines.join('\n'), /購入画面を作れました\(cs_1/);
+
+  const ngLines = await checkSetup({ ...base, createCheckout: async () => { throw new Error('No such price: price_x'); } });
+  const text = ngLines.join('\n');
+  assert.match(text, /購入画面を作れませんでした/);
+  assert.match(text, /No such price/);
+  assert.equal(text.includes(KEY), false);
+
+  let called = false;
+  await checkSetup({ ...base, checkout: false, createCheckout: async () => { called = true; return {}; } });
+  assert.equal(called, false);
+});
