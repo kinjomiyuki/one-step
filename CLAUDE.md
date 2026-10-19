@@ -17,7 +17,7 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 ## Structure
 
 - `src/components/`: 画面ごとのコンポーネント
-- `lp/index.html`、`src/lp-main.jsx`、`src/components/lp/`、`src/data/lpContent.js`: マーケティング用の LP(`/lp/`)。学習アプリ(`/`)とは別の入口で、コースのデータを読み込まず、軽く表示する。共有時の見出しや説明(OGP)は、`lp/index.html` に静的に書く。方針と注意は `docs/marketing-lp.md`
+- `lp/index.html`、`src/lp-main.jsx`、`src/components/lp/`、`src/data/lpContent.js`: マーケティング用の LP(`/lp/`)。学習アプリ(`/`)とは別の入口で、コースのデータを読み込まず、軽く表示する。先頭は、スクロールで進む、コードの廊下の 3D の場面(`LpScrollStage.jsx`、計算は `stageMath.js`)。共有時の見出しや説明(OGP)は、`lp/index.html` に静的に書く。方針と注意は `docs/marketing-lp.md`
 - `src/data/courses.js`: コースと問題のデータ。全コース共通の構造(初級/中級/上級 × 基礎・クイズ・シミュレーション・思考力)
 - `netlify/functions/`: chat(Claude API を呼ぶ)、checkout・entitlement・portal・login-link・stripe-webhook(Stripe と購入の確認。stripe-webhook は、解約などを受け取って失効を記録する)、config(有料プランのスイッチ)
 - `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン、Webhook の署名の確認、失効した顧客の記録、チャットの1日の費用の上限)。Stripe は、パッケージを使わず、fetch で呼ぶ。保存が必要なものは、Netlify Blobs(`@netlify/blobs`)を使う
