@@ -16,7 +16,7 @@ export default function LpCourses() {
       <ol className="grid gap-4 md:grid-cols-3">
         {LEVELS.map(([name, body]) => (
           <li key={name} className="neu-inset p-5">
-            <h3 className="font-bold mb-1" style={{ color: 'var(--neu-text)' }}>{name}</h3>
+            <h3 className="font-bold pb-2 mb-3 border-b" style={{ color: 'var(--neu-text)', borderColor: 'var(--lp-line)' }}>{name}</h3>
             <p className="text-sm leading-relaxed" style={{ color: 'var(--neu-text-muted)' }}>{body}</p>
           </li>
         ))}

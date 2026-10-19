@@ -16,7 +16,7 @@ export default function LpPage() {
   // 「動きを減らす」設定の人には、動かない、従来のヒーローを出す
   const reducedMotion = useReducedMotion();
   return (
-    <div style={{ background: 'var(--neu-bg)', minHeight: '100vh' }}>
+    <div className="lp-dark" style={{ minHeight: '100vh' }}>
       <LpHeader />
       <main>
         {reducedMotion ? <LpHero /> : <LpScrollStage />}

@@ -222,3 +222,22 @@ body {
     inset 4px 4px 10px var(--neu-shadow-dark),
     inset -3px -3px 8px var(--neu-shadow-light);
 }
+
+/* LP(/lp/)は、黒と蛍光グリーンのヒーローに合わせて、全体を、暗い配色にする。色の変数を、ここで入れ替える */
+.lp-dark {
+  --neu-bg: #050806;
+  --neu-surface: #0b130d;
+  --neu-shadow-dark: #000000;
+  --neu-shadow-light: #13251a;
+  --neu-text: #eafff0;
+  --neu-text-muted: #94c9a2;
+  --lp-line: rgba(57, 255, 20, 0.32);
+  background: var(--neu-bg);
+  color: var(--neu-text);
+}
+.lp-dark .neu-card,
+.lp-dark .neu-card-flat,
+.lp-dark .neu-inset,
+.lp-dark .neu-badge {
+  border: 1px solid rgba(57, 255, 20, 0.22);
+}

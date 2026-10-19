@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import LpCtaButton from './LpCtaButton';
 
-// スクロールしても、上に残る。黒い 3D の場面の上では、黒く、そのあとの白い区切りでは、白くなる
+// スクロールしても、上に残る。黒い 3D の場面の上では、真っ黒に、そのあとは、LP の暗い配色になる
 export default function LpHeader() {
   const [dark, setDark] = useState(false);
 

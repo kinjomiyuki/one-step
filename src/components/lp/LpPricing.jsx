@@ -7,7 +7,7 @@ export default function LpPricing() {
       <div className="grid gap-5 md:grid-cols-2">
         {PLANS.map((plan) => (
           <div key={plan.name} className="neu-card p-6">
-            <h3 className="font-bold mb-1" style={{ color: 'var(--neu-text)' }}>{plan.name}</h3>
+            <h3 className="font-bold pb-2 mb-3 border-b" style={{ color: 'var(--neu-text)', borderColor: 'var(--lp-line)' }}>{plan.name}</h3>
             <p className="text-2xl font-bold mb-4" style={{ color: 'var(--neu-text)' }}>{plan.price}</p>
             <ul className="space-y-2 text-sm md:text-base" style={{ color: 'var(--neu-text-muted)' }}>
               {plan.items.map((item) => <li key={item}>{item}</li>)}
