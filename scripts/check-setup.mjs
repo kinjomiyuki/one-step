@@ -52,6 +52,15 @@ export function describeAccount(account) {
   );
   lines.push(`       入金を受け取れるか: ${yesNo(account.payouts_enabled)}、情報の提出は、完了しているか: ${yesNo(account.details_submitted)}`);
 
+  // 機能ごとの状態。card_payments(カードの決済)が active でないと、課金できない
+  const capabilities = account.capabilities || {};
+  const capabilityNames = ['card_payments', 'jcb_payments', 'transfers'].filter((name) => capabilities[name]);
+  if (capabilityNames.length) {
+    lines.push(`       機能の状態: ${capabilityNames.map((name) => `${name}=${capabilities[name]}`).join('、')}(active なら、使える。pending は、Stripe が確認中。inactive は、使えない)`);
+  }
+  const profile = [account.country && `国: ${account.country}`, account.business_type && `事業の種類: ${account.business_type}`, account.default_currency && `通貨: ${account.default_currency}`].filter(Boolean);
+  if (profile.length) lines.push(`       ${profile.join('、')}`);
+
   const req = account.requirements || {};
   if (req.disabled_reason) lines.push(`       止められている理由(Stripe の表記): ${req.disabled_reason}`);
   if (req.current_deadline) lines.push(`       提出の期限: ${new Date(req.current_deadline * 1000).toISOString().slice(0, 10)}`);

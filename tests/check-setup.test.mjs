@@ -96,3 +96,20 @@ test('checkSetup: アカウントの状態を、結果に含める', async () =>
   const lines = await checkSetup({ env: { STRIPE_SECRET_KEY: KEY }, api, envNames: () => [...REQUIRED_ENV, 'PREMIUM_ENABLED'] });
   assert.match(lines.join('\n'), /入金先の銀行口座/);
 });
+
+test('describeAccount: 機能の状態(card_payments など)と、国・事業の種類を出す', () => {
+  const text = describeAccount({
+    charges_enabled: false,
+    payouts_enabled: true,
+    details_submitted: true,
+    country: 'JP',
+    business_type: 'individual',
+    default_currency: 'jpy',
+    capabilities: { card_payments: 'pending', transfers: 'active' },
+    requirements: { currently_due: [] }
+  }).join('\n');
+  assert.match(text, /card_payments=pending/);
+  assert.match(text, /transfers=active/);
+  assert.match(text, /国: JP/);
+  assert.match(text, /事業の種類: individual/);
+});
