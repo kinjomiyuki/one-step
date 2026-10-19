@@ -7,7 +7,7 @@ export default function LpFeatures() {
       <ul className="grid gap-5 md:grid-cols-2">
         {FEATURES.map(([title, body]) => (
           <li key={title} className="neu-card p-6">
-            <h3 className="font-bold mb-2" style={{ color: 'var(--neu-text)' }}>{title}</h3>
+            <h3 className="font-bold pb-2 mb-3 border-b" style={{ color: 'var(--neu-text)', borderColor: 'var(--lp-line)' }}>{title}</h3>
             <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--neu-text-muted)' }}>{body}</p>
           </li>
         ))}

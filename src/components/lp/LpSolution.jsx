@@ -8,7 +8,7 @@ export default function LpSolution() {
         {SOLUTION.flow.map(([title, body], i) => (
           <li key={title} className="neu-card-flat p-5">
             <p className="text-xs font-bold mb-2" style={{ color: 'var(--neu-text-muted)' }}>{i + 1}</p>
-            <h3 className="font-bold mb-2" style={{ color: 'var(--neu-text)' }}>{title}</h3>
+            <h3 className="font-bold pb-2 mb-3 border-b" style={{ color: 'var(--neu-text)', borderColor: 'var(--lp-line)' }}>{title}</h3>
             <p className="text-sm leading-relaxed" style={{ color: 'var(--neu-text-muted)' }}>{body}</p>
           </li>
         ))}
