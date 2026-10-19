@@ -2,6 +2,18 @@
 
 LP の場所: `https://one-step-programing.netlify.app/lp/`(ソースは `lp/index.html`、画面は `src/components/lp/`、文章は `src/data/lpContent.js`)。広告・SNS・プロフィールのリンクは、ここに向ける。学習アプリの本体は `/`。
 
+## 3D スクロールの仕組みと、調整
+
+LP の先頭は、スクロールの間、画面に固定される 3D の場面(`src/components/lp/LpScrollStage.jsx`)。コードの板が、左右に並ぶ廊下を、カメラが前へ進み、板の中のコードも、縦に流れる。文字は、4 つの場面(見出し、メッセージ、スマホ、行動の呼びかけ)が、順に切り替わる。
+
+- 動きの計算: `src/components/lp/stageMath.js`(板の位置、透明度、場面の切り替わる範囲)。`tests/lp-stage.test.mjs` が、廊下が途切れないこと、場面が重ならないことを検査する。
+- コードの素材: `src/data/lpCode.js`(コースの言語の、短いコード)。色分けは `codeTokens.js`。
+- 場面の文章: `src/data/lpContent.js` の `HERO` と `SCENES`。
+- 長さ: `LpScrollStage.jsx` の `height: '480vh'`。大きくすると、ゆっくり進む。
+- 板の枚数・速さ・奥行き: `stageMath.js` の `LAYER_COUNT`、`TRAVEL`、`LpScrollStage.jsx` の `speed`。
+- 配慮: 「動きを減らす」設定の人には、動かない、従来のヒーロー(`LpHero.jsx`)を出す。見出し(h1)は、常に 1 つだけ。コードの板は、読み上げの対象にしない(`aria-hidden`)。
+- 動きは、スクロールに合わせて、要素の style を、直接、書き換える(画面の再描画を、毎フレームは、行わない)。スマホでは、板を小さくしている。
+
 ## 誰に、何を伝えるか
 
 - **ターゲット**: 16 歳から 30 歳。学校やスクールに通う、お金や時間の余裕がないが、学びたい人。スマホが、主な端末。
