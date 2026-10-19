@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://one-step-programing.netlify.app/sitemap.xml
