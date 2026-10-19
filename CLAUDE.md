@@ -53,10 +53,10 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 公開サイト(`one-step-programing`)は、`main` に入ると GitHub Actions(`.github/workflows/deploy.yml`)が Netlify に本番公開する。
 流れは、lint → テスト → `netlify deploy --prod`(ビルドは `netlify.toml` に従い、Function も含む)。プルリクエストでは公開しない。
 
-GitHub の Secrets(Settings → Secrets and variables → Actions)に、次の2つが必要:
+GitHub の Secrets(Settings → Secrets and variables → Actions の「Repository secrets」)に、次が必要:
 
-- `NETLIFY_AUTH_TOKEN`: Netlify の Personal access token
-- `NETLIFY_SITE_ID`: `df24e90d-11bc-4e4b-89ea-fda4734d1db4`
+- `NETLIFY_AUTH_TOKEN`: Netlify の Personal access token(Netlify の User settings → Applications → Personal access tokens で作る)
+- `NETLIFY_SITE_ID`: 任意。未登録なら、ワークフローに書いた、`df24e90d-11bc-4e4b-89ea-fda4734d1db4` を使う
 
 Actions が使えないときの手動デプロイ(手元のプロジェクトのフォルダで):
 

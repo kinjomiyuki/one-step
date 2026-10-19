@@ -18,12 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      # サイトの ID は、秘密の情報ではないので、Secrets に登録しなくてもよい(登録してあれば、そちらを使う)
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID || 'df24e90d-11bc-4e4b-89ea-fda4734d1db4' }}
     steps:
       - name: Check secrets
-        if: env.NETLIFY_AUTH_TOKEN == '' || env.NETLIFY_SITE_ID == ''
+        if: env.NETLIFY_AUTH_TOKEN == ''
         run: |
-          echo "::error::GitHub の Secrets に NETLIFY_AUTH_TOKEN と NETLIFY_SITE_ID を登録してください"
+          echo "::error::GitHub の Secrets に NETLIFY_AUTH_TOKEN(Netlify の個人用アクセストークン)が登録されていません。Settings → Secrets and variables → Actions の「Repository secrets」に登録してください(Environment secrets や Dependabot secrets では、読めません)"
           exit 1
       - uses: actions/checkout@v7
       # netlify-cli は Node 22.13 以上が必要なため、このワークフローは Node 22 を使う
