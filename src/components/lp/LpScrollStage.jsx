@@ -173,7 +173,7 @@ export default function LpScrollStage() {
               <BreakText>{HERO.title}</BreakText>
             </h1>
             <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: DARK.text }}>{HERO.lead}</p>
-            <LpCtaButton large glow>{HERO.cta}</LpCtaButton>
+            <LpCtaButton large>{HERO.cta}</LpCtaButton>
             <p className="mt-4 text-xs" style={{ color: DARK.note }}>{HERO.note}</p>
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function LpScrollStage() {
               <BreakText>{SCENES.cta.title}</BreakText>
             </h2>
             <p className="text-sm md:text-base mb-6" style={{ color: DARK.text }}>{SCENES.cta.body}</p>
-            <LpCtaButton large glow>{SCENES.cta.button}</LpCtaButton>
+            <LpCtaButton large>{SCENES.cta.button}</LpCtaButton>
           </div>
         </div>
 

@@ -20,7 +20,7 @@ export default function LpHeader() {
     <header className="sticky top-0 z-30 transition-colors duration-300" style={{ background: dark ? '#000' : 'var(--neu-bg)' }}>
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         <span className="text-xl font-bold transition-colors duration-300" style={{ color: dark ? '#eafff0' : 'var(--neu-text)' }}>OneStep</span>
-        <LpCtaButton glow={dark}>無料で始める</LpCtaButton>
+        <LpCtaButton>無料で始める</LpCtaButton>
       </div>
     </header>
   );
