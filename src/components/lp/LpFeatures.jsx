@@ -1,6 +1,9 @@
 import LpSection from './LpSection';
 import { FEATURES } from '../../data/lpContent';
 
+// 白い文字は、蛍光グリーンの上で、読みにくいので、うっすら、暗い影を付ける
+const TEXT_SHADOW = '0 1px 3px rgba(0, 40, 10, 0.55)';
+
 export default function LpFeatures() {
   return (
     <LpSection title={`続けやすい、${FEATURES.length} つの理由。`} lead="時間も、お金も、限られている人が、無理なく、続けられるように。">
@@ -11,8 +14,8 @@ export default function LpFeatures() {
             className="neu-card p-6"
             style={{ background: '#39ff14', borderColor: '#39ff14', boxShadow: '0 0 24px rgba(57, 255, 20, 0.35)' }}
           >
-            <h3 className="font-bold pb-2 mb-3 border-b" style={{ color: '#03210a', borderColor: 'rgba(3, 33, 10, 0.35)' }}>{title}</h3>
-            <p className="text-sm md:text-base leading-relaxed" style={{ color: '#06351a' }}>{body}</p>
+            <h3 className="font-bold pb-2 mb-3 border-b" style={{ color: '#ffffff', borderColor: '#ffffff', textShadow: TEXT_SHADOW }}>{title}</h3>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: '#ffffff', textShadow: TEXT_SHADOW }}>{body}</p>
           </li>
         ))}
       </ul>
