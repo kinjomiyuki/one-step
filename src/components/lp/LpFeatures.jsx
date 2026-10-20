@@ -1,6 +1,6 @@
 import LpSection from './LpSection';
 import { FEATURES } from '../../data/lpContent';
-import { GREEN_CARD_STYLE, ON_GREEN_TEXT } from './greenCard';
+import { GREEN_CARD_STYLE, ON_GREEN_TEXT, ON_GREEN_LINE } from './greenCard';
 
 export default function LpFeatures() {
   return (
@@ -8,7 +8,7 @@ export default function LpFeatures() {
       <ul className="grid gap-5 md:grid-cols-2">
         {FEATURES.map(([title, body]) => (
           <li key={title} className="neu-card p-6" style={GREEN_CARD_STYLE}>
-            <h3 className="font-bold pb-2 mb-3 border-b" style={{ ...ON_GREEN_TEXT, borderColor: '#ffffff' }}>{title}</h3>
+            <h3 className="font-bold pb-2 mb-3 border-b" style={{ ...ON_GREEN_TEXT, borderColor: ON_GREEN_LINE }}>{title}</h3>
             <p className="text-sm md:text-base leading-relaxed" style={ON_GREEN_TEXT}>{body}</p>
           </li>
         ))}
