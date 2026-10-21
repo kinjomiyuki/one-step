@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ChatPanel from './ChatPanel';
 import '../styles/ChatButton.css';
 
-export default function ChatButton({ context, access }) {
+export default function ChatButton({ context, access, lifted = false }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -11,6 +11,7 @@ export default function ChatButton({ context, access }) {
       <button
         className={`chat-fab neu-fab ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
+        style={lifted ? { bottom: '88px' } : undefined}
         title="学習について質問する"
         aria-label="チャットボタン"
       >
