@@ -8,7 +8,7 @@ export default function StudyStats({ activity }) {
     [`${getWeekCount(activity)} 回`, '今週、終えたレッスン']
   ];
   return (
-    <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto mb-6">
+    <div className="grid grid-cols-2 gap-4 mb-6">
       {items.map(([value, label]) => (
         <div key={label} className="neu-card-flat p-4">
           <p className="text-2xl font-bold" style={{ color: 'var(--neu-text)' }}>{value}</p>
