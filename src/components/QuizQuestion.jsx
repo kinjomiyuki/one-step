@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { shuffle } from '../utils/shuffle';
+import FillBlankText from './FillBlankText';
 
 export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect, onRetry, onRestartLesson, navigation }) {
   const [showQuestion, setShowQuestion] = useState(false);
@@ -26,7 +27,7 @@ export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect,
       {/* Question */}
       <div className="mb-8">
         <h3 className="text-xl md:text-2xl font-bold leading-relaxed mb-4 whitespace-pre-wrap" style={{ color: 'var(--neu-text)' }}>
-          {question.text}
+          <FillBlankText text={question.text} answer={selectedOption ? selectedOption.text : null} correct={Boolean(isCorrect)} />
         </h3>
       </div>
 
