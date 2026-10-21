@@ -3,7 +3,7 @@ export default function AccountBar({ isPro, busy, onManage }) {
   if (!isPro) return null;
 
   return (
-    <div className="max-w-6xl mx-auto mb-6 flex flex-col md:flex-row md:items-center md:justify-end gap-3">
+    <div className="max-w-3xl mx-auto mb-4 flex flex-col md:flex-row md:items-center md:justify-end gap-3">
       <span className="text-sm font-semibold text-center md:text-right" style={{ color: 'var(--neu-text-muted)' }}>
         プレミアムプランをご利用中です
       </span>

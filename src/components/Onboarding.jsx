@@ -27,7 +27,7 @@ export default function Onboarding({ courses, onStart, onDismiss }) {
   const course = choice && courses.find(c => c.id === choice.courseId);
 
   return (
-    <div className="neu-card p-6 md:p-8 mb-10 max-w-3xl mx-auto">
+    <div className="neu-card p-6 md:p-8 mb-8">
       {!course ? (
         <>
           <p className="text-sm font-semibold mb-2" style={{ color: 'var(--neu-text-muted)' }}>
