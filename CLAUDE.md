@@ -23,7 +23,7 @@ PWA(インストール、オフライン対応)で、初級は無料、中級・
 - `netlify/lib/`: Function の共通部分(Stripe の呼び出し、署名付きトークン、Webhook の署名の確認、失効した顧客の記録、チャットの1日の費用の上限)。Stripe は、パッケージを使わず、fetch で呼ぶ。保存が必要なものは、Netlify Blobs(`@netlify/blobs`)を使う
 - `src/hooks/useEntitlement.js`、`src/utils/entitlement.js`、`src/utils/plans.js`: プレミアムプランの確認と、無料のレベルの定義
 - `public/sw.js`、`public/manifest.webmanifest`: PWA(Service Worker は、本番ビルドだけで登録する)
-- `src/utils/progress.js`: レベルとステップの定義、進捗の判定
+- `src/utils/progress.js`: レベルとステップの定義、進捗の判定。`src/utils/streak.js`: 学習した日の記録(連続日数、今週のレッスン数。localStorage の `oneStepActivity`)
 - `scripts/`: 問題データを生成・更新するスクリプト。`courses.js` を直接書き換えるので、実行前にコミットしておく
 
 ## Skills

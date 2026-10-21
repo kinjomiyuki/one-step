@@ -4,6 +4,8 @@ import BasicsView from './BasicsView';
 import ThinkingTraining from './ThinkingTraining';
 import StepIndicator from './StepIndicator';
 import LevelSelector from './LevelSelector';
+import LessonPath from './LessonPath';
+import ProgressSegments from './ProgressSegments';
 import { getLevelContent, isLevelCompleted, STEPS } from '../utils/progress';
 
 const stepLabel = (key) => STEPS.find(s => s.key === key)?.label;
@@ -73,7 +75,7 @@ export default function LessonView({
     <button
       onClick={handleNextLesson}
       disabled={disabled}
-      className="neu-btn neu-btn-success flex-1 py-3 text-sm md:text-base font-semibold"
+      className="neu-btn neu-btn-success flex-1 py-4 text-sm md:text-base font-semibold"
     >
       {completeLabel}
     </button>
@@ -114,35 +116,39 @@ export default function LessonView({
             <h1 className="text-xl md:text-3xl font-bold" style={{ color: 'var(--neu-text)' }}>{course.name}</h1>
           </div>
 
-          <StepIndicator content={allContent} currentStep={step} completed={courseProgress?.completed || []} />
-
           <p className="text-xs md:text-sm font-semibold mb-1" style={{ color: 'var(--neu-text-muted)' }}>
             {stepLabel(step)}
           </p>
           <h2 className="text-lg md:text-2xl font-semibold mb-2" style={{ color: 'var(--neu-on-accent)' }}>
             {currentLesson.title}
           </h2>
-          <p className="text-sm md:text-base text-gray-600 mb-6 leading-relaxed">
+          <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: 'var(--neu-text-muted)' }}>
             {currentLesson.content}
           </p>
 
-          {/* Progress Bar */}
+          {/* レベルの進み具合 */}
           <div className="mb-6">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
-              <span>レベルの進度</span>
+            <div className="flex justify-between text-sm mb-2" style={{ color: 'var(--neu-text-muted)' }}>
+              <span>レベルの進み具合</span>
               <span>{currentLessonIndex + 1} / {allContent.length}</span>
             </div>
-            <div className="neu-progress-track h-2">
-              <div
-                className="neu-progress-fill h-2"
-                style={{
-                  width: `${((currentLessonIndex + 1) / allContent.length) * 100}%`
-                }}
-              />
-            </div>
+            <ProgressSegments
+              total={allContent.length}
+              done={currentLessonIndex}
+              current={currentLessonIndex}
+              label={`${currentLessonIndex + 1} / ${allContent.length}`}
+            />
           </div>
 
-          <LevelSelector level={level} isPro={isPro} onChange={onChangeLevel} />
+          {/* 問題をすぐ見られるよう、ステップ・道すじ・レベルの切り替えは、たたんでおく */}
+          <details>
+            <summary className="cursor-pointer text-sm md:text-base font-semibold mb-4" style={{ color: 'var(--neu-text-muted)' }}>
+              ステップ、道すじ、レベルを見る
+            </summary>
+            <StepIndicator content={allContent} currentStep={step} completed={courseProgress?.completed || []} />
+            <LessonPath content={allContent} currentIndex={currentLessonIndex} completed={courseProgress?.completed || []} />
+            <LevelSelector level={level} isPro={isPro} onChange={onChangeLevel} />
+          </details>
         </div>
 
         {step === 'basics' && (
@@ -162,6 +168,18 @@ export default function LessonView({
 
         {isQuizStep && (
           <>
+            <div className="mb-4">
+              <div className="flex justify-between text-sm mb-2" style={{ color: 'var(--neu-text-muted)' }}>
+                <span>{step === 'simulation' ? '課題' : '問題'}</span>
+                <span>{currentQuestionIndex + 1} / {currentLesson.questions.length}</span>
+              </div>
+              <ProgressSegments
+                total={currentLesson.questions.length}
+                done={currentQuestionIndex}
+                current={currentQuestionIndex}
+                label={`${currentQuestionIndex + 1} / ${currentLesson.questions.length}`}
+              />
+            </div>
             <QuizQuestion
               question={currentQuestion}
               selectedAnswer={userAnswer}
@@ -173,10 +191,10 @@ export default function LessonView({
                   <button
                     onClick={handleNextQuestion}
                     disabled={!isAnswered || isLastQuestion}
-                    className={`neu-btn flex-1 py-3 text-sm md:text-base font-semibold ${
+                    className={`neu-btn flex-1 py-4 text-sm md:text-base font-semibold ${
                       !isAnswered || isLastQuestion
                         ? 'opacity-50 cursor-not-allowed'
-                        : ''
+                        : 'neu-btn-primary'
                     }`}
                   >
                     次の問題へ
@@ -185,11 +203,6 @@ export default function LessonView({
                 </div>
               }
             />
-
-            {/* Question Progress */}
-            <div className="text-center mt-6 text-sm md:text-base text-gray-600">
-              {step === 'simulation' ? '課題' : '問題'} {currentQuestionIndex + 1} / {currentLesson.questions.length}
-            </div>
           </>
         )}
       </div>

@@ -25,7 +25,7 @@ export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect,
     <div className="neu-card p-6 md:p-8">
       {/* Question */}
       <div className="mb-8">
-        <h3 className="text-lg md:text-2xl font-bold text-gray-700 mb-4 whitespace-pre-wrap">
+        <h3 className="text-xl md:text-2xl font-bold leading-relaxed mb-4 whitespace-pre-wrap" style={{ color: 'var(--neu-text)' }}>
           {question.text}
         </h3>
       </div>
@@ -42,11 +42,8 @@ export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect,
               onClick={() => !isAnswered && onAnswerSelect(option.id)}
               disabled={isAnswered}
               style={{
-                background: isSelected && showResult && !isCorrect
-                  ? '#fee2e2'
-                  : isSelected && showResult && isCorrect
-                  ? '#dcfce7'
-                  : 'var(--neu-surface)',
+                background: showResult ? (isCorrect ? 'var(--neu-green)' : 'var(--neu-red)') : 'var(--neu-surface)',
+                color: showResult ? (isCorrect ? 'var(--neu-on-green)' : 'var(--neu-on-red)') : undefined,
                 opacity: isAnswered && !isSelected ? 0.6 : 1
               }}
               className="neu-btn w-full p-4 text-left transition rounded-2xl flex items-center gap-3"
@@ -54,16 +51,12 @@ export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect,
               <span className="neu-square text-sm font-bold flex-shrink-0 w-8 h-8">
                 {String.fromCharCode(65 + index)}
               </span>
-              <span className="break-words text-sm md:text-base font-medium flex-1" style={{color: 'var(--neu-text)'}}>
+              <span className="break-words text-sm md:text-base font-medium flex-1" style={{ color: showResult ? 'inherit' : 'var(--neu-text)' }}>
                 {option.text}
               </span>
               {isSelected && showResult && (
                 <>
-                  {isCorrect ? (
-                    <span className="text-xs md:text-sm font-bold" style={{color: '#16a34a'}}>正解</span>
-                  ) : (
-                    <span className="text-xs md:text-sm font-bold" style={{color: '#dc2626'}}>不正解</span>
-                  )}
+                  <span className="text-xs md:text-sm font-bold">{isCorrect ? '正解' : '不正解'}</span>
                 </>
               )}
             </button>
@@ -71,73 +64,63 @@ export default function QuizQuestion({ question, selectedAnswer, onAnswerSelect,
         })}
       </div>
 
-      {/* Feedback */}
+      {/* Feedback: 結果の帯、解説、こんな時に使う */}
       {isAnswered && (
-        <div className={`neu-inset p-6 mb-6 rounded-2xl ${
-          isCorrect
-            ? 'bg-green-50'
-            : 'bg-pink-50'
-        }`}>
-          <div className="text-left">
-            <h4 className={`font-bold text-lg mb-2 ${
-              isCorrect ? 'text-green-800' : 'text-gray-800'
-            }`}>
-              {isCorrect ? '正解です' : 'もう一度考えてみましょう'}
-            </h4>
-            <p className={`text-sm md:text-base ${isCorrect ? 'text-green-700' : 'text-gray-700'} mb-3`}>
-              {isCorrect ? question.explanation : question.hint || question.explanation}
-            </p>
-            {!isCorrect && question.explanation && (
-              <div className="mt-3 pt-3 border-t-2 border-gray-300">
-                <p className="text-xs md:text-sm font-semibold text-gray-700 mb-1">解説</p>
-                <p className="text-xs md:text-sm text-gray-700">{question.explanation}</p>
-              </div>
-            )}
-            {question.example && (
-              <div className="mt-3 pt-3 border-t-2 border-gray-300">
-                <p className="text-xs md:text-sm font-semibold text-gray-700 mb-1">こんな時に使う</p>
-                <p className="text-xs md:text-sm text-gray-700">{question.example}</p>
-              </div>
+        <div className="mb-6 space-y-3">
+          <div
+            className="p-4 rounded-2xl"
+            style={{
+              background: isCorrect ? 'var(--neu-green)' : 'var(--neu-red)',
+              color: isCorrect ? 'var(--neu-on-green)' : 'var(--neu-on-red)'
+            }}
+          >
+            <h4 className="font-bold text-lg">{isCorrect ? '正解です' : 'もう一度考えてみましょう'}</h4>
+            {!isCorrect && (question.hint || question.explanation) && (
+              <p className="text-sm md:text-base mt-1">{question.hint || question.explanation}</p>
             )}
           </div>
+          {question.explanation && (
+            <div className="neu-inset p-4 rounded-2xl">
+              <p className="text-xs md:text-sm font-bold mb-1" style={{ color: 'var(--neu-text-muted)' }}>なぜ、そうなる?</p>
+              <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--neu-text)' }}>{question.explanation}</p>
+            </div>
+          )}
+          {question.example && (
+            <div className="neu-inset p-4 rounded-2xl">
+              <p className="text-xs md:text-sm font-bold mb-1" style={{ color: 'var(--neu-text-muted)' }}>こんな時に使う</p>
+              <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--neu-text)' }}>{question.example}</p>
+            </div>
+          )}
         </div>
       )}
 
       {/* Hint when not answered */}
       {!isAnswered && (
-        <div className="neu-inset p-4 mb-6 rounded-xl text-center bg-blue-50">
-          <p className="text-sm md:text-base text-gray-700 font-semibold">
-            選択肢をクリックして回答してください
-          </p>
-        </div>
+        <p className="mb-6 text-center text-sm" style={{ color: 'var(--neu-text-muted)' }}>
+          選択肢を、1 つ選んでください
+        </p>
       )}
 
-      {/* Retry Button */}
+      {/* Navigation: 答えたあとの、いちばん大きな行動 */}
+      {navigation && <div className="mb-4">{navigation}</div>}
+
+      {/* Retry */}
       {isAnswered && (
-        <div className="mt-6 space-y-3">
-          <button
-            onClick={onRetry}
-            className="neu-btn w-full py-3 font-semibold text-sm md:text-base"
-          >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <button onClick={onRetry} className="neu-btn w-full py-3 font-semibold text-sm md:text-base">
             もう一度解く
           </button>
-          <button
-            onClick={onRestartLesson}
-            className="neu-btn w-full py-3 font-semibold text-sm md:text-base"
-          >
+          <button onClick={onRestartLesson} className="neu-btn w-full py-3 font-semibold text-sm md:text-base">
             セクションの最初に戻る
           </button>
         </div>
       )}
 
-      {/* Navigation */}
-      {navigation && <div className="mt-6">{navigation}</div>}
-
       {/* Question Button */}
       <div className="mt-6">
         <button
           onClick={() => setShowQuestion(!showQuestion)}
-          className="neu-btn neu-btn-primary w-full py-3 font-semibold text-sm md:text-base"
+          className="neu-btn w-full py-3 font-semibold text-sm md:text-base"
         >
           {showQuestion ? '質問を閉じる' : 'この問題について質問する'}
         </button>

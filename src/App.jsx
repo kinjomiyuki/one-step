@@ -8,6 +8,7 @@ import LockedLevel from './components/LockedLevel';
 import Notice from './components/Notice';
 import useEntitlement from './hooks/useEntitlement';
 import { isLevelLocked } from './utils/plans';
+import { recordActivity, sanitizeActivity } from './utils/streak';
 import './index.css';
 
 const LEVEL_LABELS = { beginner: '初級', intermediate: '中級', advanced: '上級' };
@@ -34,6 +35,7 @@ function App() {
     level: 1
   }));
   const [progress, setProgress] = useState(() => migrateProgress(courses, loadSaved('oneStepProgress', {})));
+  const [activity, setActivity] = useState(() => sanitizeActivity(loadSaved('oneStepActivity', [])));
   const entitlement = useEntitlement();
   const [onboarded, setOnboarded] = useState(() => loadSaved('oneStepOnboarded', false));
 
@@ -48,6 +50,14 @@ function App() {
   useEffect(() => {
     localStorage.setItem('oneStepOnboarded', JSON.stringify(onboarded));
   }, [onboarded]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('oneStepActivity', JSON.stringify(activity));
+    } catch {
+      // 保存できない環境でも、画面は動く
+    }
+  }, [activity]);
 
   const addPoints = (points, badge) => {
     setUserStats(prev => ({
@@ -100,6 +110,7 @@ function App() {
       updatedAt: Date.now()
     };
     setProgress({ ...progress, [selectedCourse.id]: courseProgress });
+    setActivity(prev => recordActivity(prev));
 
     if (!isLast) {
       setCurrentLessonIndex(nextIndex);
@@ -135,6 +146,7 @@ function App() {
           <CourseList
             courses={courses}
             progress={progress}
+            activity={activity}
             showOnboarding={!onboarded && Object.keys(progress).length === 0}
             onStartRecommended={handleStartRecommended}
             onDismissOnboarding={() => setOnboarded(true)}
