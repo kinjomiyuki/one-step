@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OneStep UI モック</title>
+<style>
+:root{--bg:#eef0f4;--sd:#c6cbd6;--sl:#fff;--tx:#3d4250;--mu:#767c8c;--ac:#ffc93c;--on:#4a3400;--gr:#8fd6a8;--ongr:#1c4a2d;--rd:#f0a3a3;--onrd:#5c1414}
+*{box-sizing:border-box;margin:0}
+body{background:#dfe3ea;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',sans-serif;color:var(--tx);padding:32px 16px 64px}
+h1{text-align:center;font-size:22px;margin-bottom:6px}
+.sub{text-align:center;color:var(--mu);font-size:13px;margin-bottom:28px}
+.row{display:flex;flex-wrap:wrap;gap:28px;justify-content:center}
+figure{width:300px}
+figcaption{margin-top:12px;font-size:12px;line-height:1.6;color:var(--mu)}
+figcaption b{display:block;color:var(--tx);font-size:13px;margin-bottom:2px}
+.phone{width:300px;height:620px;border-radius:38px;background:var(--bg);border:8px solid #2b2f3a;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 20px 40px rgba(40,50,70,.25)}
+.notch{height:22px;flex:none;display:flex;justify-content:center;padding-top:6px}
+.notch i{width:70px;height:14px;background:#2b2f3a;border-radius:10px}
+.body{flex:1;overflow:hidden;padding:12px 16px 0}
+.card{background:var(--bg);border-radius:22px;box-shadow:7px 7px 14px var(--sd),-7px -7px 14px var(--sl);padding:16px}
+.inset{background:var(--bg);border-radius:16px;box-shadow:inset 4px 4px 8px var(--sd),inset -4px -4px 8px var(--sl)}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:14px;font-weight:800;font-size:15px;background:var(--ac);color:var(--on);box-shadow:5px 5px 12px var(--sd),-5px -5px 12px var(--sl);text-align:center}
+.btn.off{background:var(--bg);color:var(--mu)}
+.mu{color:var(--mu)}
+.tiny{font-size:11px}
+.h{font-weight:800}
+.tabs{flex:none;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 8px 14px;background:var(--bg);box-shadow:0 -6px 14px rgba(198,203,214,.5)}
+.tabs span{text-align:center;font-size:11px;font-weight:700;color:var(--mu);padding:6px 0;border-radius:12px}
+.tabs .on{color:var(--on);background:var(--ac)}
+.seg{display:flex;gap:4px}
+.seg i{flex:1;height:8px;border-radius:5px;background:var(--bg);box-shadow:inset 2px 2px 3px var(--sd),inset -2px -2px 3px var(--sl)}
+.seg i.d{background:var(--ac);box-shadow:none}
+.seg i.n{background:#ffe08a;box-shadow:none}
+.row2{display:flex;align-items:center;justify-content:space-between}
+.stat{display:flex;gap:10px;margin:12px 0}
+.stat div{flex:1;padding:10px 12px}
+.stat b{display:block;font-size:20px}
+.node{display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:12px}
+.sq{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex:none}
+.sq.done{background:var(--gr);color:var(--ongr)}
+.sq.now{background:var(--ac);color:var(--on)}
+.sq.lock{background:var(--bg);color:var(--mu);box-shadow:inset 3px 3px 6px var(--sd),inset -3px -3px 6px var(--sl)}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.7;padding:12px 14px;color:var(--tx);margin:12px 0}
+.code em{font-style:normal;background:var(--ac);color:var(--on);padding:0 6px;border-radius:6px;font-weight:800}
+.opt{display:flex;gap:10px;align-items:center;padding:12px;margin-bottom:10px;font-size:13px;font-weight:700;border-radius:16px;background:var(--bg);box-shadow:5px 5px 10px var(--sd),-5px -5px 10px var(--sl)}
+.opt s{text-decoration:none;width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--bg);box-shadow:inset 2px 2px 4px var(--sd),inset -2px -2px 4px var(--sl);flex:none}
+.opt.sel{box-shadow:inset 4px 4px 8px var(--sd),inset -4px -4px 8px var(--sl);transform:translateY(1px)}
+.opt.ok{background:var(--gr);color:var(--ongr)}
+.opt.ng{background:var(--rd);color:var(--onrd)}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:16px 16px 20px;border-radius:26px 26px 0 0;background:#e3f4e9;box-shadow:0 -8px 20px rgba(80,120,95,.25)}
+.sheet .t{font-weight:800;color:var(--ongr);margin-bottom:6px}
+.sheet p{font-size:12px;line-height:1.7;color:#2f5d41}
+.sheet .btn{margin-top:12px;background:#4caf73;color:#fff}
+.ev{padding:12px;margin-top:10px;font-size:12px;line-height:1.7}
+.ev b{display:block;margin-bottom:2px;font-size:11px;color:var(--mu)}
+.notes{max-width:900px;margin:44px auto 0;font-size:13px;line-height:1.9}
+.notes h2{font-size:16px;margin:22px 0 6px}
+.notes li{margin-left:20px}
+.notes table{border-collapse:collapse;width:100%;font-size:12px;margin-top:6px}
+.notes td,.notes th{border:1px solid #c9cfda;padding:8px;text-align:left;vertical-align:top}
+.notes th{background:#eef0f4}
+</style>
+</head>
+<body>
+<h1>OneStep UI モック(4 画面)</h1>
+<p class="sub">いまの Neumorphism(白 + 黄色)は保ったまま、「1 画面に 1 つの行動」「大きな問い」「進み具合が見える」を足した案</p>
+
+<div class="row">
+<figure>
+<div class="phone"><div class="notch"><i></i></div><div class="body">
+  <p class="mu tiny">今日は、水曜日</p>
+  <p class="h" style="font-size:22px;margin:2px 0 4px">おかえりなさい</p>
+  <div class="stat">
+    <div class="card"><b>5 日</b><span class="mu tiny">連続で学習</span></div>
+    <div class="card"><b>12 問</b><span class="mu tiny">今週、解いた数</span></div>
+  </div>
+  <div class="card" style="padding:18px">
+    <p class="mu tiny">続きから ・ HTML 初級</p>
+    <p class="h" style="font-size:17px;margin:4px 0 10px">文書の構造を、組み立てる</p>
+    <div class="seg" style="margin-bottom:6px"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i></div>
+    <p class="mu tiny" style="margin-bottom:14px">4 / 6 問 ・ あと 3 分ほど</p>
+    <span class="btn">続きの 1 問へ</span>
+  </div>
+  <p class="h" style="margin:18px 0 8px;font-size:14px">ほかのコース</p>
+  <div class="card" style="display:flex;gap:10px;align-items:center;padding:12px"><span class="sq now">CS</span><div><p class="h" style="font-size:14px">CSS</p><p class="mu tiny">見た目を整える ・ 初級から</p></div></div>
+</div>
+<div class="tabs"><span class="on">ホーム</span><span>コース</span><span>記録</span><span>質問</span></div></div>
+<figcaption><b>1. ホーム</b>開いた瞬間に、「続きの 1 問」だけが、いちばん大きく見える。連続日数は、数字だけで静かに励ます(Brilliant、Duolingo の型)。</figcaption>
+</figure>
+
+<figure>
+<div class="phone"><div class="notch"><i></i></div><div class="body">
+  <div class="row2"><p class="h" style="font-size:20px">HTML</p><span class="mu tiny">初級 ・ 4 / 10</span></div>
+  <div class="seg" style="margin:10px 0 18px"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="card node"><span class="sq done">1</span><div><p class="h" style="font-size:14px">HTML とは</p><p class="mu tiny">基礎 ・ 完了</p></div></div>
+  <div class="card node"><span class="sq done">2</span><div><p class="h" style="font-size:14px">タグの書き方</p><p class="mu tiny">クイズ ・ 完了</p></div></div>
+  <div class="card node" style="box-shadow:7px 7px 14px var(--sd),-7px -7px 14px var(--sl),0 0 0 3px rgba(255,201,60,.6)"><span class="sq now">3</span><div style="flex:1"><p class="h" style="font-size:14px">文書の構造</p><p class="mu tiny">シミュレーション ・ 6 問</p></div><span class="tiny h" style="color:var(--on);background:var(--ac);padding:4px 10px;border-radius:10px">今ここ</span></div>
+  <div class="inset node"><span class="sq lock">4</span><div><p class="h mu" style="font-size:14px">見出しと段落</p><p class="mu tiny">前のステップのあと</p></div></div>
+  <div class="inset node"><span class="sq lock">5</span><div><p class="h mu" style="font-size:14px">リンクと画像</p><p class="mu tiny">前のステップのあと</p></div></div>
+</div>
+<div class="tabs"><span>ホーム</span><span class="on">コース</span><span>記録</span><span>質問</span></div></div>
+<figcaption><b>2. コースの道すじ</b>ステップを縦の 1 本道にして、「いまどこで、あと何個か」を、一目で分かるように。丸い飾りは使わず、角丸の四角で状態を示す。</figcaption>
+</figure>
+
+<figure>
+<div class="phone"><div class="notch"><i></i></div><div class="body">
+  <div class="row2" style="margin-bottom:10px"><span class="mu tiny h">× とじる</span><span class="mu tiny">4 / 6</span></div>
+  <div class="seg" style="margin-bottom:18px"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i></div>
+  <p class="mu tiny">文書の構造</p>
+  <p class="h" style="font-size:19px;line-height:1.5;margin:4px 0">この HTML の、空欄に入るタグは、どれでしょう。</p>
+  <div class="inset code">&lt;<em>　　　</em>&gt;<br>&nbsp;&nbsp;&lt;h1&gt;はじめの一歩&lt;/h1&gt;<br>&lt;/<em>　　　</em>&gt;</div>
+  <div class="opt"><s>A</s>head</div>
+  <div class="opt sel"><s>B</s>body</div>
+  <div class="opt"><s>C</s>title</div>
+  <div class="opt"><s>D</s>meta</div>
+</div>
+<div style="padding:10px 16px 18px;background:var(--bg)"><div class="row2" style="margin-bottom:10px"><span class="mu tiny h">ヒントを見る</span><span class="mu tiny h">AI に質問</span></div><span class="btn">答え合わせ</span></div></div>
+<figcaption><b>3. 問題</b>1 問 1 画面。進み具合は、上の細い帯で。コードの空欄を黄色で目立たせる。答えを選ぶまで、下のボタンは押せないようにして、迷いを減らす。</figcaption>
+</figure>
+
+<figure>
+<div class="phone"><div class="notch"><i></i></div><div class="body">
+  <div class="row2" style="margin-bottom:10px"><span class="mu tiny h">× とじる</span><span class="mu tiny">4 / 6</span></div>
+  <div class="seg" style="margin-bottom:14px"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i></i><i></i></div>
+  <p class="h" style="font-size:19px;line-height:1.5;margin-bottom:10px">この HTML の、空欄に入るタグは、どれでしょう。</p>
+  <div class="opt ok"><s style="background:#fff">B</s>body</div>
+  <div class="ev card"><b>なぜ、そうなる?</b>画面に表示する内容は、body の中に書きます。head は、タイトルなどの、画面に出ない情報の置き場です。</div>
+  <div class="ev card" style="margin-bottom:150px"><b>こんな時に使う</b>ブログの記事の本文を、画面に出したいときは、body の中に書きます。</div>
+  <div class="sheet"><p class="t">正解です</p><p>理由まで、確かめられました。つぎの 1 問へ進みましょう。</p><span class="btn">つぎの 1 問へ</span></div>
+</div></div>
+<figcaption><b>4. 解説</b>正解でも間違いでも、下から、結果の帯が出る。「なぜ」と「こんな時に使う」を、最初から見せる(いまの OneStep の強みを、前に出す)。</figcaption>
+</figure>
+</div>
+
+<div class="notes">
+<h2>参考にした事例と、そこから取り入れたこと</h2>
+<table>
+<tr><th>サービス</th><th>特徴(調べて分かったこと)</th><th>このモックでの使い方</th></tr>
+<tr><td>Brilliant</td><td>1 画面に 1 つの問い。答えながら、考えを進める。レッスンごとに、問いかけで興味を引く。連続日数の目標を、少しずつ近づける</td><td>1 問 1 画面、ホームの「続きの 1 問」、連続日数</td></tr>
+<tr><td>Grasshopper(Google)</td><td>最初は選択式で、少しずつ、自分で打つ形へ。パズルのように進む</td><td>OneStep の「基礎 → クイズ → シミュレーション → 思考力」の順を、道すじとして見せる</td></tr>
+<tr><td>Mimo、Sololearn</td><td>5 分ほどの短いレッスン。小さな確認問題。アプリの中で、コードを実行できる</td><td>「あと 3 分ほど」の表示。短く、区切って進める</td></tr>
+<tr><td>Duolingo 型の画面</td><td>上の細い進捗帯。下から出る、正解・不正解の帯。大きな 1 つのボタン</td><td>問題と解説の画面の骨組み</td></tr>
+</table>
+<h2>OneStep の決まりごとは、守っている</h2>
+<ul><li>白い地に、黄色のアクセント。Neumorphism(盛り上がりと、へこみ)</li><li>アイコン、絵文字、丸い飾りは使わない(状態は、角丸の四角と文字で示す)</li><li>この HTML は、見た目の案です。アプリ本体の画面は、まだ変えていません</li></ul>
+</div>
+</body>
+</html>
