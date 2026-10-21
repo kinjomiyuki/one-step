@@ -1,4 +1,6 @@
-import { getLatestResume, STEPS } from '../utils/progress';
+import { getLatestResume, getCompletionPercentage, STEPS } from '../utils/progress';
+import StudyStats from './StudyStats';
+import ProgressSegments from './ProgressSegments';
 import Onboarding from './Onboarding';
 import AccountBar from './AccountBar';
 import LegalLinks from './LegalLinks';
@@ -17,6 +19,7 @@ const levelLabel = (key) => LEVELS.find(l => l.key === key)?.label;
 export default function CourseList({
   courses,
   progress,
+  activity,
   showOnboarding,
   onStartRecommended,
   onDismissOnboarding,
@@ -45,6 +48,8 @@ export default function CourseList({
           <Onboarding courses={courses} onStart={onStartRecommended} onDismiss={onDismissOnboarding} />
         )}
 
+        <StudyStats activity={activity} />
+
         {/* Resume */}
         {resume && (
           <div className="neu-card p-6 md:p-8 mb-10 max-w-3xl mx-auto">
@@ -54,12 +59,20 @@ export default function CourseList({
             <h2 className="text-lg md:text-2xl font-bold mb-1" style={{ color: 'var(--neu-text)' }}>
               {resume.course.name}・{levelLabel(resume.target.level)}
             </h2>
-            <p className="text-sm md:text-base mb-6" style={{ color: 'var(--neu-text-muted)' }}>
+            <p className="text-sm md:text-base mb-4" style={{ color: 'var(--neu-text-muted)' }}>
               {STEPS.find(s => s.key === resume.target.lesson.step)?.label} {resume.target.lessonIndex + 1}/{resume.target.total}「{resume.target.lesson.title}」
             </p>
+            <div className="mb-6">
+              <ProgressSegments
+                total={resume.target.total}
+                done={resume.target.lessonIndex}
+                current={resume.target.completedLevel ? -1 : resume.target.lessonIndex}
+                label={`${resume.target.lessonIndex} / ${resume.target.total} 完了`}
+              />
+            </div>
             <button
               onClick={() => onSelectCourse(resume.course)}
-              className="neu-btn neu-btn-primary w-full py-3 text-sm md:text-base"
+              className="neu-btn neu-btn-primary w-full py-4 text-base md:text-lg"
             >
               {resume.target.completedLevel ? `${levelLabel(resume.target.level)}に進む` : '続きから始める'}
             </button>
@@ -93,6 +106,17 @@ export default function CourseList({
               <p className="text-sm mb-6 leading-relaxed flex-1" style={{ color: 'var(--neu-text-muted)' }}>
                 {course.description}
               </p>
+
+              {progress[course.id] && (
+                <div className="mb-4">
+                  <p className="text-xs mb-1" style={{ color: 'var(--neu-text-muted)' }}>
+                    全体の進み具合 {getCompletionPercentage([course], progress)}%
+                  </p>
+                  <div className="neu-progress-track h-2">
+                    <div className="neu-progress-fill h-2" style={{ width: `${getCompletionPercentage([course], progress)}%` }} />
+                  </div>
+                </div>
+              )}
 
               <div className="flex gap-2 mb-6">
                 {LEVELS.map(({ key, label }) => (
