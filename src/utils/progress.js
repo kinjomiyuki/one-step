@@ -92,3 +92,12 @@ export function migrateProgress(courses, progress) {
   });
   return migrated;
 }
+
+// コースの、レベルごとの、完了したレッスン数と全体の数
+export function getLevelProgress(course, courseProgress) {
+  const completed = courseProgress?.completed || [];
+  return LEVELS.map((level) => {
+    const content = getLevelContent(course, level);
+    return { level, done: content.filter((item) => completed.includes(item.id)).length, total: content.length };
+  });
+}

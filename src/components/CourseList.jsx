@@ -36,7 +36,7 @@ export default function CourseList({
 
         {resume && <ResumeCard resume={resume} onSelectCourse={onSelectCourse} />}
 
-        <h2 className="font-bold text-lg md:text-xl mb-1" style={{ color: 'var(--neu-text)' }}>
+        <h2 id="courses" className="font-bold text-lg md:text-xl mb-1 scroll-mt-4" style={{ color: 'var(--neu-text)' }}>
           {resume ? 'ほかのコース' : 'コース'}
         </h2>
         <p className="text-xs md:text-sm mb-5" style={{ color: 'var(--neu-text-muted)' }}>

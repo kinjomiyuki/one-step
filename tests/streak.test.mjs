@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { toDateKey, sanitizeActivity, recordActivity, getStreak, getWeekCount } from '../src/utils/streak.js';
+import { toDateKey, sanitizeActivity, recordActivity, getStreak, getWeekCount, getDailyCounts } from '../src/utils/streak.js';
 
 const day = (y, m, d) => new Date(y, m - 1, d, 12);
 
@@ -42,4 +42,14 @@ test('getStreak: 月をまたいでも、数えられる', () => {
 test('getWeekCount: 直近 7 日間の、レッスン数を数える(同じ日の複数回も、数える)', () => {
   const a = ['2026-02-26', '2026-02-28', '2026-03-05', '2026-03-05'];
   assert.equal(getWeekCount(a, day(2026, 3, 5)), 3);
+});
+
+test('getDailyCounts: 直近 7 日間を、古い日から並べ、日ごとの数を数える', () => {
+  const a = ['2026-02-27', '2026-03-05', '2026-03-05', '2026-02-20'];
+  const counts = getDailyCounts(a, day(2026, 3, 5));
+  assert.equal(counts.length, 7);
+  assert.equal(counts[0].key, '2026-02-27');
+  assert.equal(counts[6].key, '2026-03-05');
+  assert.deepEqual(counts.map((c) => c.count), [1, 0, 0, 0, 0, 0, 2]);
+  assert.equal(counts[6].label, '木');
 });

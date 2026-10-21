@@ -6,6 +6,8 @@ import LessonView from './components/LessonView';
 import ChatButton from './components/ChatButton';
 import LockedLevel from './components/LockedLevel';
 import Notice from './components/Notice';
+import RecordView from './components/RecordView';
+import BottomTabs from './components/BottomTabs';
 import useEntitlement from './hooks/useEntitlement';
 import { isLevelLocked } from './utils/plans';
 import { recordActivity, sanitizeActivity } from './utils/streak';
@@ -123,6 +125,13 @@ function App() {
     }
   };
 
+  // 下のタブ。コースは、ホームの、コース一覧の位置へ移る
+  const handleTab = (tab) => {
+    setCurrentScreen(tab === 'record' ? 'record' : 'courses');
+    window.scrollTo({ top: 0 });
+    if (tab === 'courses') setTimeout(() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' }), 0);
+  };
+
   const handleBackToCourses = () => {
     setCurrentScreen('courses');
     setSelectedCourse(null);
@@ -142,7 +151,9 @@ function App() {
       {/* メインコンテンツ */}
       <div className="flex-1 min-w-0">
         <Notice notice={entitlement.notice} onClose={entitlement.dismissNotice} />
-        {currentScreen === 'courses' ? (
+        {currentScreen === 'record' ? (
+          <RecordView courses={courses} progress={progress} activity={activity} userStats={userStats} />
+        ) : currentScreen === 'courses' ? (
           <CourseList
             courses={courses}
             progress={progress}
@@ -184,8 +195,13 @@ function App() {
         )}
       </div>
 
+      {currentScreen !== 'lesson' && (
+        <BottomTabs active={currentScreen === 'record' ? 'record' : 'home'} onSelect={handleTab} />
+      )}
+
       {/* チャットボタン（質問ポップアップ） */}
       <ChatButton
+        lifted={currentScreen !== 'lesson'}
         context={lessonContext}
         access={{ isPro: entitlement.isPro, token: entitlement.token, onUpgrade: entitlement.upgrade, onProRequired: entitlement.revalidate }}
       />
