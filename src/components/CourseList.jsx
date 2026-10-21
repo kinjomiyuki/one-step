@@ -5,10 +5,8 @@ import LegalLinks from './LegalLinks';
 import HomeGreeting from './HomeGreeting';
 import StudyStats from './StudyStats';
 import ResumeCard from './ResumeCard';
-import CourseRow from './CourseRow';
-
-// 初心者におすすめの目印を付けるコース
-const BEGINNER_FRIENDLY = ['html', 'python'];
+import CourseGroup from './CourseGroup';
+import { GROUPS } from '../data/courseMeta';
 
 // ホーム。「続きの 1 問」を、いちばん大きく見せ、ほかのコースは、コンパクトな行で並べる
 export default function CourseList({
@@ -22,7 +20,6 @@ export default function CourseList({
   account
 }) {
   const resume = getLatestResume(courses, progress);
-  const others = resume ? courses.filter((c) => c.id !== resume.course.id) : courses;
 
   return (
     <div style={{ background: 'var(--neu-bg)', minHeight: '100vh' }} className="pt-8 pb-28 px-4">
@@ -39,20 +36,15 @@ export default function CourseList({
 
         {resume && <ResumeCard resume={resume} onSelectCourse={onSelectCourse} />}
 
-        <h2 className="font-bold text-base md:text-lg mb-3" style={{ color: 'var(--neu-text)' }}>
+        <h2 className="font-bold text-lg md:text-xl mb-1" style={{ color: 'var(--neu-text)' }}>
           {resume ? 'ほかのコース' : 'コース'}
         </h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {others.map((course) => (
-            <CourseRow
-              key={course.id}
-              course={course}
-              progress={progress}
-              recommended={BEGINNER_FRIENDLY.includes(course.id)}
-              onSelect={onSelectCourse}
-            />
-          ))}
-        </div>
+        <p className="text-xs md:text-sm mb-5" style={{ color: 'var(--neu-text-muted)' }}>
+          同じ色のコースは、つながっています。上から順に学ぶと、進めやすくなります。
+        </p>
+        {GROUPS.map((group) => (
+          <CourseGroup key={group.key} group={group} courses={courses} excludeId={resume?.course.id} progress={progress} onSelect={onSelectCourse} />
+        ))}
 
         <details className="mt-10">
           <summary className="cursor-pointer text-sm font-semibold" style={{ color: 'var(--neu-text-muted)' }}>OneStep について</summary>

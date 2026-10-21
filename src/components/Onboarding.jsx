@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CourseMark from './CourseMark';
 
 // 選択肢ごとのおすすめコースと理由
 const CHOICES = [
@@ -54,9 +55,7 @@ export default function Onboarding({ courses, onStart, onDismiss }) {
             あなたへのおすすめ
           </p>
           <div className="flex items-center gap-3 mb-3">
-            <span className="neu-square neu-square-accent w-12 h-12 text-base flex-shrink-0">
-              {course.shortLabel}
-            </span>
+            <CourseMark course={course} className="w-12 h-12 text-base" />
             <h2 className="text-lg md:text-2xl font-bold" style={{ color: 'var(--neu-text)' }}>
               {course.name}
             </h2>

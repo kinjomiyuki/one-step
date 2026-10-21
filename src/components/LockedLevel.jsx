@@ -1,5 +1,6 @@
 import LevelSelector from './LevelSelector';
 import Paywall from './Paywall';
+import CourseMark from './CourseMark';
 
 const LEVEL_LABELS = { beginner: '初級', intermediate: '中級', advanced: '上級' };
 
@@ -19,9 +20,7 @@ export default function LockedLevel({ course, level, busy, onChangeLevel, onBack
 
         <div className="neu-card p-6 md:p-8 mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <span className="neu-square neu-square-accent w-10 h-10 md:w-12 md:h-12 text-sm md:text-base flex-shrink-0">
-              {course.shortLabel}
-            </span>
+            <CourseMark course={course} className="w-10 h-10 md:w-12 md:h-12 text-sm md:text-base" />
             <h1 className="text-xl md:text-3xl font-bold" style={{ color: 'var(--neu-text)' }}>{course.name}</h1>
           </div>
           <LevelSelector level={level} isPro={false} onChange={onChangeLevel} />
