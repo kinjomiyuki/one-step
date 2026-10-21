@@ -7,6 +7,7 @@ import LevelSelector from './LevelSelector';
 import LessonPath from './LessonPath';
 import ProgressSegments from './ProgressSegments';
 import { getLevelContent, isLevelCompleted, STEPS } from '../utils/progress';
+import CourseMark from './CourseMark';
 
 const stepLabel = (key) => STEPS.find(s => s.key === key)?.label;
 
@@ -110,9 +111,7 @@ export default function LessonView({
         {/* Course and Lesson Info */}
         <div className="neu-card p-6 md:p-8 mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <span className="neu-square neu-square-accent w-10 h-10 md:w-12 md:h-12 text-sm md:text-base flex-shrink-0">
-              {course.shortLabel}
-            </span>
+            <CourseMark course={course} className="w-10 h-10 md:w-12 md:h-12 text-sm md:text-base" />
             <h1 className="text-xl md:text-3xl font-bold" style={{ color: 'var(--neu-text)' }}>{course.name}</h1>
           </div>
 

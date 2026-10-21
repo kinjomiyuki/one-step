@@ -1,4 +1,5 @@
 import { getCompletionPercentage } from '../utils/progress';
+import CourseMark from './CourseMark';
 
 // コース 1 件の、コンパクトな行。全体が、1 つのボタン
 export default function CourseRow({ course, progress, recommended, onSelect }) {
@@ -7,7 +8,7 @@ export default function CourseRow({ course, progress, recommended, onSelect }) {
 
   return (
     <button onClick={() => onSelect(course)} className="neu-card p-4 text-left w-full flex items-center gap-4">
-      <span className="neu-square neu-square-accent w-12 h-12 text-sm flex-shrink-0">{course.shortLabel}</span>
+      <CourseMark course={course} />
       <span className="flex-1 min-w-0">
         <span className="flex items-center gap-2">
           <span className="font-bold text-base" style={{ color: 'var(--neu-text)' }}>{course.name}</span>
